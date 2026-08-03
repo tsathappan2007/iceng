@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import SideNav from './components/SideNav';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AimScope from './components/AimScope';
@@ -14,7 +15,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
-  // Intersection Observer for scroll reveal animations
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
     if (!els.length) return;
@@ -22,11 +22,11 @@ function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add("visible"), i * 60);
+          setTimeout(() => entry.target.classList.add("visible"), i * 50);
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     els.forEach(el => observer.observe(el));
 
@@ -34,9 +34,14 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="relative bg-obsidian-950 text-slate-100 min-h-screen selection:bg-purple-500 selection:text-white">
+      {/* Right Side Social & Official Season Badge */}
+      <SideNav />
+
+      {/* Top Header Navigation */}
       <Navbar />
-      <main>
+
+      <main className="relative z-10">
         <Hero />
         <AimScope />
         <AboutConference />
@@ -49,8 +54,9 @@ function App() {
         <Registration />
         <Contact />
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }
 

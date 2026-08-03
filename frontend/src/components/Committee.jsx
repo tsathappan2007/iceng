@@ -3,194 +3,105 @@ import React, { useState } from 'react';
 const Committee = () => {
   const [activeTab, setActiveTab] = useState('organizing');
 
-  return (
-    <section id="committee" aria-labelledby="committee-title">
-      <div className="container">
-        <header className="section-header centered reveal">
-          <span className="section-tag">Organizing Body</span>
-          <div className="gold-line"></div>
-          <h2 className="section-title" id="committee-title">Conference <span>Committee</span></h2>
-          <p className="section-desc">Our distinguished organizing committee comprises leading academics and industry experts who ensure the highest standards of research and collaboration.</p>
-        </header>
+  const tabs = [
+    { id: 'organizing', label: 'ORGANIZING COMMITTEE' },
+    { id: 'technical', label: 'TECHNICAL PROGRAMME' },
+    { id: 'advisory', label: 'ADVISORY BOARD' },
+    { id: 'reviewers', label: 'REVIEWERS' },
+  ];
 
-        <div className="committee-tabs reveal" role="tablist">
-          <button className={`tab-btn ${activeTab === 'organizing' ? 'active' : ''}`} onClick={() => setActiveTab('organizing')} role="tab">Organizing Committee</button>
-          <button className={`tab-btn ${activeTab === 'technical' ? 'active' : ''}`} onClick={() => setActiveTab('technical')} role="tab">Technical Programme</button>
-          <button className={`tab-btn ${activeTab === 'advisory' ? 'active' : ''}`} onClick={() => setActiveTab('advisory')} role="tab">Advisory Board</button>
-          <button className={`tab-btn ${activeTab === 'reviewers' ? 'active' : ''}`} onClick={() => setActiveTab('reviewers')} role="tab">Reviewers</button>
+  const committeeData = {
+    organizing: [
+      { avatar: "PC", name: "Prof. Dr. P. Chandrasekaran", role: "Chief Patron", affil: "Principal, CIT, Chennai" },
+      { avatar: "KS", name: "Dr. K. Sureshkumar", role: "Patron", affil: "Dean (Academic), CIT" },
+      { avatar: "MR", name: "Dr. M. Rajalakshmi", role: "General Chair", affil: "HoD, Dept. of CSE, CIT" },
+      { avatar: "VP", name: "Dr. V. Pradeep Kumar", role: "Organizing Chair", affil: "Associate Professor, CSE, CIT" },
+      { avatar: "SA", name: "Dr. S. Anitha", role: "Co-Organizing Chair", affil: "Associate Professor, CSE, CIT" },
+      { avatar: "RN", name: "Dr. R. Nagarajan", role: "Finance Chair", affil: "Assistant Professor, CSE, CIT" },
+      { avatar: "LM", name: "Ms. L. Meenakshi", role: "Publicity Chair", affil: "Assistant Professor, CSE, CIT" },
+      { avatar: "BK", name: "Mr. B. Karthikeyan", role: "Web & Technical Support", affil: "Assistant Professor, CSE, CIT" },
+    ],
+    technical: [
+      { avatar: "TPC", name: "Prof. Dr. T. Rajendran", role: "TPC Chair", affil: "IIT Madras, India" },
+      { avatar: "AK", name: "Dr. A. Kumar", role: "TPC Co-Chair", affil: "NIT Trichy, India" },
+      { avatar: "SW", name: "Prof. Sarah Wilson", role: "Track Chair — AI/ML", affil: "University of Edinburgh, UK" },
+      { avatar: "JL", name: "Prof. James Liu", role: "Track Chair — Cloud", affil: "NUS Singapore" },
+      { avatar: "FH", name: "Dr. Fatima Hassan", role: "Track Chair — Security", affil: "Cairo University, Egypt" },
+      { avatar: "KP", name: "Dr. K. Padmanabhan", role: "Track Chair — IoT", affil: "BITS Pilani, India" },
+    ],
+    advisory: [
+      { avatar: "RV", name: "Prof. R. Venkatesan", role: "Advisory Board Chair", affil: "IISc Bangalore, India" },
+      { avatar: "MP", name: "Prof. Maria Perez", role: "International Advisor", affil: "University of Toronto, Canada" },
+      { avatar: "HT", name: "Prof. Hiroshi Tanaka", role: "International Advisor", affil: "Tokyo Institute of Technology" },
+      { avatar: "GM", name: "Dr. George Mitchell", role: "Industry Advisor", affil: "Google DeepMind, USA" },
+    ],
+    reviewers: [
+      { avatar: "SP", name: "Dr. S. Parthasarathy", role: "Senior Reviewer", affil: "Anna University, India" },
+      { avatar: "NG", name: "Dr. N. Ganesan", role: "Senior Reviewer", affil: "PSG Tech, Chennai" },
+      { avatar: "LS", name: "Dr. L. Subramanian", role: "Reviewer", affil: "Amrita University, India" },
+      { avatar: "PV", name: "Dr. P. Vasudevan", role: "Reviewer", affil: "VIT University, India" },
+      { avatar: "CR", name: "Ms. C. Revathi", role: "Reviewer", affil: "SASTRA University, India" },
+      { avatar: "TM", name: "Mr. T. Murugesan", role: "Reviewer", affil: "Kongu Engineering College" },
+    ],
+  };
+
+  return (
+    <section id="committee" className="py-24 px-4 relative z-10 bg-obsidian-950/90 border-t border-white/5">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Section Header */}
+        <div className="text-center mb-12 reveal">
+          <span className="text-xs font-extrabold tracking-widest text-purple-400 uppercase bg-purple-500/10 px-3.5 py-1.5 rounded-full border border-purple-500/20">
+            ORGANIZING BODY
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-4 mb-4">
+            Conference <span className="text-cyan-400">Committee</span>
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Our distinguished organizing committee comprises leading academics and industry experts who ensure the highest standards of research and collaboration.
+          </p>
         </div>
 
-        {activeTab === 'organizing' && (
-          <div className="committee-panel active" id="panel-organizing" role="tabpanel">
-            <div className="committee-grid">
-              <div className="member-card reveal">
-                <div className="member-avatar">PC</div>
-                <div className="member-name">Prof. Dr. P. Chandrasekaran</div>
-                <div className="member-role">Chief Patron</div>
-                <div className="member-affil">Principal, CIT, Chennai</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">KS</div>
-                <div className="member-name">Dr. K. Sureshkumar</div>
-                <div className="member-role">Patron</div>
-                <div className="member-affil">Dean (Academic), CIT</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">MR</div>
-                <div className="member-name">Dr. M. Rajalakshmi</div>
-                <div className="member-role">General Chair</div>
-                <div className="member-affil">HoD, Dept. of CSE, CIT</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">VP</div>
-                <div className="member-name">Dr. V. Pradeep Kumar</div>
-                <div className="member-role">Organizing Chair</div>
-                <div className="member-affil">Associate Professor, CSE, CIT</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">SA</div>
-                <div className="member-name">Dr. S. Anitha</div>
-                <div className="member-role">Co-Organizing Chair</div>
-                <div className="member-affil">Associate Professor, CSE, CIT</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">RN</div>
-                <div className="member-name">Dr. R. Nagarajan</div>
-                <div className="member-role">Finance Chair</div>
-                <div className="member-affil">Assistant Professor, CSE, CIT</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">LM</div>
-                <div className="member-name">Ms. L. Meenakshi</div>
-                <div className="member-role">Publicity Chair</div>
-                <div className="member-affil">Assistant Professor, CSE, CIT</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">BK</div>
-                <div className="member-name">Mr. B. Karthikeyan</div>
-                <div className="member-role">Web &amp; Technical Support</div>
-                <div className="member-affil">Assistant Professor, CSE, CIT</div>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12 reveal">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-5 py-2.5 rounded-full text-xs font-extrabold tracking-wider uppercase transition-all duration-300 ${
+                activeTab === tab.id
+                  ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-[0_0_20px_rgba(157,78,221,0.4)] scale-105'
+                  : 'bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:border-white/20'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-        {activeTab === 'technical' && (
-          <div className="committee-panel active" id="panel-technical" role="tabpanel">
-            <div className="committee-grid">
-              <div className="member-card reveal">
-                <div className="member-avatar">TPC</div>
-                <div className="member-name">Prof. Dr. T. Rajendran</div>
-                <div className="member-role">TPC Chair</div>
-                <div className="member-affil">IIT Madras, India</div>
+        {/* Committee Members Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+          {committeeData[activeTab].map((member, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-cyan-400/40 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,245,212,0.15)] group flex flex-col items-center text-center"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-white/20 flex items-center justify-center text-xl font-mono font-black text-white group-hover:scale-110 group-hover:border-cyan-400 transition-all mb-4">
+                {member.avatar}
               </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">AK</div>
-                <div className="member-name">Dr. A. Kumar</div>
-                <div className="member-role">TPC Co-Chair</div>
-                <div className="member-affil">NIT Trichy, India</div>
+              <h3 className="text-base font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors">
+                {member.name}
+              </h3>
+              <div className="text-xs font-extrabold text-purple-400 uppercase tracking-wider mb-1">
+                {member.role}
               </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">SW</div>
-                <div className="member-name">Prof. Sarah Wilson</div>
-                <div className="member-role">Track Chair — AI/ML</div>
-                <div className="member-affil">University of Edinburgh, UK</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">JL</div>
-                <div className="member-name">Prof. James Liu</div>
-                <div className="member-role">Track Chair — Cloud</div>
-                <div className="member-affil">NUS Singapore</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">FH</div>
-                <div className="member-name">Dr. Fatima Hassan</div>
-                <div className="member-role">Track Chair — Security</div>
-                <div className="member-affil">Cairo University, Egypt</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">KP</div>
-                <div className="member-name">Dr. K. Padmanabhan</div>
-                <div className="member-role">Track Chair — IoT</div>
-                <div className="member-affil">BITS Pilani, India</div>
+              <div className="text-xs text-gray-400">
+                {member.affil}
               </div>
             </div>
-          </div>
-        )}
+          ))}
+        </div>
 
-        {activeTab === 'advisory' && (
-          <div className="committee-panel active" id="panel-advisory" role="tabpanel">
-            <div className="committee-grid">
-              <div className="member-card reveal">
-                <div className="member-avatar">RV</div>
-                <div className="member-name">Prof. R. Venkatesan</div>
-                <div className="member-role">Advisory Board Chair</div>
-                <div className="member-affil">IISc Bangalore, India</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">MP</div>
-                <div className="member-name">Prof. Maria Perez</div>
-                <div className="member-role">International Advisor</div>
-                <div className="member-affil">University of Toronto, Canada</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">HT</div>
-                <div className="member-name">Prof. Hiroshi Tanaka</div>
-                <div className="member-role">International Advisor</div>
-                <div className="member-affil">Tokyo Institute of Technology</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">GM</div>
-                <div className="member-name">Dr. George Mitchell</div>
-                <div className="member-role">Industry Advisor</div>
-                <div className="member-affil">Google DeepMind, USA</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'reviewers' && (
-          <div className="committee-panel active" id="panel-reviewers" role="tabpanel">
-            <div className="committee-grid">
-              <div className="member-card reveal">
-                <div className="member-avatar">SP</div>
-                <div className="member-name">Dr. S. Parthasarathy</div>
-                <div className="member-role">Senior Reviewer</div>
-                <div className="member-affil">Anna University, India</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">NG</div>
-                <div className="member-name">Dr. N. Ganesan</div>
-                <div className="member-role">Senior Reviewer</div>
-                <div className="member-affil">PSG Tech, Chennai</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">LS</div>
-                <div className="member-name">Dr. L. Subramanian</div>
-                <div className="member-role">Reviewer</div>
-                <div className="member-affil">Amrita University, India</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">PV</div>
-                <div className="member-name">Dr. P. Vasudevan</div>
-                <div className="member-role">Reviewer</div>
-                <div className="member-affil">VIT University, India</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">CR</div>
-                <div className="member-name">Ms. C. Revathi</div>
-                <div className="member-role">Reviewer</div>
-                <div className="member-affil">SASTRA University, India</div>
-              </div>
-              <div className="member-card reveal">
-                <div className="member-avatar">TM</div>
-                <div className="member-name">Mr. T. Murugesan</div>
-                <div className="member-role">Reviewer</div>
-                <div className="member-affil">Kongu Engineering College</div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
