@@ -50,7 +50,6 @@ function App() {
         <Committee />
         <ImportantDates />
         <KeynoteSpeakers />
-        <PaperSubmission />
         <Registration />
         <Contact />
       </main>
