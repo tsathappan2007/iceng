@@ -30,14 +30,14 @@ const PaperSubmission = () => {
 
       setFeedback({
         type: 'success',
-        message: `✓ Paper submitted! Your ID: ${data.paperId || "ICENG-XXXX"}. Confirmation sent to ${payload.email}.`
+        message: `✓ Paper submitted! Your ID: ${data.paperId || "ICAING-XXXX"}. Confirmation sent to ${payload.email}.`
       });
       form.reset();
     } catch (err) {
       if (API_BASE === "") {
         setFeedback({
           type: 'success',
-          message: "✓ Paper received! (Demo mode) — Your paper ID: ICENG-2027-DEMO. Connect backend to enable real tracking."
+          message: "✓ Paper received! (Demo mode) — Your paper ID: ICAING-2027-DEMO. Connect backend to enable real tracking."
         });
         form.reset();
       } else {

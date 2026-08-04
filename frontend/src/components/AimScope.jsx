@@ -41,7 +41,7 @@ const AimScope = () => {
             Aim &amp; <span className="text-purple-400 glow-subtle">Scope</span>
           </h2>
           <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            ICENGCIT 2027 brings together researchers, educators, engineers, and industry professionals to share knowledge and advance innovation across core engineering and computing disciplines.
+            ICAINGCIT 2027 brings together researchers, educators, engineers, and industry professionals to share knowledge and advance innovation across core engineering and computing disciplines.
           </p>
         </div>
 
@@ -107,7 +107,7 @@ const AimScope = () => {
             </h3>
 
             <p className="text-gray-300 text-xs mb-6">
-              ICENGCIT 2027 welcomes original research across, but not limited to, the following core domains:
+              ICAINGCIT 2027 welcomes original research across, but not limited to, the following core domains:
             </p>
 
             <div className="flex flex-wrap gap-2">

@@ -1,12 +1,12 @@
-# ICENGCIT 2027 Conference Website
+# ICAINGCIT 2027 Conference Website
 
-Welcome to the official repository for the **International Conference on Next-Gen Computing & Information Technology (ICENGCIT) 2027**. This project consists of a modern, responsive React frontend and a robust Node.js/Express backend integrated with MongoDB.
+Welcome to the official repository for the **International Conference on Next-Gen Computing & Information Technology (ICAINGCIT) 2027**. This project consists of a modern, responsive React frontend and a robust Node.js/Express backend integrated with MongoDB.
 
 ## 🌟 Project Architecture
 
 This application is built with a decoupled architecture:
 
-1. **Frontend (`/frontend/icengcit-react`)**: A single-page application (SPA) built using React and Vite. It utilizes responsive design, intersection observers for scroll animations, and dynamic state management to present conference information cleanly.
+1. **Frontend (`/frontend/icaingcit-react`)**: A single-page application (SPA) built using React and Vite. It utilizes responsive design, intersection observers for scroll animations, and dynamic state management to present conference information cleanly.
 2. **Backend (`/backend`)**: A Node.js API server using Express.js. It handles incoming submissions (contact queries, event registrations, and paper submissions) and securely stores them in MongoDB. It uses Multer to handle PDF file uploads securely.
 
 ---
@@ -16,7 +16,7 @@ This application is built with a decoupled architecture:
 **Frontend**
 - React 18
 - Vite
-- Custom CSS (Variables, Grid, Flexbox, Animations)
+- Tailwind CSS v4 & WebGL Fluid Dynamics
 
 **Backend**
 - Node.js & Express.js
@@ -29,7 +29,7 @@ This application is built with a decoupled architecture:
 ## 📂 Folder Structure
 
 ```
-ICENGCIT/
+ICAINGCIT/
 ├── backend/                  # Node.js Express API Server
 │   ├── models/               # Mongoose Data Models (Contact, Paper, Registration)
 │   ├── uploads/              # Local storage for uploaded PDF research papers
@@ -37,7 +37,7 @@ ICENGCIT/
 │   └── server.js             # API entry point & configuration
 │
 └── frontend/
-    └── icengcit-react/       # Vite React Application
+    └── icaingcit-react/       # Vite React Application
         ├── public/           # Static assets
         ├── src/
         │   ├── components/   # Modular React Components (Hero, Committee, etc.)
@@ -62,7 +62,7 @@ ICENGCIT/
 ### API Endpoints
 - `POST /api/contact` - Saves contact form inquiries.
 - `POST /api/register` - Generates a unique Registration ID (`REG-XXXX`) and saves attendee data.
-- `POST /api/submit-paper` - Handles PDF file upload, generates a Paper ID (`ICENG-XXXX`), and saves author metadata.
+- `POST /api/submit-paper` - Handles PDF file upload, generates a Paper ID (`ICAING-XXXX`), and saves author metadata.
 
 ---
 
@@ -84,7 +84,7 @@ npm run dev
 Open a second terminal window:
 
 ```bash
-cd frontend/icengcit-react
+cd frontend
 npm install
 npm run dev
 ```
@@ -97,4 +97,4 @@ npm run dev
 - Designed & developed by **CIT Web Team**.
 - Supervised by the Department of IT, Chennai Institute of Technology.
 
-© 2027 ICENGCIT — All rights reserved.
+© 2027 ICAINGCIT — All rights reserved.

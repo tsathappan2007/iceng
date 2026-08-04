@@ -1,43 +1,40 @@
 import React from 'react';
 import CountdownTimer from './CountdownTimer';
-import FluidCanvas from './FluidCanvas';
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen pt-28 pb-16 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-obsidian-950 bg-grid-cyber">
-      {/* Interactive WebGL Fluid Simulation Background */}
-      <FluidCanvas />
-
+    <section id="hero" className="relative min-h-screen pt-32 pb-16 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-obsidian-950 bg-grid-cyber">
+      
       {/* Ambient static radial glows */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none z-0" />
       <div className="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      {/* Text Wrapper with pointer-events-none so mouse passes to WebGL canvas below, buttons have pointer-events-auto */}
-      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center pointer-events-none select-none">
+      {/* Main Content Container */}
+      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
         
         {/* Top Eyebrow Tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(157,78,221,0.15)] pointer-events-none">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(157,78,221,0.15)]">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="text-xs font-semibold tracking-wider text-gray-300 uppercase">
+          <span className="text-xs font-semibold tracking-wider text-gray-300 uppercase font-mono">
             15–17 MARCH 2027 &nbsp;·&nbsp; CHENNAI, INDIA
           </span>
         </div>
 
         {/* Main Title */}
-        <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white glow-title pixel-text uppercase mb-4 leading-none pointer-events-none">
-          ICENGCIT <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-300 to-purple-500">2027</span>
+        <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white glow-title pixel-text uppercase mb-4 leading-none">
+          ICAINGCIT <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-300 to-purple-500">2027</span>
         </h1>
 
-        <p className="text-lg sm:text-2xl font-bold tracking-widest text-gray-200 uppercase mb-2 pointer-events-none">
+        <p className="text-lg sm:text-2xl font-bold tracking-widest text-gray-200 uppercase mb-2">
           MARCH 15–17, 2027
         </p>
 
-        <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] text-gray-400 uppercase mb-8 max-w-2xl pointer-events-none">
+        <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] text-gray-400 uppercase mb-8 max-w-2xl">
           International Conference on Next-Gen Computing &amp; Information Technology · Chennai Institute of Technology
         </p>
 
-        {/* Action Pill Buttons (pointer-events-auto so clicking works!) */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6 max-w-4xl pointer-events-auto">
+        {/* Action Pill Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6 max-w-4xl">
           <a
             href="#submission"
             className="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-purple-400/60 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 backdrop-blur-md shadow-lg hover:shadow-[0_0_20px_rgba(157,78,221,0.4)] hover:-translate-y-0.5"
@@ -64,7 +61,7 @@ const Hero = () => {
         </div>
 
         {/* Secondary White Pill Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-8 pointer-events-auto">
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
           <a
             href="#speakers"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white hover:bg-gray-100 text-black text-xs sm:text-sm font-extrabold tracking-wider uppercase transition-all duration-300 shadow-xl hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] hover:-translate-y-0.5"
@@ -87,12 +84,12 @@ const Hero = () => {
         </div>
 
         {/* Live Countdown Timer */}
-        <div className="pointer-events-auto">
+        <div>
           <CountdownTimer targetDate="2027-03-15T09:00:00" />
         </div>
 
         {/* Highlights Meta Chips */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-4xl mt-6 pointer-events-none">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-4xl mt-6">
           <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-md text-left flex items-center gap-3">
             <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>

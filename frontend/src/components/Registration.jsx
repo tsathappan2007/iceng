@@ -86,7 +86,7 @@ const Registration = () => {
         {/* Section Header */}
         <div className="text-center mb-16 reveal">
           <span className="text-xs font-extrabold tracking-widest text-purple-400 uppercase bg-purple-500/10 px-3.5 py-1.5 rounded-full border border-purple-500/20 shadow-[0_0_15px_rgba(157,78,221,0.15)]">
-            ATTEND ICENGCIT 2027
+            ATTEND ICAINGCIT 2027
           </span>
           <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-4 mb-4">
             Conference <span className="text-cyan-400 glow-subtle">Registration</span>
@@ -246,7 +246,7 @@ const Registration = () => {
                   type="text"
                   id="r-paper"
                   name="paperId"
-                  placeholder="e.g. ICENG-2027-XXXX"
+                  placeholder="e.g. ICAING-2027-XXXX"
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
                 />
               </div>

@@ -93,7 +93,7 @@ app.post('/api/submit-paper', upload.single('file'), async (req, res) => {
       return res.status(400).json({ success: false, message: "PDF required" });
     }
 
-    const paperId = `ICENG-${Date.now().toString().slice(-6)}`;
+    const paperId = `ICAING-${Date.now().toString().slice(-6)}`;
 
     const paper = new Paper({
       paperId,

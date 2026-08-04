@@ -9,7 +9,7 @@ const ImportantDates = () => {
     { month: "JAN", day: "15", year: "2027", title: "Camera-Ready Submission", desc: "Final revised paper due", status: "upcoming" },
     { month: "JAN", day: "31", year: "2027", title: "Early Bird Registration", desc: "Discounted registration closes", status: "upcoming" },
     { month: "FEB", day: "28", year: "2027", title: "Regular Registration", desc: "Standard registration deadline", status: "upcoming" },
-    { month: "MAR", day: "15", year: "2027", title: "Conference Begins 🎉", desc: "Three days of sessions, workshops & keynotes", status: "highlight" },
+    { month: "MAR", day: "15", year: "2027", title: "Conference Begins", desc: "Three days of sessions, workshops & keynotes", status: "highlight" },
   ];
 
   return (

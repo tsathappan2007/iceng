@@ -32,7 +32,7 @@ const AboutConference = () => {
                     <span>FLAGSHIP EVENT</span>
                   </div>
                   <h3 className="text-3xl font-black text-white uppercase tracking-tight mb-2">
-                    ICENGCIT <span className="text-cyan-400 font-mono">2027</span>
+                    ICAINGCIT <span className="text-cyan-400 font-mono">2027</span>
                   </h3>
                   <p className="text-gray-400 text-xs leading-relaxed">
                     Connecting global pioneers in Artificial Intelligence, Computing, and Information Technologies.
@@ -71,11 +71,11 @@ const AboutConference = () => {
             </div>
 
             <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-              The International Conference on Next-Gen Computing &amp; Information Technology (ICENGCIT) is a prestigious biennial gathering that has established itself as a leading platform for knowledge exchange and innovation in technical disciplines.
+              The International Conference on Next-Gen Computing &amp; Information Technology (ICAINGCIT) is a prestigious biennial gathering that has established itself as a leading platform for knowledge exchange and innovation in technical disciplines.
             </p>
 
             <p className="text-gray-400 text-sm leading-relaxed">
-              Since its inception, ICENGCIT has attracted thousands of participants from over 30 countries, facilitating groundbreaking research collaborations and fostering a global community of engineers and technologists.
+              Since its inception, ICAINGCIT has attracted thousands of participants from over 30 countries, facilitating groundbreaking research collaborations and fostering a global community of engineers and technologists.
             </p>
 
             <div className="space-y-3 pt-2">

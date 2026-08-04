@@ -11,11 +11,11 @@ const Footer = () => {
             <a href="#hero" className="flex items-center gap-2 group inline-flex">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-400 p-[1px]">
                 <div className="w-full h-full bg-obsidian-950 rounded-[7px] flex items-center justify-center font-black text-xs text-white">
-                  ICE
+                  ICA
                 </div>
               </div>
               <span className="font-extrabold text-base tracking-widest text-white pixel-text group-hover:text-cyan-400 transition-colors uppercase">
-                ICENGCIT <span className="text-purple-400 font-mono text-xs">2027</span>
+                ICAINGCIT <span className="text-purple-400 font-mono text-xs">2027</span>
               </span>
             </a>
 
@@ -54,7 +54,7 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-gray-500 font-mono">
-          <p>© 2027 <span className="text-gray-300 font-bold">ICENGCIT</span> — Department of IT, CIT, Chennai. All rights reserved.</p>
+          <p>© 2027 <span className="text-gray-300 font-bold">ICAINGCIT</span> — Department of IT, CIT, Chennai. All rights reserved.</p>
           <p>Designed &amp; developed for <span className="text-cyan-400 font-bold">CIT Conference</span></p>
         </div>
 

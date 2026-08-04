@@ -8,6 +8,7 @@
   --color-cyber-purple: #9d4edd;
   --color-cyber-violet: #7b2cbf;
   --color-cyber-cyan: #00f5d4;
+  --color-cyber-yellow: #facc15;
 }
 
 :root {
@@ -18,7 +19,9 @@ html {
   scroll-behavior: smooth;
   background-color: #030308;
   color: #e2e8f0;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -26,6 +29,36 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Ultra-Wide Nexover Style Logo Font */
+.font-logo-wide {
+  font-family: 'Unbounded', 'Orbitron', 'Syne', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* Custom Typography & Glowing Text Effects */
+.glow-title {
+  text-shadow: 0 0 35px rgba(157, 78, 221, 0.6), 0 0 70px rgba(123, 44, 191, 0.4), 0 0 100px rgba(0, 245, 212, 0.2);
+}
+
+.glow-subtle {
+  text-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+}
+
+.pixel-text {
+  font-family: 'Outfit', 'Space Grotesk', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.font-mono {
+  font-family: 'Space Grotesk', monospace !important;
 }
 
 /* Custom scrollbar */
@@ -41,20 +74,6 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #7c3aed;
-}
-
-/* Custom Typography & Glowing Text Effects */
-.glow-title {
-  text-shadow: 0 0 35px rgba(157, 78, 221, 0.6), 0 0 70px rgba(123, 44, 191, 0.4), 0 0 100px rgba(0, 245, 212, 0.2);
-}
-
-.glow-subtle {
-  text-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
-}
-
-.pixel-text {
-  font-family: 'Space Grotesk', 'Courier New', monospace;
-  letter-spacing: -0.02em;
 }
 
 /* Background Cyber Grid Pattern */
