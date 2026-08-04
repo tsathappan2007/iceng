@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian-950: #030308;
-  --color-obsidian-900: #080811;
-  --color-obsidian-800: #101020;
+  --color-obsidian-950: #060b19;
+  --color-obsidian-900: #0a1128;
+  --color-obsidian-800: #101b3d;
   
-  --color-cyber-purple: #9d4edd;
-  --color-cyber-violet: #7b2cbf;
-  --color-cyber-cyan: #00f5d4;
-  --color-cyber-yellow: #facc15;
+  --color-royal-600: #2563eb;
+  --color-royal-700: #1d4ed8;
+  --color-royal-800: #1e40af;
+  --color-royal-900: #1e3a8a;
+  
+  --color-cyan-400: #00f5d4;
+  --color-cyan-500: #06b6d4;
+  
+  --color-gold-400: #fbbf24;
 }
 
 :root {
@@ -17,15 +22,15 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #030308;
-  color: #e2e8f0;
+  background-color: #060b19;
+  color: #f8fafc;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: #030308;
+  background-color: #060b19;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
@@ -43,13 +48,13 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.05em;
 }
 
-/* Custom Typography & Glowing Text Effects */
+/* Custom Typography & Crisp Solid Shadow Effects (Cyan & Royal Blue) */
 .glow-title {
-  text-shadow: 0 0 35px rgba(157, 78, 221, 0.6), 0 0 70px rgba(123, 44, 191, 0.4), 0 0 100px rgba(0, 245, 212, 0.2);
+  text-shadow: 0 0 30px rgba(0, 245, 212, 0.4), 0 0 60px rgba(37, 99, 235, 0.3);
 }
 
 .glow-subtle {
-  text-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+  text-shadow: 0 0 20px rgba(0, 245, 212, 0.5);
 }
 
 .pixel-text {
@@ -66,22 +71,22 @@ h1, h2, h3, h4, h5, h6 {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030308;
+  background: #060b19;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e1b4b;
+  background: #06b6d4;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c3aed;
+  background: #00f5d4;
 }
 
-/* Background Cyber Grid Pattern */
+/* Background Cyber Grid Pattern in Subtle Royal Blue & Cyan */
 .bg-grid-cyber {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 245, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
 }
 
 /* Scroll reveal animations */
