@@ -127,10 +127,10 @@ const Registration = () => {
           {tiers.map((tier, idx) => (
             <div
               key={idx}
-              className={`p-6 rounded-3xl backdrop-blur-xl flex flex-col justify-between transition-all duration-300 relative group overflow-hidden ${
+              className={`p-6 rounded-3xl flex flex-col justify-between transition-all duration-300 relative group overflow-hidden ${
                 idx === 0
-                  ? 'bg-white border-2 border-blue-600 shadow-lg scale-105'
-                  : 'bg-white border border-slate-200 hover:border-blue-400 hover:-translate-y-1 shadow-sm'
+                  ? 'bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border-2 border-blue-600 shadow-md scale-105'
+                  : 'bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 hover:border-blue-400 hover:-translate-y-1 shadow-sm'
               }`}
             >
               {/* Top Accent Bar */}

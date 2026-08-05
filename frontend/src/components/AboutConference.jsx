@@ -18,7 +18,7 @@ const AboutConference = () => {
         </div>
 
         {/* Executive Quote Card Container — Clean White Card without Dotted Texture */}
-        <div className="relative mt-8 rounded-3xl bg-white border border-blue-100/80 border-l-[6px] border-l-blue-600 shadow-[0_20px_50px_rgba(37,99,235,0.07)] p-8 sm:p-12 text-left overflow-hidden">
+        <div className="relative mt-8 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 border-l-[6px] border-l-blue-600 shadow-sm p-8 sm:p-12 text-left overflow-hidden">
           
           <div className="relative z-10">
             {/* SVG Giant Quote Mark Icon */}

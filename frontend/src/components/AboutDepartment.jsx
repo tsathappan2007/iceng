@@ -41,21 +41,21 @@ const AboutDepartment = () => {
 
             {/* Bottom 3 Highlight Cards with Larger Text */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5">
+              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5">
                 <div className="text-sm font-extrabold text-slate-900">Computation &amp; Software</div>
                 <div className="text-xs text-slate-600 leading-relaxed">
                   Advanced algorithm design, software engineering paradigms, and complex problem-solving.
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5">
+              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5">
                 <div className="text-sm font-extrabold text-slate-900">Interdisciplinary Research</div>
                 <div className="text-xs text-slate-600 leading-relaxed">
                   Fusing computing with AI, bioinformatics, cloud architectures, and network security.
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5">
+              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5">
                 <div className="text-sm font-extrabold text-slate-900">Innovation &amp; Excellence</div>
                 <div className="text-xs text-slate-600 leading-relaxed">
                   Fostering cutting-edge research labs, student innovation, and national laurels.

@@ -278,11 +278,7 @@ const ImportantDates = () => {
 
                   {/* Main Card Side Column with Hover Lift */}
                   <div className={`w-full sm:w-1/2 ${idx % 2 === 0 ? 'sm:pl-10' : 'sm:pr-10'}`}>
-                    <div className={`p-6 rounded-[28px] bg-white border transition-all duration-500 shadow-md hover:-translate-y-2 hover:shadow-2xl hover:border-blue-400 relative overflow-hidden space-y-3 ${
-                      item.isHero
-                        ? 'border-amber-400 ring-2 ring-amber-400/30 bg-gradient-to-br from-white via-amber-50/20 to-white animate-timeline-glow'
-                        : 'border-slate-200/90'
-                    }`}>
+                    <div className="p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 transition-all duration-300 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-blue-400 relative overflow-hidden space-y-3">
                       {/* Top Row: Phase + Tag */}
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">

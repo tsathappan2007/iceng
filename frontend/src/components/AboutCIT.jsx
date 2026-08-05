@@ -1,4 +1,5 @@
 import React from 'react';
+import citAboutImg from '../assets/cit-about.jpeg';
 
 const AboutCIT = () => {
   return (
@@ -28,15 +29,15 @@ const AboutCIT = () => {
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm text-center">
                 <div className="text-2xl font-black text-blue-600 font-mono">NAAC A+</div>
                 <div className="text-xs font-bold text-slate-600 uppercase mt-1">Accredited Grade</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm text-center">
                 <div className="text-2xl font-black text-amber-500 font-mono">NIRF Top</div>
                 <div className="text-xs font-bold text-slate-600 uppercase mt-1">Engineering Rank</div>
               </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-center col-span-2 sm:col-span-1">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm text-center col-span-2 sm:col-span-1">
                 <div className="text-2xl font-black text-blue-600 font-mono">25+</div>
                 <div className="text-xs font-bold text-slate-600 uppercase mt-1">Centers of Excellence</div>
               </div>
@@ -46,9 +47,9 @@ const AboutCIT = () => {
           <div className="lg:col-span-6">
             <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-md">
               <img
-                src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800"
+                src={citAboutImg}
                 alt="Chennai Institute of Technology Campus"
-                className="w-full h-96 object-cover"
+                className="w-full h-96 sm:h-[420px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
                 <div className="text-white">

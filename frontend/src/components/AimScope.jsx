@@ -128,7 +128,7 @@ const AimScope = () => {
           {tracks.map((track) => (
             <div
               key={track.id}
-              className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between group"
+              className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between group"
             >
               <div>
                 {/* Header Row: Icon & Track Badge */}

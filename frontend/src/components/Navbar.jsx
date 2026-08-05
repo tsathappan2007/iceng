@@ -88,7 +88,7 @@ const Navbar = () => {
           path: '/about#about-cit', 
           targetId: 'about-cit',
           tag: 'CAMPUS', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
         },
       ],
     },
@@ -158,7 +158,7 @@ const Navbar = () => {
           <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-t-none rounded-b-[32px]">
             
             {/* Brand Logo */}
-            <Link to="/" className="flex items-center shrink-0 mr-4 xl:mr-8 group py-1" onClick={closeMenu}>
+            <Link to="/" className="flex items-center shrink-0 mr-3 xl:mr-6 group py-1" onClick={closeMenu}>
               <img 
                 src={logoImg} 
                 alt="ICAINGCIT 2027 Logo" 
@@ -167,7 +167,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+            <div className="hidden lg:flex items-center gap-2 xl:gap-3">
               {navItems.map((item, idx) => {
                 const isActive = location.pathname === item.path || (item.id === 'council' && location.pathname.startsWith('/council')) || (item.id === 'about' && location.pathname.startsWith('/about'));
 
@@ -181,7 +181,7 @@ const Navbar = () => {
                     <Link
                       to={item.path}
                       onClick={closeMenu}
-                      className={`relative inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 rounded-full text-[11px] xl:text-xs font-extrabold tracking-wider uppercase transition-all duration-300 ${
+                      className={`relative inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-2 rounded-full text-[11px] xl:text-xs font-extrabold tracking-wider uppercase transition-all duration-300 ${
                         isActive
                           ? 'bg-blue-50 text-blue-700 border border-blue-600/40 shadow-sm scale-105'
                           : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100/80 border border-transparent'
@@ -264,13 +264,13 @@ const Navbar = () => {
                 );
               })}
 
-              {/* Action Register Pill Button */}
+              {/* Action Pill Button: LOGIN (Amber pill styling) */}
               <Link
-                to="/registration"
+                to="/login"
                 onClick={closeMenu}
-                className="ml-2 xl:ml-3 px-4.5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                className="ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
               >
-                REGISTER NOW
+                LOGIN
               </Link>
             </div>
 
@@ -325,11 +325,11 @@ const Navbar = () => {
             ))}
 
             <Link
-              to="/registration"
+              to="/login"
               onClick={closeMenu}
               className="block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
             >
-              REGISTER NOW
+              LOGIN
             </Link>
           </div>
           </div>

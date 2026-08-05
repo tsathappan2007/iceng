@@ -91,7 +91,7 @@ const PaperSubmission = () => {
           
           {/* Submission Guidelines Box */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm">
+            <div className="p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm">
               <h3 className="text-lg font-bold text-slate-900 mb-4 uppercase tracking-wide">
                 Author Guidelines
               </h3>
@@ -136,7 +136,7 @@ const PaperSubmission = () => {
             </div>
 
             {/* Publication Indexing Card */}
-            <div className="p-6 rounded-3xl bg-blue-50 border border-blue-200">
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm">
               <h4 className="text-xs font-black uppercase tracking-wider text-blue-900 mb-2">
                 Publication Indexing
               </h4>
@@ -148,7 +148,7 @@ const PaperSubmission = () => {
 
           {/* Paper Submission Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-md">
+            <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm relative overflow-hidden">
               <h3 className="text-xl font-bold text-slate-900 uppercase tracking-wider mb-2">
                 Submit Manuscript
               </h3>
