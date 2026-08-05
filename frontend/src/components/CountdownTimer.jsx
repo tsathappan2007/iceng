@@ -28,29 +28,86 @@ const CountdownTimer = ({ targetDate = "2027-03-15T09:00:00" }) => {
 
   const padZero = (num) => String(num).padStart(2, '0');
 
-  const timerItems = [
-    { label: 'DAYS', value: padZero(timeLeft.days) },
-    { label: 'HOURS', value: padZero(timeLeft.hours) },
-    { label: 'MINUTES', value: padZero(timeLeft.minutes) },
-    { label: 'SECONDS', value: padZero(timeLeft.seconds) },
+  // Percentage calculations for SVG progress rings
+  const daysProgress = Math.max(0, Math.min(100, (timeLeft.days / 365) * 100));
+  const hoursProgress = (timeLeft.hours / 24) * 100;
+  const minutesProgress = (timeLeft.minutes / 60) * 100;
+  const secondsProgress = (timeLeft.seconds / 60) * 100;
+
+  const timerUnits = [
+    { label: 'DAYS', value: padZero(timeLeft.days), progress: daysProgress },
+    { label: 'HOURS', value: padZero(timeLeft.hours), progress: hoursProgress },
+    { label: 'MINUTES', value: padZero(timeLeft.minutes), progress: minutesProgress },
+    { label: 'SECONDS', value: padZero(timeLeft.seconds), progress: secondsProgress },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto my-8">
-      {timerItems.map((item, idx) => (
-        <div
-          key={idx}
-          className="group relative flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-purple-500/50 transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.6)] hover:shadow-[0_0_25px_rgba(157,78,221,0.25)]"
-        >
-          <div className="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-mono group-hover:text-purple-300 transition-colors">
-            {item.value}
-          </div>
-          <div className="text-[10px] md:text-xs font-semibold tracking-widest text-gray-400 mt-2 uppercase">
-            {item.label}
-          </div>
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-        </div>
-      ))}
+    <div className="relative z-10 max-w-2xl mx-auto my-3 p-4 sm:p-5 rounded-3xl bg-[#0a1128] border border-cyan-500/30">
+      
+      {/* Minimal Header */}
+      <div className="flex items-center justify-center gap-2 pb-3 mb-4 border-b border-cyan-500/15">
+        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+        <span className="text-[11px] sm:text-xs font-extrabold tracking-widest text-cyan-300 uppercase font-mono">
+          COUNTING TO MARCH 2027
+        </span>
+      </div>
+
+      {/* Circular Telemetry Units Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-center">
+        {timerUnits.map((unit, idx) => {
+          const radius = 34;
+          const circumference = 2 * Math.PI * radius;
+          const strokeDashoffset = circumference - (unit.progress / 100) * circumference;
+
+          return (
+            <div key={idx} className="flex flex-col items-center group relative">
+              
+              {/* Telemetry Capsule Base */}
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center rounded-full bg-[#060b19] border border-cyan-500/30 group-hover:border-cyan-400/80 transition-all duration-300">
+                
+                {/* Outer Circular SVG Progress Meter */}
+                <svg className="absolute inset-0 w-full h-full -rotate-90 p-1" viewBox="0 0 100 100">
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r={radius}
+                    className="stroke-slate-800/60"
+                    strokeWidth="3.5"
+                    fill="transparent"
+                  />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r={radius}
+                    className="stroke-cyan-400 transition-all duration-1000 ease-linear"
+                    strokeWidth="3.5"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    strokeLinecap="round"
+                    fill="transparent"
+                  />
+                </svg>
+
+                {/* Number Display */}
+                <div className="relative z-10 text-center flex flex-col items-center">
+                  <span className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                    {unit.value}
+                  </span>
+                </div>
+
+                {/* Inner Glow Center */}
+                <div className="absolute inset-2 rounded-full bg-cyan-500/5 group-hover:bg-cyan-500/10 transition-colors pointer-events-none" />
+              </div>
+
+              {/* Unit Label Pill */}
+              <div className="mt-2.5 px-3 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-500/20 text-[9px] font-extrabold tracking-widest text-cyan-300 uppercase font-mono group-hover:border-cyan-400/50 transition-colors">
+                {unit.label}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
     </div>
   );
 };
