@@ -5,15 +5,33 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 const PaperSubmission = () => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        setFeedback({ type: 'error', message: 'Only PDF files are permitted for manuscript submission.' });
+        setSelectedFile(null);
+        return;
+      }
+      if (file.size > 15 * 1024 * 1024) {
+        setFeedback({ type: 'error', message: 'File size exceeds 15 MB limit.' });
+        setSelectedFile(null);
+        return;
+      }
+      setSelectedFile(file);
+      setFeedback({ type: '', message: '' });
+    }
+  };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
 
-    if (!payload.email || !payload.author || !payload.abstract) {
-      setFeedback({ type: 'error', message: 'Please fill in all required fields.' });
+    if (!selectedFile) {
+      setFeedback({ type: 'error', message: 'Please attach your manuscript PDF file before submitting.' });
       return;
     }
 
@@ -25,23 +43,25 @@ const PaperSubmission = () => {
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Server error");
+      if (!res.ok) throw new Error("Submission failed");
       const data = await res.json();
 
       setFeedback({
         type: 'success',
-        message: `✓ Paper submitted! Your ID: ${data.paperId || "ICAING-XXXX"}. Confirmation sent to ${payload.email}.`
+        message: `✓ Paper submitted successfully! Tracking ID: ${data.paperId || 'ICAING-2027-XXX'}. Confirmation email sent.`
       });
       form.reset();
+      setSelectedFile(null);
     } catch (err) {
       if (API_BASE === "") {
         setFeedback({
           type: 'success',
-          message: "✓ Paper received! (Demo mode) — Your paper ID: ICAING-2027-DEMO. Connect backend to enable real tracking."
+          message: `✓ Manuscript "${selectedFile.name}" received! (Demo mode) — Connect backend API for live tracking.`
         });
         form.reset();
+        setSelectedFile(null);
       } else {
-        setFeedback({ type: 'error', message: "Submission failed. Please check your connection and try again." });
+        setFeedback({ type: 'error', message: "Submission failed. Please verify your connection and try again." });
       }
     } finally {
       setLoading(false);
@@ -49,80 +69,127 @@ const PaperSubmission = () => {
     }
   };
 
-  const steps = [
-    { num: "01", title: "Prepare Manuscript", desc: "Use IEEE conference template (6–8 pages). Double-blind format — omit author names." },
-    { num: "02", title: "Submit via Portal", desc: "Fill in author details, paper title, abstract, track, and upload your PDF." },
-    { num: "03", title: "Peer Review", desc: "Reviewed by 3 domain experts. Results returned within 45 days." },
-    { num: "04", title: "Camera-Ready & Register", desc: "Final revised PDF due by Jan 15, 2027. At least one author must register." }
-  ];
-
   return (
-    <section id="submission" className="py-24 px-4 relative z-10 bg-[#060b19]/90 border-t border-cyan-500/15 overflow-hidden">
+    <section id="submission" className="py-24 px-4 relative z-10 bg-white border-t border-slate-200">
       <div className="max-w-6xl mx-auto">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Section Header */}
+        <div className="text-center mb-16 reveal">
+          <span className="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
+            CALL FOR PAPERS
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight mt-4 mb-4">
+            Manuscript <span className="text-blue-600 glow-title">Submission</span>
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Submit your original, unpublished research manuscripts formatted according to IEEE conference standards.
+          </p>
+        </div>
+
+        {/* Guidelines & Form Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start reveal">
           
-          {/* Submission Guidelines & Connected Steps */}
-          <div className="lg:col-span-5 space-y-8 reveal">
-            <div>
-              <span className="text-xs font-extrabold tracking-widest text-cyan-400 uppercase bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(0,245,212,0.15)]">
-                CALL FOR PAPERS
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-4 mb-4">
-                Paper <span className="text-cyan-400 glow-subtle">Submission</span>
-              </h2>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                We invite original, unpublished research contributions. All submissions undergo rigorous double-blind peer review.
-              </p>
+          {/* Submission Guidelines Box */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm">
+              <h3 className="text-lg font-bold text-slate-900 mb-4 uppercase tracking-wide">
+                Author Guidelines
+              </h3>
+              
+              <ul className="space-y-3 text-xs text-slate-700">
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                  <span>Manuscripts must be written in English and adhere to the <strong>IEEE 2-column format</strong>.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                  <span>Maximum paper length is <strong>6 pages</strong> including figures, tables, and references.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                  <span>All submissions undergo double-blind peer review by international domain experts.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+                  <span>Plagiarism limit is strictly <strong>&lt; 15%</strong> (Turnitin verified).</span>
+                </li>
+              </ul>
+
+              <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap items-center gap-3">
+                <a
+                  href="https://www.ieee.org/conferences/publishing/templates.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 rounded-xl bg-white border border-slate-300 text-slate-900 hover:bg-slate-100 text-xs font-bold transition-all shadow-sm"
+                >
+                  IEEE MS WORD TEMPLATE
+                </a>
+                <a
+                  href="https://www.overleaf.com/gallery/tagged/ieee-official"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 rounded-xl bg-white border border-slate-300 text-slate-900 hover:bg-slate-100 text-xs font-bold transition-all shadow-sm"
+                >
+                  OVERLEAF LATEX
+                </a>
+              </div>
             </div>
 
-            <div className="space-y-4 relative">
-              {/* Connected vertical line */}
-              <div className="absolute top-6 bottom-6 left-5 w-[2px] bg-cyan-500/40 pointer-events-none" />
-
-              {steps.map((step, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#0a1128] border border-cyan-500/20 flex items-start gap-4 hover:border-cyan-400/60 transition-all group relative z-10">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center font-mono font-black text-cyan-400 text-sm shrink-0 shadow-[0_0_15px_rgba(0,245,212,0.3)] group-hover:scale-110 transition-transform">
-                    {step.num}
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors">{step.title}</h4>
-                    <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
+            {/* Publication Indexing Card */}
+            <div className="p-6 rounded-3xl bg-blue-50 border border-blue-200">
+              <h4 className="text-xs font-black uppercase tracking-wider text-blue-900 mb-2">
+                Publication Indexing
+              </h4>
+              <p className="text-xs text-blue-800 leading-relaxed">
+                Accepted and presented papers will be submitted for inclusion into <strong>IEEE Xplore</strong> and indexed in <strong>Scopus</strong> and <strong>Web of Science (WoS)</strong>.
+              </p>
             </div>
           </div>
 
-          {/* Submission Form */}
-          <div className="lg:col-span-7 reveal">
-            <div className="p-8 rounded-3xl bg-[#0a1128] border border-cyan-500/20 backdrop-blur-2xl shadow-2xl relative hover:border-cyan-400/40 transition-colors">
-              <h3 className="text-xl font-bold text-white uppercase tracking-wider mb-2">
-                Submit Your Paper
+          {/* Paper Submission Form */}
+          <div className="lg:col-span-7">
+            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-md">
+              <h3 className="text-xl font-bold text-slate-900 uppercase tracking-wider mb-2">
+                Submit Manuscript
               </h3>
-              <p className="text-xs text-slate-400 mb-6">
-                All fields marked <span className="text-cyan-400 font-bold">*</span> are required.
+              <p className="text-xs text-slate-600 mb-6">
+                Fill in author details and attach your paper PDF file.
               </p>
 
-              <form id="paperForm" noValidate onSubmit={handleSubmit} className="space-y-5">
+              <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
+                
+                <div>
+                  <label htmlFor="p-title" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    Paper Title <span className="text-blue-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="p-title"
+                    name="title"
+                    placeholder="Enter complete manuscript title"
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
+                  />
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="p-name" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                      Corresponding Author <span className="text-cyan-400">*</span>
+                    <label htmlFor="p-author" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      Corresponding Author <span className="text-blue-600">*</span>
                     </label>
                     <input
                       type="text"
-                      id="p-name"
+                      id="p-author"
                       name="author"
-                      placeholder="Full name"
+                      placeholder="Dr. / Prof. / Full Name"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="p-email" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                      Email Address <span className="text-cyan-400">*</span>
+                    <label htmlFor="p-email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      Author Email <span className="text-blue-600">*</span>
                     </label>
                     <input
                       type="email"
@@ -130,102 +197,91 @@ const PaperSubmission = () => {
                       name="email"
                       placeholder="author@institution.edu"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="p-title" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    Paper Title <span className="text-cyan-400">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="p-title"
-                    name="title"
-                    placeholder="Full paper title"
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
-                  />
-                </div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="p-track" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                      Research Track <span className="text-cyan-400">*</span>
+                    <label htmlFor="p-org" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      Institution / University <span className="text-blue-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="p-org"
+                      name="org"
+                      placeholder="University or Company Name"
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="p-track" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      Research Track <span className="text-blue-600">*</span>
                     </label>
                     <select
                       id="p-track"
                       name="track"
                       required
-                      defaultValue=""
-                      className="w-full px-4 py-3 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                      defaultValue="AI & ML"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     >
-                      <option value="" disabled>Select track</option>
-                      <option>Artificial Intelligence &amp; ML</option>
-                      <option>Cloud &amp; Edge Computing</option>
-                      <option>Cybersecurity</option>
-                      <option>IoT &amp; Embedded Systems</option>
-                      <option>Data Science &amp; Analytics</option>
-                      <option>Wireless &amp; 5G Networks</option>
-                      <option>VLSI Design</option>
-                      <option>Robotics &amp; Automation</option>
-                      <option>Blockchain Technology</option>
-                      <option>Other</option>
+                      <option value="AI & ML">Track 1: Artificial Intelligence & ML</option>
+                      <option value="Networks">Track 2: Next-Gen Networks & 6G</option>
+                      <option value="Cybersecurity">Track 3: Cybersecurity & Cryptography</option>
+                      <option value="Cloud">Track 4: Cloud & Distributed Systems</option>
+                      <option value="IoT">Track 5: Internet of Things & Smart Cities</option>
+                      <option value="Data Science">Track 6: Data Science & Analytics</option>
                     </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="p-coauthors" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                      Co-Author(s)
-                    </label>
-                    <input
-                      type="text"
-                      id="p-coauthors"
-                      name="coauthors"
-                      placeholder="Name(s), separated by comma"
-                      className="w-full px-4 py-3 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
-                    />
                   </div>
                 </div>
 
+                {/* Abstract Text Area */}
                 <div>
-                  <label htmlFor="p-abstract" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    Abstract <span className="text-cyan-400">*</span>
+                  <label htmlFor="p-abstract" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    Abstract Summary <span className="text-blue-600">*</span>
                   </label>
                   <textarea
                     id="p-abstract"
                     name="abstract"
-                    rows="4"
-                    placeholder="Paste your 200–300 word abstract here..."
+                    rows="3"
+                    placeholder="Provide a concise 150-250 word abstract of your manuscript..."
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                   />
                 </div>
 
+                {/* PDF Upload Box */}
                 <div>
-                  <label htmlFor="p-file" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    Upload Paper (PDF) <span className="text-cyan-400">*</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    Upload PDF Manuscript (Max 15MB) <span className="text-blue-600">*</span>
                   </label>
-                  <input
-                    type="file"
-                    id="p-file"
-                    name="file"
-                    accept=".pdf"
-                    required
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#0e1738] border border-cyan-500/20 text-slate-300 text-xs file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer"
-                  />
-                  <p className="text-[10px] text-slate-400 mt-1 font-mono">
-                    Max 10 MB · IEEE format · Double-blind · 6–8 pages
-                  </p>
+                  <label className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-300 hover:border-blue-600 rounded-2xl cursor-pointer bg-white transition-colors group">
+                    <svg className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">
+                      {selectedFile ? selectedFile.name : 'Click to upload PDF file'}
+                    </span>
+                    <span className="text-[10px] text-slate-400 mt-1">PDF format only</span>
+                    <input
+                      type="file"
+                      name="paperFile"
+                      accept=".pdf"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                  </label>
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-black text-xs uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(0,245,212,0.4)] hover:shadow-[0_0_30px_rgba(0,245,212,0.7)] disabled:opacity-50"
+                  className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all shadow-md hover:shadow-lg disabled:opacity-50 mt-2"
                 >
-                  {loading ? 'SUBMITTING PAPER...' : 'SUBMIT PAPER'}
+                  {loading ? 'UPLOADING MANUSCRIPT...' : 'SUBMIT MANUSCRIPT'}
                 </button>
               </form>
 
@@ -233,8 +289,8 @@ const PaperSubmission = () => {
                 <div
                   className={`mt-4 p-4 rounded-xl text-xs font-bold ${
                     feedback.type === 'success'
-                      ? 'bg-cyan-400/20 border border-cyan-400 text-cyan-300'
-                      : 'bg-red-500/20 border border-red-400 text-red-300'
+                      ? 'bg-blue-50 border border-blue-200 text-blue-900'
+                      : 'bg-red-50 border border-red-200 text-red-800'
                   }`}
                 >
                   {feedback.message}

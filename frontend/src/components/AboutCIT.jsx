@@ -1,88 +1,61 @@
 import React from 'react';
-import Counter from './Counter';
 
 const AboutCIT = () => {
-  const citHighlights = [
-    "Autonomous institution affiliated to Anna University",
-    "NAAC A+ Grade & NBA-accredited programmes",
-    "Vibrant green campus with world-class infrastructure",
-    "Centre for Entrepreneurship & Innovation",
-    "Strong alumni network across 50+ countries"
-  ];
-
   return (
-    <section id="about-cit" className="py-24 px-4 relative z-10 bg-obsidian-950/80 border-t border-white/5 overflow-hidden">
+    <section id="about-cit" className="py-24 px-4 relative z-10 bg-slate-50 border-t border-slate-200">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Visual Card */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl p-1 bg-gradient-to-br from-purple-500/30 via-cyan-500/20 to-purple-800/30 shadow-[0_0_50px_rgba(157,78,221,0.2)] hover:shadow-[0_0_60px_rgba(157,78,221,0.35)] transition-all duration-300">
-              <div className="rounded-[22px] bg-obsidian-900 overflow-hidden p-8 border border-white/10 relative min-h-[340px] flex flex-col justify-between">
-                <div className="absolute inset-0 bg-grid-cyber opacity-30 pointer-events-none" />
-                
-                <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-mono mb-4 shadow-[0_0_12px_rgba(157,78,221,0.3)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping" />
-                    <span>NAAC A+ GRADE</span>
-                  </div>
-                  <h3 className="text-3xl font-black text-white uppercase tracking-tight mb-2">
-                    CHENNAI INSTITUTE <span className="text-cyan-400 font-mono">OF TECH</span>
-                  </h3>
-                  <p className="text-gray-400 text-xs leading-relaxed">
-                    Recognised globally for technical education, research, and holistic student leadership.
-                  </p>
-                </div>
+          <div className="lg:col-span-6 space-y-6">
+            <span className="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200 shadow-sm">
+              HOST INSTITUTION
+            </span>
 
-                <div className="relative z-10 mt-12 grid grid-cols-2 gap-4 pt-6 border-t border-white/10">
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                    <div className="text-3xl font-black text-white font-mono">
-                      <Counter end={6000} suffix="+" duration={2000} />
-                    </div>
-                    <div className="text-[10px] font-bold text-gray-400 uppercase mt-1">Active Students</div>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                    <div className="text-3xl font-black text-cyan-400 font-mono">
-                      <Counter end={50} suffix="+" duration={2000} />
-                    </div>
-                    <div className="text-[10px] font-bold text-gray-400 uppercase mt-1">Global Partners</div>
-                  </div>
-                </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight">
+              Chennai Institute <span className="text-blue-600 glow-title">of Technology</span>
+            </h2>
 
+            <p className="text-base sm:text-lg text-slate-900 leading-relaxed font-extrabold">
+              Chennai Institute of Technology (CIT), an Autonomous Institution affiliated with Anna University, Tamil Nadu, was established with the objective of providing quality technical education with rich industrial exposure to cater to the evolving needs of the youth through innovative teaching methodologies.
+            </p>
+
+            <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+              Beyond interactive classroom scenarios, periodic guest lectures and symposia led by industry stalwarts and academic pioneers inspire students to learn and prepare for ready-to-serve industrial and research requirements with uncompromised professional ethics.
+            </p>
+
+            <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+              Accredited with an <strong className="text-slate-900 font-extrabold">NAAC A+ Grade</strong> and ranked prominently in NIRF Engineering rankings, CIT fosters a premier ecosystem of innovation, state-of-the-art research Centers of Excellence, and global academic partnerships.
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
+                <div className="text-2xl font-black text-blue-600 font-mono">NAAC A+</div>
+                <div className="text-xs font-bold text-slate-600 uppercase mt-1">Accredited Grade</div>
+              </div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
+                <div className="text-2xl font-black text-amber-500 font-mono">NIRF Top</div>
+                <div className="text-xs font-bold text-slate-600 uppercase mt-1">Engineering Rank</div>
+              </div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-center col-span-2 sm:col-span-1">
+                <div className="text-2xl font-black text-blue-600 font-mono">25+</div>
+                <div className="text-xs font-bold text-slate-600 uppercase mt-1">Centers of Excellence</div>
               </div>
             </div>
           </div>
 
-          {/* Text Information */}
-          <div className="lg:col-span-7 space-y-6">
-            <div>
-              <span className="text-xs font-extrabold tracking-widest text-purple-400 uppercase bg-purple-500/10 px-3.5 py-1.5 rounded-full border border-purple-500/20 shadow-[0_0_15px_rgba(157,78,221,0.15)]">
-                HOST INSTITUTION
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-4">
-                Chennai Institute of <span className="text-cyan-400 glow-subtle">Technology</span>
-              </h2>
-            </div>
-
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-              Chennai Institute of Technology (CIT), established in 1956, is one of Tamil Nadu's oldest and most respected technical institutions. Affiliated to Anna University, CIT is an Autonomous institution recognised for academic excellence, innovation, and holistic development.
-            </p>
-
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Nestled in Chennai — the "Manchester of South India" — CIT's vibrant campus is home to over 6,000 students across undergraduate and postgraduate engineering programmes.
-            </p>
-
-            <div className="space-y-3 pt-2">
-              {citHighlights.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 group">
-                  <div className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
-                    </svg>
-                  </div>
-                  <span className="text-sm font-semibold text-gray-200 group-hover:text-cyan-300 transition-colors">{item}</span>
+          <div className="lg:col-span-6">
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800"
+                alt="Chennai Institute of Technology Campus"
+                className="w-full h-96 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
+                <div className="text-white">
+                  <div className="text-xs font-mono font-bold text-amber-400">SARATHY NAGAR, CHENNAI</div>
+                  <div className="text-lg sm:text-xl font-extrabold">State-of-the-Art Academic Campus</div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
 

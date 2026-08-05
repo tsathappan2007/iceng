@@ -1,129 +1,123 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const AimScope = () => {
-  const scopeTopics = [
-    "Artificial Intelligence & ML", "Cloud & Edge Computing", "Cybersecurity",
-    "IoT & Embedded Systems", "Data Science & Analytics", "Wireless & 5G Networks",
-    "VLSI Design", "Renewable Energy Systems", "Robotics & Automation",
-    "Blockchain Technology", "Smart Healthcare", "Natural Language Processing",
-    "Computer Vision", "Software Engineering", "Green Computing", "Digital Signal Processing"
+  const domains = [
+    {
+      title: "Artificial Intelligence & ML",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>
+      ),
+      desc: "Deep learning architectures, generative AI models, explainable AI (XAI), computer vision, NLP, and reinforcement learning applications.",
+      tracks: ["Generative AI & LLMs", "Computer Vision & Pattern Rec", "AI in Healthcare & Bio-tech", "Autonomous Systems"]
+    },
+    {
+      title: "Next-Gen Networks & 6G",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+        </svg>
+      ),
+      desc: "Software-defined networking (SDN), 5G/6G wireless communications, edge computing, optical networks, and satellite communication protocols.",
+      tracks: ["6G Wireless Architectures", "Edge & Fog Computing", "Software-Defined Networking", "Optical Communication"]
+    },
+    {
+      title: "Cybersecurity & Cryptography",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      desc: "Zero-trust network security, post-quantum cryptography, threat intelligence, privacy-preserving machine learning, and cloud security frameworks.",
+      tracks: ["Post-Quantum Cryptography", "Zero Trust Architecture", "Threat Detection & AI", "Blockchain & Decentralized Tech"]
+    },
+    {
+      title: "Cloud & Distributed Systems",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+      ),
+      desc: "Cloud-native computing, microservices architecture, serverless paradigms, distributed data engines, and fault-tolerant computing grids.",
+      tracks: ["Serverless & Cloud-Native", "Distributed Consensus", "High-Performance Computing", "Quantum Cloud Services"]
+    },
+    {
+      title: "Internet of Things & Smart Cities",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      ),
+      desc: "Smart sensor networks, industrial IoT (IIoT), smart grid management, intelligent transportation systems, and urban digital twins.",
+      tracks: ["Industrial IoT (IIoT)", "Smart Grids & Sustainability", "Urban Digital Twins", "Wearable Sensor Networks"]
+    },
+    {
+      title: "Data Science & Analytics",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+        </svg>
+      ),
+      desc: "Big Data processing pipelines, predictive analytics, graph databases, streaming data engines, and data-driven decision frameworks.",
+      tracks: ["Big Data Processing", "Graph Analytics & Knowledge Graphs", "Predictive Analytics", "Real-Time Data Streaming"]
+    }
   ];
 
-  // 3D Card Tilt state
-  const [tilt1, setTilt1] = useState({ x: 0, y: 0 });
-  const [tilt2, setTilt2] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e, setTilt) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    setTilt({ x: (y / (rect.height / 2)) * -8, y: (x / (rect.width / 2)) * 8 });
-  };
-
-  const handleMouseLeave = (setTilt) => {
-    setTilt({ x: 0, y: 0 });
-  };
-
   return (
-    <section id="aim" className="py-24 px-4 relative z-10 bg-[#060b19]/90 border-t border-cyan-500/15 overflow-hidden">
-      {/* Background glowing ambient beam */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
-
+    <section id="domains" className="py-24 px-4 relative z-10 bg-slate-50 border-t border-slate-200">
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
         <div className="text-center mb-16 reveal">
-          <span className="text-xs font-extrabold tracking-widest text-cyan-400 uppercase bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(0,245,212,0.15)]">
-            PURPOSE & DOMAINS
+          <span className="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
+            RESEARCH SCOPE
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-4 mb-4">
-            Aim &amp; <span className="text-cyan-400 glow-subtle">Scope</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight mt-4 mb-4">
+            Conference <span className="text-blue-600 glow-title">Domains</span>
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            ICAINGCIT 2027 brings together researchers, educators, engineers, and industry professionals to share knowledge and advance innovation across core engineering and computing disciplines.
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            ICAINGCIT 2027 invites original research papers across six core tracks shaping the future of computing and information technology.
           </p>
         </div>
 
-        {/* Aim & Scope Grid with 3D Tilt */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-1000">
-          
-          {/* Conference Aim Card */}
-          <div
-            onMouseMove={(e) => handleMouseMove(e, setTilt1)}
-            onMouseLeave={() => handleMouseLeave(setTilt1)}
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt1.x}deg) rotateY(${tilt1.y}deg)`,
-              transition: 'transform 0.15s ease-out',
-            }}
-            className="p-8 rounded-3xl bg-[#0a1128] border border-cyan-500/20 hover:border-cyan-400/60 backdrop-blur-xl transition-all duration-300 shadow-2xl hover:shadow-[0_0_35px_rgba(0,245,212,0.2)] group reveal flex flex-col justify-between"
-          >
-            <div>
-              <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-[0_0_20px_rgba(0,245,212,0.3)]">
-                <svg className="w-7 h-7" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                </svg>
+        {/* Domain Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+          {domains.map((domain, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-3xl bg-white border border-slate-200/80 hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between group"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                  {domain.icon}
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  {domain.title}
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-6">
+                  {domain.desc}
+                </p>
               </div>
 
-              <h3 className="text-2xl font-bold text-white uppercase tracking-wider mb-4 group-hover:text-cyan-300 transition-colors">
-                Conference Aim
-              </h3>
-
-              <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                To provide an international forum for academics, researchers, and industry practitioners to exchange ideas, present original findings, and foster collaborations that drive technological progress across engineering, computing, and information technology domains.
-              </p>
-
-              <p className="text-slate-400 text-xs leading-relaxed">
-                The conference aims to bridge the gap between theoretical research and practical applications, nurturing the next generation of innovators and thought leaders.
-              </p>
+              <div>
+                <div className="text-[10px] font-extrabold tracking-widest text-slate-400 uppercase mb-2">
+                  KEY TRACKS
+                </div>
+                <ul className="space-y-1.5">
+                  {domain.tracks.map((track, tIdx) => (
+                    <li key={tIdx} className="text-[11px] text-slate-700 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                      <span>{track}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-
-            <div className="mt-8 pt-6 border-t border-cyan-500/20 flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider group-hover:text-cyan-300">
-              <span>EXPLORE RESEARCH TRACKS</span>
-              <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-              </svg>
-            </div>
-          </div>
-
-          {/* Scope of Topics Card */}
-          <div
-            onMouseMove={(e) => handleMouseMove(e, setTilt2)}
-            onMouseLeave={() => handleMouseLeave(setTilt2)}
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt2.x}deg) rotateY(${tilt2.y}deg)`,
-              transition: 'transform 0.15s ease-out',
-            }}
-            className="p-8 rounded-3xl bg-[#0a1128] border border-cyan-500/20 hover:border-cyan-400/60 backdrop-blur-xl transition-all duration-300 shadow-2xl hover:shadow-[0_0_35px_rgba(0,245,212,0.2)] group reveal"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-              <svg className="w-7 h-7" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
-              </svg>
-            </div>
-
-            <h3 className="text-2xl font-bold text-white uppercase tracking-wider mb-3 group-hover:text-cyan-300 transition-colors">
-              Scope of Topics
-            </h3>
-
-            <p className="text-slate-300 text-xs mb-6">
-              ICAINGCIT 2027 welcomes original research across, but not limited to, the following core domains:
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {scopeTopics.map((topic, idx) => (
-                <span
-                  key={idx}
-                  style={{ animationDelay: `${(idx % 4) * 0.4}s` }}
-                  className="px-3 py-1.5 rounded-lg bg-blue-950/40 border border-cyan-500/20 hover:border-cyan-400 hover:bg-cyan-400 hover:text-slate-950 text-slate-300 text-xs font-semibold tracking-wide transition-all transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(0,245,212,0.3)] cursor-pointer"
-                >
-                  {topic}
-                </span>
-              ))}
-            </div>
-          </div>
-
+          ))}
         </div>
+
       </div>
     </section>
   );

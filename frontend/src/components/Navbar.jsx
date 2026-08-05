@@ -128,21 +128,21 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         
-        {/* Ultra-Thin Thinned Border Frame for Premium Minimalist Look */}
-        <div className="border-b border-x border-cyan-500/25 rounded-t-none rounded-b-[34px] shadow-[0_10px_30px_rgba(0,245,212,0.12)]">
+        {/* Thinned Light Border Frame for Executive Look */}
+        <div className="border-b border-x border-slate-200/90 rounded-t-none rounded-b-[34px] shadow-[0_10px_30px_rgba(0,0,0,0.06)] bg-white/95 backdrop-blur-2xl">
           
           {/* Inner Top-Flush Curved Header Bar */}
-          <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 bg-[#060b19]/98 backdrop-blur-3xl rounded-t-none rounded-b-[32px]">
+          <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-t-none rounded-b-[32px]">
             
             {/* Brand Logo */}
             <Link to="/" className="flex flex-col items-center justify-center text-center group shrink-0 mr-4 xl:mr-8" onClick={closeMenu}>
               <div className="font-logo-wide font-black text-lg sm:text-xl select-none flex items-center gap-0.5 leading-none">
-                <span className="text-white group-hover:text-cyan-300 transition-colors">ICAING</span>
-                <span className="text-cyan-400 font-black drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">CIT</span>
+                <span className="text-slate-900 group-hover:text-blue-600 transition-colors">ICAING</span>
+                <span className="text-blue-600 font-black">CIT</span>
               </div>
 
               {/* Perfectly centered 2027 subtext */}
-              <span className="text-[9px] font-mono font-extrabold text-blue-400 uppercase leading-none mt-1 tracking-[0.38em] text-center w-full pl-[0.38em]">
+              <span className="text-[9px] font-mono font-extrabold text-amber-500 uppercase leading-none mt-1 tracking-[0.38em] text-center w-full pl-[0.38em]">
                 2027
               </span>
             </Link>
@@ -164,8 +164,8 @@ const Navbar = () => {
                       onClick={closeMenu}
                       className={`relative inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 rounded-full text-[11px] xl:text-xs font-extrabold tracking-wider uppercase transition-all duration-300 ${
                         isActive
-                          ? 'bg-cyan-950/40 text-cyan-300 border border-cyan-400/80 shadow-[0_0_15px_rgba(0,245,212,0.25)] scale-105'
-                          : 'text-gray-300 hover:text-white hover:bg-blue-900/20 border border-transparent'
+                          ? 'bg-blue-50 text-blue-700 border border-blue-600/40 shadow-sm scale-105'
+                          : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100/80 border border-transparent'
                       }`}
                     >
                       <span>{item.label}</span>
@@ -173,7 +173,7 @@ const Navbar = () => {
                       {item.hasDropdown && (
                         <svg
                           className={`w-3 h-3 transition-transform duration-300 group-hover:rotate-180 ${
-                            isActive ? 'text-cyan-300' : 'text-gray-400 group-hover:text-cyan-400'
+                            isActive ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-600'
                           }`}
                           fill="none"
                           stroke="currentColor"
@@ -185,11 +185,11 @@ const Navbar = () => {
 
                       {/* Centered horizontal indicator bar underneath active button */}
                       {isActive && (
-                        <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(0,245,212,1)]" />
+                        <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-amber-400 shadow-sm" />
                       )}
                     </Link>
 
-                    {/* Dark Neumorphism Popover Dropdown Box */}
+                    {/* Light Neumorphism Popover Dropdown Box */}
                     {item.hasDropdown && (
                       <div
                         className={`absolute top-full left-1/2 -translate-x-1/2 w-80 pt-4 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto ${
@@ -200,38 +200,38 @@ const Navbar = () => {
                       >
                         <div className="relative">
                           {/* Top Arrow Pointer Beak */}
-                          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#0a1128] border-t border-l border-cyan-500/30 rotate-45 z-30 shadow-md" />
+                          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-slate-200 rotate-45 z-30 shadow-sm" />
 
-                          {/* Dark Soft Container */}
-                          <div className="p-4 rounded-3xl bg-[#0a1128] border border-cyan-500/20 shadow-[18px_18px_45px_rgba(0,0,0,0.95),_-6px_-6px_25px_rgba(255,255,255,0.02)] space-y-2 relative overflow-hidden backdrop-blur-3xl">
+                          {/* Light Soft Container */}
+                          <div className="p-4 rounded-3xl bg-white border border-slate-200 shadow-2xl space-y-2 relative overflow-hidden backdrop-blur-3xl">
                             
-                            <div className="absolute top-0 left-0 right-0 h-[2px] bg-cyan-400" />
+                            <div className="absolute top-0 left-0 right-0 h-[2px] bg-blue-600" />
 
                             {item.dropdown.map((sub, sIdx) => (
                               <Link
                                 key={sIdx}
                                 to={sub.path}
                                 onClick={closeMenu}
-                                className="flex items-center justify-between p-3 rounded-2xl bg-[#0e1738] hover:bg-blue-900/40 border border-blue-500/20 hover:border-cyan-400/50 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.04),_0_4px_12px_rgba(0,0,0,0.6)] transition-all duration-200 group/sub relative z-10 hover:translate-x-1"
+                                className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 hover:bg-blue-50 border border-slate-200/70 hover:border-blue-300 shadow-sm transition-all duration-200 group/sub relative z-10 hover:translate-x-1"
                               >
                                 <div className="flex items-center gap-3">
-                                  <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center group-hover/sub:bg-cyan-400 group-hover/sub:text-slate-950 transition-all shrink-0">
+                                  <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover/sub:bg-blue-600 group-hover/sub:text-white transition-all shrink-0">
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       {sub.svg}
                                     </svg>
                                   </div>
 
                                   <div className="space-y-0.5 text-left">
-                                    <div className="text-xs font-extrabold text-white group-hover/sub:text-cyan-300 transition-colors tracking-wide">
+                                    <div className="text-xs font-extrabold text-slate-900 group-hover/sub:text-blue-600 transition-colors tracking-wide">
                                       {sub.title}
                                     </div>
-                                    <div className="text-[10px] text-gray-400 leading-tight">
+                                    <div className="text-[10px] text-slate-500 leading-tight">
                                       {sub.desc}
                                     </div>
                                   </div>
                                 </div>
 
-                                <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-600/30 text-cyan-300 border border-cyan-500/30 group-hover/sub:bg-cyan-400 group-hover/sub:text-slate-950 group-hover/sub:border-cyan-400 shrink-0 ml-2 shadow-sm transition-colors">
+                                <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 group-hover/sub:bg-blue-600 group-hover/sub:text-white shrink-0 ml-2 shadow-sm transition-colors">
                                   {sub.tag}
                                 </span>
                               </Link>
@@ -249,7 +249,7 @@ const Navbar = () => {
               <Link
                 to="/registration"
                 onClick={closeMenu}
-                className="ml-2 xl:ml-3 px-4.5 py-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(0,245,212,0.4)] hover:shadow-[0_0_30px_rgba(0,245,212,0.7)] transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                className="ml-2 xl:ml-3 px-4.5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
               >
                 REGISTER NOW
               </Link>
@@ -257,7 +257,7 @@ const Navbar = () => {
 
             {/* Mobile Hamburger Button */}
             <button
-              className="lg:hidden p-2 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-white focus:outline-none"
+              className="lg:hidden p-2 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-950 focus:outline-none"
               onClick={toggleMenu}
               aria-label="Toggle navigation menu"
             >
@@ -278,20 +278,20 @@ const Navbar = () => {
       {/* Mobile Menu Drawer */}
       {menuOpen && (
         <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2">
-          <div className="bg-[#060b19]/98 backdrop-blur-2xl border border-cyan-500/20 rounded-3xl p-6 space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
+          <div className="bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-3xl p-6 space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
             {navItems.map((item, idx) => (
-              <div key={idx} className="border-b border-white/5 pb-3">
-                <div className="flex items-center justify-between py-1 text-xs font-extrabold tracking-widest text-cyan-400 uppercase">
+              <div key={idx} className="border-b border-slate-100 pb-3">
+                <div className="flex items-center justify-between py-1 text-xs font-extrabold tracking-widest text-blue-600 uppercase">
                   <Link to={item.path} onClick={closeMenu}>{item.label}</Link>
                 </div>
                 {item.hasDropdown && (
-                  <div className="pl-3 mt-2 space-y-2 border-l border-white/10">
+                  <div className="pl-3 mt-2 space-y-2 border-l border-slate-200">
                     {item.dropdown.map((sub, sIdx) => (
                       <Link
                         key={sIdx}
                         to={sub.path}
                         onClick={closeMenu}
-                        className="block text-xs font-semibold text-gray-300 hover:text-white py-1"
+                        className="block text-xs font-semibold text-slate-600 hover:text-blue-600 py-1"
                       >
                         {sub.title}
                       </Link>
@@ -304,7 +304,7 @@ const Navbar = () => {
             <Link
               to="/registration"
               onClick={closeMenu}
-              className="block text-center mt-4 px-5 py-3 rounded-full bg-cyan-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-xl"
+              className="block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
             >
               REGISTER NOW
             </Link>

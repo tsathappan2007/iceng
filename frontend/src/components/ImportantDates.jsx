@@ -1,81 +1,104 @@
 import React from 'react';
 
 const ImportantDates = () => {
-  const dates = [
-    { month: "JUL", day: "15", year: "2026", title: "Abstract Submission Opens", desc: "Portal opens for abstract submissions", status: "passed" },
-    { month: "SEP", day: "30", year: "2026", title: "Abstract Submission Deadline", desc: "Final date for abstract submissions", status: "passed" },
-    { month: "OCT", day: "31", year: "2026", title: "Full Paper Submission", desc: "Deadline for full manuscript (6–8 pages IEEE format)", status: "upcoming" },
-    { month: "DEC", day: "15", year: "2026", title: "Acceptance Notification", desc: "Authors notified of acceptance/rejection", status: "upcoming" },
-    { month: "JAN", day: "15", year: "2027", title: "Camera-Ready Submission", desc: "Final revised paper due", status: "upcoming" },
-    { month: "JAN", day: "31", year: "2027", title: "Early Bird Registration", desc: "Discounted registration closes", status: "upcoming" },
-    { month: "FEB", day: "28", year: "2027", title: "Regular Registration", desc: "Standard registration deadline", status: "upcoming" },
-    { month: "MAR", day: "15", year: "2027", title: "Conference Begins", desc: "Three days of sessions, workshops & keynotes", status: "highlight" },
+  const milestones = [
+    {
+      title: "Full Paper Submission Deadline",
+      date: "December 31, 2026",
+      status: "OPEN",
+      desc: "Submit complete manuscript formatted as per IEEE double-column template.",
+      active: true
+    },
+    {
+      title: "Notification of Acceptance",
+      date: "January 20, 2027",
+      status: "UPCOMING",
+      desc: "Peer review results and decision letters dispatched to corresponding authors.",
+      active: false
+    },
+    {
+      title: "Camera-Ready Submission & Early Bird",
+      date: "January 31, 2027",
+      status: "UPCOMING",
+      desc: "Final revised paper upload and early registration discount deadline.",
+      active: false
+    },
+    {
+      title: "Conference Registration Deadline",
+      date: "February 15, 2027",
+      status: "UPCOMING",
+      desc: "Mandatory author registration deadline for inclusion in IEEE Xplore proceedings.",
+      active: false
+    },
+    {
+      title: "ICAINGCIT 2027 Conference",
+      date: "March 15–17, 2027",
+      status: "EVENT DATES",
+      desc: "3 days of keynote sessions, technical track presentations, and workshops.",
+      active: false
+    }
   ];
 
   return (
-    <section id="dates" className="py-24 px-4 relative z-10 bg-[#060b19]/80 border-t border-cyan-500/15 overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto">
+    <section id="dates" className="py-24 px-4 relative z-10 bg-slate-50 border-t border-slate-200">
+      <div className="max-w-5xl mx-auto">
         
         {/* Section Header */}
         <div className="text-center mb-16 reveal">
-          <span className="text-xs font-extrabold tracking-widest text-cyan-400 uppercase bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(0,245,212,0.15)]">
-            TIMELINE & DEADLINES
+          <span className="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
+            TIMELINE & MILESTONES
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-4 mb-4">
-            Important <span className="text-cyan-400 glow-subtle">Dates</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight mt-4 mb-4">
+            Important <span className="text-blue-600 glow-title">Dates</span>
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Mark these key dates on your calendar. All deadlines are at 23:59 IST (UTC+5:30).
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Mark your calendar with key submission, review, and registration deadlines.
           </p>
         </div>
 
-        {/* Timeline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
-          {dates.map((item, idx) => (
+        {/* Milestone Timeline List */}
+        <div className="space-y-4 reveal">
+          {milestones.map((m, idx) => (
             <div
               key={idx}
-              className={`p-6 rounded-3xl border backdrop-blur-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
-                item.status === 'highlight'
-                  ? 'bg-[#0e1738] border-cyan-400 shadow-[0_0_30px_rgba(0,245,212,0.25)] scale-105'
-                  : 'bg-[#0a1128] border-cyan-500/20 hover:border-cyan-400/60 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,245,212,0.15)]'
+              className={`p-6 rounded-3xl bg-white border transition-all duration-300 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
+                m.active
+                  ? 'border-blue-600 shadow-md ring-1 ring-blue-600'
+                  : 'border-slate-200/80 hover:border-slate-300'
               }`}
             >
-              {/* Top accent bar */}
-              <div className={`absolute top-0 left-0 right-0 h-[3px] ${
-                item.status === 'highlight' ? 'bg-cyan-400' : 'bg-blue-600 group-hover:bg-cyan-400'
-              }`} />
-
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-black text-white font-mono group-hover:text-cyan-300 transition-colors">{item.day}</span>
-                    <span className="text-xs font-extrabold text-cyan-400 uppercase font-mono">{item.month}</span>
-                    <span className="text-[10px] text-slate-500 font-mono">'{item.year.slice(2)}</span>
-                  </div>
-                  {item.status === 'passed' ? (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">COMPLETED</span>
-                  ) : item.status === 'highlight' ? (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-400 text-slate-950 animate-pulse">EVENT</span>
-                  ) : (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600/30 text-cyan-300 border border-cyan-500/30">UPCOMING</span>
-                  )}
+              <div className="flex items-start gap-4">
+                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-mono font-black text-sm shrink-0 mt-1 sm:mt-0 ${
+                  m.active
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'bg-slate-100 text-slate-700 border border-slate-200'
+                }`}>
+                  0{idx + 1}
                 </div>
 
-                <h4 className="text-base font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                  {item.title}
-                </h4>
-
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  {item.desc}
-                </p>
+                <div>
+                  <div className="flex items-center gap-3 mb-1">
+                    <h3 className="text-base font-extrabold text-slate-900">
+                      {m.title}
+                    </h3>
+                    <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                      m.active
+                        ? 'bg-amber-100 text-amber-900 border-amber-300'
+                        : 'bg-slate-100 text-slate-600 border-slate-200'
+                    }`}>
+                      {m.status}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600">
+                    {m.desc}
+                  </p>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-cyan-500/20 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                <span>23:59 IST</span>
-                <span className="text-cyan-400 group-hover:text-white transition-colors">UTC+5:30</span>
+              <div className="text-left sm:text-right shrink-0">
+                <div className="text-sm font-black text-blue-600 font-mono">
+                  {m.date}
+                </div>
               </div>
             </div>
           ))}

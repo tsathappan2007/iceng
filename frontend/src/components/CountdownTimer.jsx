@@ -42,12 +42,12 @@ const CountdownTimer = ({ targetDate = "2027-03-15T09:00:00" }) => {
   ];
 
   return (
-    <div className="relative z-10 max-w-2xl mx-auto my-3 p-4 sm:p-5 rounded-3xl bg-[#0a1128] border border-cyan-500/30">
+    <div className="relative z-10 max-w-2xl mx-auto my-3 p-4 sm:p-5 rounded-3xl bg-white border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
       
       {/* Minimal Header */}
-      <div className="flex items-center justify-center gap-2 pb-3 mb-4 border-b border-cyan-500/15">
-        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-        <span className="text-[11px] sm:text-xs font-extrabold tracking-widest text-cyan-300 uppercase font-mono">
+      <div className="flex items-center justify-center gap-2 pb-3 mb-4 border-b border-slate-100">
+        <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+        <span className="text-[11px] sm:text-xs font-extrabold tracking-widest text-blue-700 uppercase font-mono">
           COUNTING TO MARCH 2027
         </span>
       </div>
@@ -63,7 +63,7 @@ const CountdownTimer = ({ targetDate = "2027-03-15T09:00:00" }) => {
             <div key={idx} className="flex flex-col items-center group relative">
               
               {/* Telemetry Capsule Base */}
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center rounded-full bg-[#060b19] border border-cyan-500/30 group-hover:border-cyan-400/80 transition-all duration-300">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center rounded-full bg-slate-50 border border-slate-200 group-hover:border-blue-500 shadow-sm transition-all duration-300">
                 
                 {/* Outer Circular SVG Progress Meter */}
                 <svg className="absolute inset-0 w-full h-full -rotate-90 p-1" viewBox="0 0 100 100">
@@ -71,7 +71,7 @@ const CountdownTimer = ({ targetDate = "2027-03-15T09:00:00" }) => {
                     cx="50"
                     cy="50"
                     r={radius}
-                    className="stroke-slate-800/60"
+                    className="stroke-slate-200"
                     strokeWidth="3.5"
                     fill="transparent"
                   />
@@ -79,7 +79,7 @@ const CountdownTimer = ({ targetDate = "2027-03-15T09:00:00" }) => {
                     cx="50"
                     cy="50"
                     r={radius}
-                    className="stroke-cyan-400 transition-all duration-1000 ease-linear"
+                    className="stroke-blue-600 transition-all duration-1000 ease-linear"
                     strokeWidth="3.5"
                     strokeDasharray={circumference}
                     strokeDashoffset={strokeDashoffset}
@@ -90,17 +90,17 @@ const CountdownTimer = ({ targetDate = "2027-03-15T09:00:00" }) => {
 
                 {/* Number Display */}
                 <div className="relative z-10 text-center flex flex-col items-center">
-                  <span className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                  <span className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
                     {unit.value}
                   </span>
                 </div>
 
                 {/* Inner Glow Center */}
-                <div className="absolute inset-2 rounded-full bg-cyan-500/5 group-hover:bg-cyan-500/10 transition-colors pointer-events-none" />
+                <div className="absolute inset-2 rounded-full bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors pointer-events-none" />
               </div>
 
               {/* Unit Label Pill */}
-              <div className="mt-2.5 px-3 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-500/20 text-[9px] font-extrabold tracking-widest text-cyan-300 uppercase font-mono group-hover:border-cyan-400/50 transition-colors">
+              <div className="mt-2.5 px-3 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[9px] font-extrabold tracking-widest text-slate-700 uppercase font-mono group-hover:border-blue-300 transition-colors">
                 {unit.label}
               </div>
             </div>
