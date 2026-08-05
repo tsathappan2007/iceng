@@ -173,3 +173,32 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+
+/* 🌟 Timeline Special Animations */
+@keyframes timelineGlow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.3), 0 0 24px rgba(37, 99, 235, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(245, 158, 11, 0.5), 0 0 38px rgba(245, 158, 11, 0.25);
+  }
+}
+
+@keyframes linePulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+.animate-timeline-glow {
+  animation: timelineGlow 3.5s infinite ease-in-out;
+}
+
+.animate-line-pulse {
+  background-size: 100% 200%;
+  animation: linePulse 4s linear infinite;
+}
+

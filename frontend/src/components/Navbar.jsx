@@ -129,8 +129,13 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         
-        {/* Thinned Light Border Frame for Executive Look */}
-        <div className="border-b border-x border-slate-200/90 rounded-t-none rounded-b-[34px] shadow-[0_10px_30px_rgba(0,0,0,0.06)] bg-white/95 backdrop-blur-2xl">
+        {/* Gradient Glow Shadow Wrapper using color #491f78 */}
+        <div className="relative group">
+          {/* Ambient Gradient Glow Layer */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#491f78]/35 via-[#491f78]/15 to-[#491f78]/35 rounded-b-[36px] blur-lg opacity-85 transition-opacity duration-500 group-hover:opacity-100" />
+          
+          {/* Main Navbar Bar */}
+          <div className="relative rounded-t-none rounded-b-[34px] shadow-[0_12px_36px_-6px_rgba(73,31,120,0.18),0_4px_16px_-2px_rgba(73,31,120,0.2)] bg-white/95 backdrop-blur-2xl">
           
           {/* Inner Top-Flush Curved Header Bar */}
           <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-t-none rounded-b-[32px]">
@@ -270,12 +275,16 @@ const Navbar = () => {
 
         </div>
 
+        </div>
+
       </div>
 
       {/* Mobile Menu Drawer */}
       {menuOpen && (
         <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2">
-          <div className="bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-3xl p-6 space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
+          <div className="relative">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#491f78]/30 via-[#491f78]/10 to-[#491f78]/30 rounded-3xl blur-lg opacity-85" />
+            <div className="relative bg-white/98 backdrop-blur-2xl rounded-3xl p-6 space-y-4 shadow-[0_12px_36px_-6px_rgba(73,31,120,0.35)] max-h-[80vh] overflow-y-auto">
             {navItems.map((item, idx) => (
               <div key={idx} className="border-b border-slate-100 pb-3">
                 <div className="flex items-center justify-between py-1 text-xs font-extrabold tracking-widest text-blue-600 uppercase">
@@ -305,6 +314,7 @@ const Navbar = () => {
             >
               REGISTER NOW
             </Link>
+          </div>
           </div>
         </div>
       )}
