@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import logoImg from '../assets/logo-Photoroom.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -135,16 +136,12 @@ const Navbar = () => {
           <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-t-none rounded-b-[32px]">
             
             {/* Brand Logo */}
-            <Link to="/" className="flex flex-col items-center justify-center text-center group shrink-0 mr-4 xl:mr-8" onClick={closeMenu}>
-              <div className="font-logo-wide font-black text-lg sm:text-xl select-none flex items-center gap-0.5 leading-none">
-                <span className="text-slate-900 group-hover:text-blue-600 transition-colors">ICAING</span>
-                <span className="text-blue-600 font-black">CIT</span>
-              </div>
-
-              {/* Perfectly centered 2027 subtext */}
-              <span className="text-[9px] font-mono font-extrabold text-amber-500 uppercase leading-none mt-1 tracking-[0.38em] text-center w-full pl-[0.38em]">
-                2027
-              </span>
+            <Link to="/" className="flex items-center shrink-0 mr-4 xl:mr-8 group py-1" onClick={closeMenu}>
+              <img 
+                src={logoImg} 
+                alt="ICAINGCIT 2027 Logo" 
+                className="h-7 sm:h-8 md:h-9.5 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
 
             {/* Desktop Navigation Links */}
