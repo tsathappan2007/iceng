@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import SideNav from './components/SideNav';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 
 // Page Imports
 import HomePage from './pages/HomePage';
@@ -44,6 +45,9 @@ const ScrollRevealController = () => {
 function AppContent() {
   return (
     <div className="relative bg-obsidian-950 text-slate-100 min-h-screen selection:bg-purple-500 selection:text-white">
+      {/* Custom Interactive Pointer Cursor */}
+      <CustomCursor />
+
       <ScrollRevealController />
 
       {/* Right Side Social & Official Season Badge */}
@@ -73,7 +77,7 @@ function AppContent() {
       <Footer />
     </div>
   );
-}
+};
 
 function App() {
   return (

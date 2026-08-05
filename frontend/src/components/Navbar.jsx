@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoImg from '../assets/logo-Photoroom.png';
 
 const Navbar = () => {
@@ -7,6 +7,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,15 +17,40 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to top on route change
+  // Handle route change and hash auto-scrolling
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    if (location.hash) {
+      const targetId = location.hash.replace('#', '');
+      setTimeout(() => {
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => {
     setMenuOpen(false);
     setActiveDropdown(null);
+  };
+
+  const handleDropdownClick = (e, path, targetId) => {
+    closeMenu();
+    if (targetId) {
+      const targetPath = path.split('#')[0];
+      if (location.pathname === targetPath) {
+        e.preventDefault();
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.history.pushState(null, '', `#${targetId}`);
+        }
+      }
+    }
   };
 
   const navItems = [
@@ -43,21 +69,24 @@ const Navbar = () => {
         { 
           title: 'Conference Overview', 
           desc: 'Prestige gathering for Next-Gen Computing', 
-          path: '/about', 
+          path: '/about#about-conf', 
+          targetId: 'about-conf',
           tag: 'INFO', 
           svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         },
         { 
           title: 'Department of IT', 
           desc: '30+ years of computing excellence at CIT', 
-          path: '/about', 
+          path: '/about#about-dept', 
+          targetId: 'about-dept',
           tag: 'DEPT', 
           svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
         },
         { 
           title: 'Host Institution', 
           desc: 'Chennai Institute of Technology (NAAC A+)', 
-          path: '/about', 
+          path: '/about#about-cit', 
+          targetId: 'about-cit',
           tag: 'CAMPUS', 
           svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
         },
@@ -83,31 +112,19 @@ const Navbar = () => {
       dropdown: [
         { 
           title: 'Keynote Speakers', 
-          desc: 'World-renowned AI & computing pioneers', 
-          path: '/council', 
-          tag: 'KEYNOTE', 
+          desc: 'Distinguished global luminaries & keynote sessions', 
+          path: '/council#speakers', 
+          targetId: 'speakers',
+          tag: 'SPEAKERS', 
           svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
         },
         { 
-          title: 'Organizing Committee', 
-          desc: 'Chief Patrons & Conference Chairs', 
-          path: '/council', 
-          tag: 'LEAD', 
+          title: 'Committee Members', 
+          desc: 'Organizing committee & track leadership', 
+          path: '/council#committee', 
+          targetId: 'committee',
+          tag: 'COMMITTEE', 
           svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        },
-        { 
-          title: 'Technical Programme', 
-          desc: 'TPC Chairs & Domain Track Leads', 
-          path: '/council', 
-          tag: 'TPC', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        },
-        { 
-          title: 'Advisory Board', 
-          desc: 'Distinguished international academic leaders', 
-          path: '/council', 
-          tag: 'BOARD', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
         },
       ],
     },
@@ -135,7 +152,7 @@ const Navbar = () => {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-[#491f78]/35 via-[#491f78]/15 to-[#491f78]/35 rounded-b-[36px] blur-lg opacity-85 transition-opacity duration-500 group-hover:opacity-100" />
           
           {/* Main Navbar Bar */}
-          <div className="relative rounded-t-none rounded-b-[34px] shadow-[0_12px_36px_-6px_rgba(73,31,120,0.18),0_4px_16px_-2px_rgba(73,31,120,0.2)] bg-white/95 backdrop-blur-2xl">
+          <div className="relative rounded-t-none rounded-b-[34px] shadow-[0_12px_36px_-6px_rgba(73,31,120,0.35),0_4px_16px_-2px_rgba(73,31,120,0.2)] bg-white/95 backdrop-blur-2xl">
           
           {/* Inner Top-Flush Curved Header Bar */}
           <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-t-none rounded-b-[32px]">
@@ -152,7 +169,7 @@ const Navbar = () => {
             {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-2 xl:gap-4">
               {navItems.map((item, idx) => {
-                const isActive = location.pathname === item.path;
+                const isActive = location.pathname === item.path || (item.id === 'council' && location.pathname.startsWith('/council')) || (item.id === 'about' && location.pathname.startsWith('/about'));
 
                 return (
                   <div
@@ -174,8 +191,8 @@ const Navbar = () => {
                       
                       {item.hasDropdown && (
                         <svg
-                          className={`w-3 h-3 transition-transform duration-300 group-hover:rotate-180 ${
-                            isActive ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-600'
+                          className={`w-3.5 h-3.5 transition-transform duration-300 hover:rotate-180 cursor-pointer ${
+                            isActive ? 'text-blue-600' : 'text-slate-400 hover:text-blue-600'
                           }`}
                           fill="none"
                           stroke="currentColor"
@@ -213,7 +230,7 @@ const Navbar = () => {
                               <Link
                                 key={sIdx}
                                 to={sub.path}
-                                onClick={closeMenu}
+                                onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
                                 className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 hover:bg-blue-50 border border-slate-200/70 hover:border-blue-300 shadow-sm transition-all duration-200 group/sub relative z-10 hover:translate-x-1"
                               >
                                 <div className="flex items-center gap-3">
@@ -296,7 +313,7 @@ const Navbar = () => {
                       <Link
                         key={sIdx}
                         to={sub.path}
-                        onClick={closeMenu}
+                        onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
                         className="block text-xs font-semibold text-slate-600 hover:text-blue-600 py-1"
                       >
                         {sub.title}

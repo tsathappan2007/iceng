@@ -145,7 +145,7 @@ const ImportantDates = () => {
           </div>
         </div>
 
-        {/* View Toggle Tabs with Smooth Scale Effect */}
+        {/* View Toggle Tabs */}
         <div className="flex justify-center">
           <div className="flex flex-wrap items-center justify-center gap-2 bg-white p-2 rounded-full border border-slate-200 shadow-sm">
             <button
@@ -171,7 +171,7 @@ const ImportantDates = () => {
           </div>
         </div>
 
-        {/* Major Milestones Summary Grid View with Stagger & Hover Elevation */}
+        {/* Major Milestones Summary Grid View */}
         {activeTab === 'milestones' && (
           <div className="space-y-6 transition-all duration-500">
             <div className="text-center">
@@ -227,14 +227,34 @@ const ImportantDates = () => {
           </div>
         )}
 
-        {/* Full Roadmap Vertical Animated Timeline View */}
+        {/* Full Roadmap Vertical Curved Dotted Timeline View */}
         {activeTab === 'roadmap' && (
           <div className="relative max-w-4xl mx-auto space-y-6 transition-all duration-500">
             
-            {/* Center Animated Pulsing Flow Line */}
-            <div className="absolute left-4 sm:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-blue-500 via-amber-400 to-purple-600 -translate-x-1/2 hidden sm:block opacity-60 rounded-full animate-line-pulse" />
+            {/* Animated Winding Curved Dotted Line SVG (Desktop & Tablet) */}
+            <svg className="absolute left-0 top-6 bottom-6 w-full h-[calc(100%-3rem)] pointer-events-none hidden sm:block z-10 overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+              <defs>
+                <linearGradient id="curved-dotted-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#2563eb" />
+                  <stop offset="35%" stopColor="#3b82f6" />
+                  <stop offset="70%" stopColor="#f59e0b" />
+                  <stop offset="100%" stopColor="#9333ea" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M 500,10 C 570,110 430,190 500,290 C 570,390 430,490 500,590 C 570,690 430,790 500,890 C 540,940 460,980 500,990"
+                fill="none"
+                stroke="url(#curved-dotted-gradient)"
+                strokeWidth="4"
+                strokeDasharray="9 9"
+                className="animate-dash-flow opacity-80"
+              />
+            </svg>
 
-            <div className="space-y-8">
+            {/* Mobile Vertical Dotted Line */}
+            <div className="absolute left-4 top-4 bottom-4 w-0.5 border-l-2 border-dashed border-blue-400/80 sm:hidden z-10" />
+
+            <div className="space-y-8 relative z-20">
               {fullTimeline.map((item, idx) => (
                 <div
                   key={idx}
@@ -243,10 +263,10 @@ const ImportantDates = () => {
                   }`}
                 >
                   
-                  {/* Center Node Bullet with Animated Ping Aura */}
-                  <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border-4 border-blue-600 shadow-lg hidden sm:flex items-center justify-center z-20 group-hover:scale-125 group-hover:border-amber-400 transition-all duration-300">
-                    <div className="w-3 h-3 rounded-full bg-blue-600 group-hover:bg-amber-400 transition-colors animate-pulse" />
-                    <span className="absolute -inset-1 rounded-full border border-blue-400/40 animate-ping pointer-events-none opacity-40 group-hover:opacity-100" />
+                  {/* Center Node Bullet with Animated Spinning Dotted Ring */}
+                  <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border-4 border-blue-600 shadow-xl hidden sm:flex items-center justify-center z-30 group-hover:scale-125 group-hover:border-amber-400 transition-all duration-300">
+                    <div className="w-3.5 h-3.5 rounded-full bg-blue-600 group-hover:bg-amber-400 transition-colors animate-pulse" />
+                    <span className="absolute -inset-1.5 rounded-full border-2 border-dashed border-blue-400/60 animate-spin pointer-events-none opacity-60 group-hover:opacity-100" style={{ animationDuration: '6s' }} />
                   </div>
 
                   {/* Date Badge Side Column */}

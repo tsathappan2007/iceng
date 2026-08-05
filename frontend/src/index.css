@@ -202,3 +202,40 @@ h1, h2, h3, h4, h5, h6 {
   animation: linePulse 4s linear infinite;
 }
 
+/* 🌟 Pure Neumorphism (Soft UI) Styling */
+.neu-flat {
+  background: #f1f5f9;
+  box-shadow: 10px 10px 24px rgba(148, 163, 184, 0.35), -10px -10px 24px #ffffff;
+}
+
+.neu-pressed {
+  background: #f1f5f9;
+  box-shadow: inset 6px 6px 12px rgba(148, 163, 184, 0.4), inset -6px -6px 12px #ffffff;
+}
+
+.neu-convex {
+  background: linear-gradient(145deg, #ffffff, #e2e8f0);
+  box-shadow: 6px 6px 14px rgba(148, 163, 184, 0.35), -6px -6px 14px #ffffff;
+}
+
+.neu-dial {
+  background: linear-gradient(145deg, #ffffff, #e6edf5);
+  box-shadow: 8px 8px 16px rgba(148, 163, 184, 0.3), -8px -8px 16px #ffffff;
+}
+
+/* 🌟 Dotted Curved Line Dash Flow Animation */
+@keyframes dashFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.animate-dash-flow {
+  animation: dashFlow 1.8s linear infinite;
+}
+
+
+
