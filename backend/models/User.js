@@ -10,12 +10,14 @@ const registrationSchema = new mongoose.Schema(
 
     email: { 
       type: String, 
-      required: true 
+      required: true,
+      unique: true
     },
 
     phone: { 
       type: String, 
-      required: true 
+      required: true,
+      unique: true
     },
 
     institution: { 
@@ -29,7 +31,9 @@ const registrationSchema = new mongoose.Schema(
     },
 
     dietary: { 
-      type: String 
+      type: String,
+      enum: ['Vegetarian', 'Non-Vegetarian'],
+      default: 'Vegetarian'
     },
     
     createdAt: { type: Date, default: Date.now }
