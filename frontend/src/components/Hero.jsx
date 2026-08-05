@@ -21,7 +21,7 @@ const Hero = () => {
         <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-300 mb-4 shadow-sm animate-symphony-badge delay-100">
           <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping" />
           <span className="text-[11px] sm:text-xs font-black tracking-widest text-blue-950 uppercase font-mono">
-            15–17 MARCH 2027 &nbsp;·&nbsp; CHENNAI, INDIA
+            15–17 JULY 2027 &nbsp;·&nbsp; CHENNAI, INDIA
           </span>
         </div>
 
