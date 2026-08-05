@@ -225,15 +225,15 @@ const PaperSubmission = () => {
                       id="p-track"
                       name="track"
                       required
-                      defaultValue="AI & ML"
+                      defaultValue="Track 1: Artificial Intelligence & Machine Learning"
                       className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     >
-                      <option value="AI & ML">Track 1: Artificial Intelligence & ML</option>
-                      <option value="Networks">Track 2: Next-Gen Networks & 6G</option>
-                      <option value="Cybersecurity">Track 3: Cybersecurity & Cryptography</option>
-                      <option value="Cloud">Track 4: Cloud & Distributed Systems</option>
-                      <option value="IoT">Track 5: Internet of Things & Smart Cities</option>
-                      <option value="Data Science">Track 6: Data Science & Analytics</option>
+                      <option value="Track 1: Artificial Intelligence & Machine Learning">Track 1: Artificial Intelligence &amp; Machine Learning</option>
+                      <option value="Track 2: Data Science & Intelligent Analytics">Track 2: Data Science &amp; Intelligent Analytics</option>
+                      <option value="Track 3: Next-Generation Computing">Track 3: Next-Generation Computing</option>
+                      <option value="Track 4: Cybersecurity & Blockchain">Track 4: Cybersecurity &amp; Blockchain</option>
+                      <option value="Track 5: IoT & Intelligent Systems">Track 5: IoT &amp; Intelligent Systems</option>
+                      <option value="Track 6: Emerging Technologies">Track 6: Emerging Technologies</option>
                     </select>
                   </div>
                 </div>
