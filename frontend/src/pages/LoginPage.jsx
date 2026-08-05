@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo-Photoroom.png';
+import butterflyLogo from '../assets/butterfly-cit.png';
 
 const LoginPage = () => {
   const [mode, setMode] = useState('login'); // 'login' | 'signup'
@@ -82,12 +83,19 @@ const LoginPage = () => {
         {/* Main Split Layout Container — Pure Executive Light Theme */}
         <div className="bg-white rounded-[36px] border border-slate-200/90 shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[750px]">
           
-          {/* ================= LEFT SIDE: Executive Light Redesign (Vector SVG Icons) ================= */}
+          {/* ================= LEFT SIDE: Executive Light Redesign ================= */}
           <div className="lg:col-span-6 p-8 sm:p-12 bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 text-slate-900 border-r border-slate-200/90 relative flex flex-col justify-between overflow-hidden">
             
             {/* Background Ambient Blur Orbs */}
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -top-20 -right-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-20 -right-30 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Watermark Butterfly Logo positioned in Bottom-Left Corner (Unchanged) */}
+            <img
+              src={butterflyLogo}
+              alt="Conference Watermark Logo"
+              className="absolute -bottom-20 -left-20 sm:-bottom-24 sm:-left-24 lg:-bottom-28 lg:-left-28 w-[400px] sm:w-[500px] lg:w-[580px] max-w-none h-auto object-contain opacity-35 pointer-events-none select-none z-0"
+            />
 
             <div className="relative z-10 space-y-7">
               
@@ -119,13 +127,13 @@ const LoginPage = () => {
                 </p>
               </div>
 
-              {/* 6 Executive Theme Cards Grid (SVG Icons, NO EMOJIS, NO DESCRIPTIONS) */}
+              {/* 6 Executive Theme Cards Grid (Glassmorphism with High Transparency) */}
               <div className="space-y-3 pt-1">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest flex items-center gap-2">
                     <span>CALL FOR PAPERS • DOMAINS</span>
                   </h3>
-                  <span className="text-[10px] font-mono text-slate-500 font-extrabold uppercase bg-white px-2.5 py-0.5 rounded-full border border-slate-200 shadow-sm">
+                  <span className="text-[10px] font-mono text-slate-600 font-extrabold uppercase bg-white/50 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/80 shadow-sm">
                     6 TRACKS
                   </span>
                 </div>
@@ -134,18 +142,18 @@ const LoginPage = () => {
                   {conferenceThemes.map((theme, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden"
+                      className="p-4 rounded-2xl bg-white/40 backdrop-blur-md border border-white/80 shadow-md shadow-slate-200/40 hover:bg-white/65 hover:border-blue-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden"
                     >
                       <div className={`absolute inset-0 bg-gradient-to-br ${theme.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
 
                       <div className="relative z-10 space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                          <span className="w-9 h-9 rounded-xl bg-blue-50/70 backdrop-blur-sm border border-blue-200/60 text-blue-600 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               {theme.svg}
                             </svg>
                           </span>
-                          <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[9px] font-mono font-black tracking-wider uppercase border border-blue-200">
+                          <span className="px-2.5 py-0.5 rounded-full bg-blue-50/70 backdrop-blur-sm text-blue-700 text-[9px] font-mono font-black tracking-wider uppercase border border-blue-200/60">
                             {theme.code}
                           </span>
                         </div>
@@ -155,7 +163,7 @@ const LoginPage = () => {
                         </h4>
                       </div>
 
-                      <div className="relative z-10 pt-2 mt-2 border-t border-slate-100 flex items-center justify-between text-[9px] font-mono font-extrabold text-slate-400 uppercase tracking-wider">
+                      <div className="relative z-10 pt-2 mt-2 border-t border-slate-200/60 flex items-center justify-between text-[9px] font-mono font-extrabold text-slate-500 uppercase tracking-wider">
                         <span>{theme.tag}</span>
                         <span className="text-blue-500 group-hover:translate-x-1 transition-transform">→</span>
                       </div>
@@ -164,28 +172,6 @@ const LoginPage = () => {
                 </div>
               </div>
 
-            </div>
-
-            {/* Bottom Highlight Badges */}
-            <div className="relative z-10 pt-6 mt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono font-bold text-slate-700">
-              <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                </svg>
-                IEEE Xplore Indexed
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                </svg>
-                Double-Blind Review
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                </svg>
-                Best Paper Awards
-              </span>
             </div>
 
           </div>
