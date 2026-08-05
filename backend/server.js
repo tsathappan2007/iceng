@@ -8,6 +8,8 @@ const dotenv = require('dotenv');
 
 //==============Router Imports ==================
 const contactRouter = require('./routes/contact.route');
+const RegisterRouter = require('./routes/registration.route');
+const PaperRouter = require('./routes/paper.route');
 
 
 
@@ -45,7 +47,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 
 // ===== ROUTES =====
-app.use('health', (req, res) => {
+app.use('/health', (req, res) => {
 
   try{
   res.status(200).json( {
@@ -61,62 +63,64 @@ app.use('health', (req, res) => {
   })
 }
 })
-app.use('/api/contact', contactRouter);
+app.use('/', RegisterRouter);
+app.use('/contact', contactRouter);
+app.use('/paper', PaperRouter);
 
 // 🔹 Registration
-app.post('/api/register', async (req, res) => {
-  try {
-    const { name, email, phone, institution, category, paperId, dietary } = req.body;
+// app.post('/api/register', async (req, res) => {
+//   try {
+//     const { name, email, phone, institution, category, paperId, dietary } = req.body;
 
-    const regId = `REG-${Date.now().toString().slice(-6)}`;
+//     const regId = `REG-${Date.now().toString().slice(-6)}`;
 
-    const registration = new Registration({
-      name, email, phone, institution, category, paperId, dietary, regId
-    });
+//     const registration = new Registration({
+//       name, email, phone, institution, category, paperId, dietary, regId
+//     });
 
-    await registration.save();
+//     await registration.save();
 
-    res.status(201).json({ success: true, regId });
+//     res.status(201).json({ success: true, regId });
 
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, message: "Server error" });
+//   }
+// });
 
 // 🔹 Paper Submission
-app.post('/api/submit-paper', upload.single('file'), async (req, res) => {
-  try {
-    const { author, email, title, track, coauthors, abstract } = req.body;
+// app.post('/api/submit-paper', upload.single('file'), async (req, res) => {
+//   try {
+//     const { author, email, title, track, coauthors, abstract } = req.body;
 
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: "PDF required" });
-    }
+//     if (!req.file) {
+//       return res.status(400).json({ success: false, message: "PDF required" });
+//     }
 
-    const paperId = `ICAING-${Date.now().toString().slice(-6)}`;
+//     const paperId = `ICAING-${Date.now().toString().slice(-6)}`;
 
-    const paper = new Paper({
-      paperId,
-      author,
-      email,
-      title,
-      track,
-      coauthors,
-      abstract,
-      fileData: req.file.buffer,
-      contentType: req.file.mimetype,
-      fileName: req.file.originalname
-    });
+//     const paper = new Paper({
+//       paperId,
+//       author,
+//       email,
+//       title,
+//       track,
+//       coauthors,
+//       abstract,
+//       fileData: req.file.buffer,
+//       contentType: req.file.mimetype,
+//       fileName: req.file.originalname
+//     });
 
-    await paper.save();
+//     await paper.save();
 
-    res.status(201).json({ success: true, paperId });
+//     res.status(201).json({ success: true, paperId });
 
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: err.message });
-  }
-});
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// });
 
 // ===== SERVER START =====
 const PORT = process.env.PORT || 5000;
