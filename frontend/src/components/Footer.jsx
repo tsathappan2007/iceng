@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logoImg from '../assets/logo-Photoroom.png';
 
 const Footer = () => {
   return (
@@ -13,18 +14,16 @@ const Footer = () => {
           
           {/* Footer Brand Column */}
           <div className="md:col-span-5 space-y-5">
-            <Link to="/" className="flex flex-col items-start group inline-flex">
-              <div className="font-logo-wide font-black text-2xl select-none flex items-center gap-0.5 leading-none">
-                <span className="text-slate-900 group-hover:text-blue-600 transition-colors">ICAING</span>
-                <span className="text-blue-600 font-black">CIT</span>
-              </div>
-              <span className="text-[10px] font-mono font-extrabold text-amber-500 uppercase leading-none mt-1 tracking-[0.38em] pl-[0.38em]">
-                2027
-              </span>
+            <Link to="/" className="inline-block group">
+              <img 
+                src={logoImg} 
+                alt="ICAINGCIT 2027 Logo" 
+                className="h-14 sm:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
 
             <p className="text-xs text-slate-600 leading-relaxed max-w-sm">
-              International Conference on Next-Gen Computing &amp; Information Technology.<br />
+              International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies.<br />
               Organised by the Department of Information Technology, Chennai Institute of Technology (NAAC A+ Accredited).
             </p>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import CountdownTimer from './CountdownTimer';
+import heroLogo from '../assets/logo-Photoroom.png';
 
 const Hero = () => {
   return (
@@ -17,25 +18,26 @@ const Hero = () => {
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
         
         {/* Top Eyebrow Tag — Crisp Visibility & Generous Top Spacing */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-300 mb-5 shadow-sm animate-symphony-badge delay-100">
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-300 mb-4 shadow-sm animate-symphony-badge delay-100">
           <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping" />
           <span className="text-[11px] sm:text-xs font-black tracking-widest text-blue-950 uppercase font-mono">
             15–17 MARCH 2027 &nbsp;·&nbsp; CHENNAI, INDIA
           </span>
         </div>
 
-        {/* Main Title */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 glow-title pixel-text uppercase mb-2 leading-none animate-symphony-title delay-200">
-          ICAINGCIT <span className="text-blue-600">2027</span>
-        </h1>
+        {/* Main Conference Logo */}
+        <div className="mb-6 w-full max-w-lg sm:max-w-3xl md:max-w-4xl lg:max-w-5xl px-4 flex items-center justify-center animate-symphony-title delay-200">
+          <img 
+            src={heroLogo} 
+            alt="ICAINGCIT 2027 Logo" 
+            className="w-full h-auto max-h-64 sm:max-h-96 md:max-h-[450px] lg:max-h-[520px] object-contain filter drop-shadow-md transition-all duration-300"
+          />
+        </div>
 
-        {/* Event Dates & Subtitle */}
-        <p className="text-base sm:text-xl font-extrabold tracking-widest text-slate-800 uppercase mb-1 animate-symphony-text delay-300">
-          MARCH 15–17, 2027
-        </p>
+        
 
-        <p className="text-[11px] sm:text-xs font-semibold tracking-[0.18em] text-slate-600 uppercase mb-5 max-w-xl animate-symphony-text delay-300">
-          International Conference on Next-Gen Computing &amp; Information Technology · Chennai Institute of Technology
+        <p className="text-[11px] sm:text-xs font-semibold tracking-[0.18em] text-slate-600 uppercase mb-5 max-w-3xl animate-symphony-text delay-300">
+          International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies · Chennai Institute of Technology
         </p>
 
         {/* Primary Action Buttons */}
