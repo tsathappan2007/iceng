@@ -28,100 +28,80 @@ const CountdownTimer = ({ targetDate = "2027-07-15T09:00:00" }) => {
 
   const padZero = (num) => String(num).padStart(2, '0');
 
-  // Percentage calculations for SVG progress rings
-  const daysProgress = Math.max(0, Math.min(100, (timeLeft.days / 365) * 100));
-  const hoursProgress = (timeLeft.hours / 24) * 100;
-  const minutesProgress = (timeLeft.minutes / 60) * 100;
-  const secondsProgress = (timeLeft.seconds / 60) * 100;
-
   const timerUnits = [
-    { label: 'DAYS', value: padZero(timeLeft.days), progress: daysProgress },
-    { label: 'HOURS', value: padZero(timeLeft.hours), progress: hoursProgress },
-    { label: 'MINUTES', value: padZero(timeLeft.minutes), progress: minutesProgress },
-    { label: 'SECONDS', value: padZero(timeLeft.seconds), progress: secondsProgress },
+    { label: 'DAYS', value: timeLeft.days },
+    { label: 'HOURS', value: padZero(timeLeft.hours) },
+    { label: 'MINUTES', value: padZero(timeLeft.minutes) },
+    { label: 'SECONDS', value: padZero(timeLeft.seconds) },
   ];
 
+  // Alternating blink state based on current second
+  const isEvenSecond = timeLeft.seconds % 2 === 0;
+
   return (
-    <div className="relative z-10 max-w-3xl mx-auto my-6 p-6 sm:p-8 rounded-[36px] neu-flat border border-white/80">
+    <div className="w-full max-w-4xl mx-auto my-4 px-2 sm:px-4">
       
-      {/* Neumorphic Header Bar */}
-      <div className="flex justify-center mb-6">
-        <div className="neu-pressed px-5 py-2 rounded-full inline-flex items-center gap-2.5 border border-slate-200/50">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
-          </span>
-          <span className="text-[11px] sm:text-xs font-black tracking-widest text-blue-700 uppercase font-mono">
-            COUNTDOWN TO IEEE ICAINGCIT 2027
-          </span>
+      {/* Top Header Badge with Lines & Dots */}
+      <div className="flex items-center justify-center gap-3 mb-6">
+        <div className="flex items-center gap-1.5 flex-1 max-w-[100px] sm:max-w-[160px]">
+          <div className="h-[1.5px] w-full bg-gradient-to-r from-transparent via-blue-300 to-blue-500 rounded-full" />
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+        </div>
+
+        <span className="text-[11px] sm:text-xs font-black tracking-widest text-blue-600 uppercase whitespace-nowrap px-1">
+          CONFERENCE STARTS IN
+        </span>
+
+        <div className="flex items-center gap-1.5 flex-1 max-w-[100px] sm:max-w-[160px]">
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+          <div className="h-[1.5px] w-full bg-gradient-to-l from-transparent via-blue-300 to-blue-500 rounded-full" />
         </div>
       </div>
 
-      {/* Neumorphic Circular Dials Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-center mb-6">
-        {timerUnits.map((unit, idx) => {
-          const radius = 34;
-          const circumference = 2 * Math.PI * radius;
-          const strokeDashoffset = circumference - (unit.progress / 100) * circumference;
+      {/* Seamless Merged Timer Content (No Background Box/Border/Shadow) */}
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 sm:gap-6 py-2">
+        
+        {/* Left Side Calendar Icon Pill */}
+        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-100/60 border border-blue-200/60 flex items-center justify-center text-blue-600 shrink-0 shadow-xs backdrop-blur-xs">
+          <svg className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
 
-          return (
-            <div key={idx} className="flex flex-col items-center group relative">
-              
-              {/* Inset Neumorphic Circular Well */}
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full neu-pressed p-2.5 flex items-center justify-center transition-all duration-300">
-                
-                {/* Inner Convex Neumorphic Dial Button */}
-                <div className="w-full h-full rounded-full neu-dial flex flex-col items-center justify-center relative transition-transform duration-300 group-hover:scale-105">
-                  
-                  {/* Outer Circular SVG Progress Meter */}
-                  <svg className="absolute inset-0 w-full h-full -rotate-90 p-1.5" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r={radius}
-                      className="stroke-slate-200/60"
-                      strokeWidth="4"
-                      fill="transparent"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r={radius}
-                      className="stroke-blue-600 transition-all duration-1000 ease-linear"
-                      strokeWidth="4"
-                      strokeDasharray={circumference}
-                      strokeDashoffset={strokeDashoffset}
-                      strokeLinecap="round"
-                      fill="transparent"
-                    />
-                  </svg>
+        {/* Time Units Grid / Row */}
+        <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-8 flex-1">
+          {timerUnits.map((unit, idx) => {
+            // Determine alternating blink visibility for separators
+            const shouldBlinkOn = idx % 2 === 0 ? isEvenSecond : !isEvenSecond;
 
-                  {/* Number Display */}
-                  <div className="relative z-10 text-center flex flex-col items-center">
-                    <span className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
-                      {unit.value}
-                    </span>
-                  </div>
-
+            return (
+              <React.Fragment key={idx}>
+                <div className="flex flex-col items-center justify-center text-center min-w-[55px] sm:min-w-[70px]">
+                  <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#155dfc] font-sans">
+                    {unit.value}
+                  </span>
+                  <span className="text-[9px] sm:text-[11px] font-black tracking-widest text-slate-500 uppercase mt-1">
+                    {unit.label}
+                  </span>
                 </div>
 
-              </div>
-
-              {/* Unit Label Pill - Neumorphic Capsule */}
-              <div className="mt-3 px-4 py-1 rounded-full neu-convex text-[10px] font-black tracking-widest text-blue-700 uppercase font-mono group-hover:text-amber-600 transition-colors">
-                {unit.label}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Neumorphic Footer Event Date Pill */}
-      <div className="flex justify-center">
-        <div className="neu-pressed px-6 py-2.5 rounded-full inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-700 border border-slate-200/50">
-          <span>📅</span>
-          <span>Target Date: <strong className="text-blue-600 font-extrabold">15–17 July 2027</strong></span>
+                {/* Alternating Blinking Colon Separator */}
+                {idx < timerUnits.length - 1 && (
+                  <div className="flex items-center justify-center -mt-4 px-0.5 self-center select-none">
+                    <span 
+                      className={`text-xl sm:text-2xl font-black text-blue-500 font-mono transition-all duration-300 ${
+                        shouldBlinkOn ? 'opacity-100 scale-110' : 'opacity-20 scale-90'
+                      }`}
+                    >
+                      :
+                    </span>
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
         </div>
+
       </div>
 
     </div>
