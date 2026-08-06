@@ -2,7 +2,20 @@ const Paper = require('../models/Paper');
 
 exports.submitPaper = async (req, res) => {
   try {
-    const { author, email, title, track, coauthors, abstract, driveLink, fileUrl } = req.body;
+    const {
+      author,
+      email,
+      title,
+      track,
+      coauthors,
+      abstract,
+      driveLink,
+      fileUrl,
+      registrationCategory,
+      feeAmount,
+      paymentMode,
+      paymentStatus
+    } = req.body;
 
     const paperLink = driveLink || fileUrl;
 
@@ -23,16 +36,23 @@ exports.submitPaper = async (req, res) => {
       track,
       coauthors: coauthors || '',
       abstract: abstract || '',
-      driveLink: paperLink
+      driveLink: paperLink,
+      registrationCategory: registrationCategory || 'Indian Academic Author',
+      feeAmount: feeAmount || '₹ 7,500',
+      paymentMode: paymentMode || 'Online Payment Gateway',
+      paymentStatus: paymentStatus || 'Completed'
     });
 
     await newPaper.save();
 
+    console.log(`✅ Paper & Payment Saved to DB: ${paperId} - "${title}" by ${author} [${registrationCategory}: ${feeAmount}]`);
 
     return res.status(201).json({
       success: true,
-      message: 'Paper submitted successfully and stored in DB',
-      paperId
+      message: 'Paper & registration payment submitted successfully and stored in DB',
+      paperId,
+      feeAmount,
+      registrationCategory
     });
 
   } catch (err) {

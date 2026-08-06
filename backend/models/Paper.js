@@ -35,6 +35,22 @@ const paperSchema = new mongoose.Schema(
       type: String, 
       required: true 
     },
+    registrationCategory: {
+      type: String,
+      default: 'Indian Academic Author'
+    },
+    feeAmount: {
+      type: String,
+      default: '₹ 7,500'
+    },
+    paymentMode: {
+      type: String,
+      default: 'Online Payment'
+    },
+    paymentStatus: {
+      type: String,
+      default: 'Completed'
+    },
     createdAt: { type: Date, default: Date.now }
 });
 

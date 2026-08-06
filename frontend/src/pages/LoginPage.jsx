@@ -432,7 +432,7 @@ const LoginPage = () => {
                         : 'text-slate-600 hover:text-blue-600'
                     }`}
                   >
-                    New Account
+                    Sign Up
                   </button>
                 </div>
               </div>
@@ -516,7 +516,7 @@ const LoginPage = () => {
                   {/* Header Text */}
                   <div className="mb-6 space-y-1 text-center sm:text-left">
                     <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">
-                      {mode === 'login' ? 'Sign In to Your Account' : 'Create New Author Account'}
+                      {mode === 'login' ? 'Sign In to Your Account' : 'Sign Up for Account'}
                     </h2>
                     <p className="text-xs text-slate-500 font-medium">
                       {mode === 'login'
@@ -698,7 +698,7 @@ const LoginPage = () => {
                           ? 'AUTHENTICATING...'
                           : mode === 'login'
                           ? 'SIGN IN TO PORTAL'
-                          : 'CREATE AUTHOR ACCOUNT'}
+                          : 'SIGN UP NOW'}
                       </span>
                       <span>→</span>
                     </button>
@@ -723,7 +723,7 @@ const LoginPage = () => {
                     }}
                     className="font-black text-blue-600 hover:underline uppercase tracking-wide ml-1"
                   >
-                    Register Now
+                    Sign Up Now
                   </button>
                 </p>
               ) : (

@@ -123,7 +123,7 @@ const ProfilePage = () => {
         console.warn('Backend sync warning:', syncErr);
       }
 
-      setSuccessMsg('✓ Profile preferences updated successfully! Your information is saved to DB.');
+      setSuccessMsg('✓ Profile preferences updated successfully.');
       setTimeout(() => setSuccessMsg(''), 5000);
     } catch (err) {
       console.error('Update profile error:', err);

@@ -162,14 +162,32 @@ const Navbar = () => {
           {/* Inner Top-Flush Curved Header Bar */}
           <div className="relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-t-none rounded-b-[32px]">
             
-            {/* Brand Logo */}
-            <Link to="/" className="flex items-center shrink-0 mr-3 xl:mr-6 group py-1" onClick={closeMenu}>
-              <img 
-                src={logoImg} 
-                alt="ICAINGCIT 2027 Logo" 
-                className="h-7 sm:h-8 md:h-9.5 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-            </Link>
+            {/* Brand Logo with Dropdown Popover Box on Hover */}
+            <div className="relative group/logo">
+              <Link to="/" className="flex items-center shrink-0 mr-3 xl:mr-6 py-1" onClick={closeMenu}>
+                <img 
+                  src={logoImg} 
+                  alt="ICAINGCIT 2027 Logo" 
+                  className="h-7 sm:h-8 md:h-9.5 w-auto object-contain transition-transform duration-300 group-hover/logo:scale-105"
+                />
+              </Link>
+
+              {/* Dropdown Expansion Box (Appears smoothly below logo on hover) */}
+              <div className="absolute top-full left-0 pt-3 w-80 sm:w-96 transition-all duration-300 opacity-0 translate-y-3 scale-95 pointer-events-none group-hover/logo:opacity-100 group-hover/logo:translate-y-0 group-hover/logo:scale-100 group-hover/logo:pointer-events-auto z-50">
+                <div className="relative">
+                  {/* Top Arrow Pointer Beak */}
+                  <div className="absolute -top-2 left-8 w-4 h-4 bg-white border-t border-l border-slate-200 rotate-45 z-30 shadow-sm" />
+
+                  {/* Elegant Professional Container */}
+                  <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-2xl relative overflow-hidden backdrop-blur-3xl">
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-blue-600" />
+                    <p className="text-xs sm:text-sm font-extrabold text-slate-900 leading-relaxed tracking-tight">
+                      International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Desktop Navigation Links */}
             <div 
