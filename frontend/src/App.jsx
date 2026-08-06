@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import SideNav from './components/SideNav';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -17,6 +18,8 @@ import SubmitPage from './pages/SubmitPage';
 import RegistrationPage from './pages/RegistrationPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import ProfilePage from './pages/ProfilePage';
 
 // Scroll reveal effect hook for routes
 const ScrollRevealController = () => {
@@ -71,6 +74,17 @@ function AppContent() {
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/sso-callback"
+            element={
+              <AuthenticateWithRedirectCallback
+                signUpForceRedirectUrl="/dashboard"
+                signInForceRedirectUrl="/dashboard"
+              />
+            }
+          />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </main>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
 import logoImg from '../assets/logo-Photoroom.png';
 
 const Navbar = () => {
+  const { isSignedIn } = useUser();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -264,14 +266,24 @@ const Navbar = () => {
                 );
               })}
 
-              {/* Action Pill Button: LOGIN (Amber pill styling) */}
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className="ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
-              >
-                LOGIN
-              </Link>
+              {/* Action Pill Button: DASHBOARD or LOGIN (Amber pill styling) */}
+              {isSignedIn ? (
+                <Link
+                  to="/dashboard"
+                  onClick={closeMenu}
+                  className="ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                >
+                  DASHBOARD
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={closeMenu}
+                  className="ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                >
+                  LOGIN
+                </Link>
+              )}
             </div>
 
             {/* Mobile Hamburger Button */}
