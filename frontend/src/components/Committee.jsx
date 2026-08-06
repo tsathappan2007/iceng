@@ -27,151 +27,52 @@ const Committee = () => {
           roleName: 'Patrons',
           members: [
             { avatar: "AR", name: "Dr. A. Ramesh", affil: "Principal", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
-            { avatar: "SR", name: "Dr. Srinivasa Rao", affil: "Dean, Curriculum Development & Enrichment", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
+            { avatar: "SR", name: "Dr. Srinivasa Rao", affil: "Dean, School of Computing", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
+            { avatar: "MM", name: "Dr. M. Manivannan", affil: "Director, Mechanical Department", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
           ]
         },
         {
-          roleName: 'Conference Leadership',
+          roleName: 'Chair',
           members: [
-            { avatar: "AR", name: "Dr. A. Ramesh", affil: "Principal", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CONFERENCE CHAIR" },
-            { avatar: "AK", name: "Dr. A. R. Kavitha", affil: "Professor, Department of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CONFERENCE HOD" },
+            { avatar: "AK", name: "Dr. A. R. Kavitha", affil: "Professor & Head, Dept. of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CONFERENCE CHAIR" },
           ]
         },
         {
-          roleName: 'Co-Chairs',
+          roleName: 'Conference Treasurer',
           members: [
-            { avatar: "SP", name: "Dr. S. Pavithra", affil: "Head of Department, Dept. of CSE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "PP", name: "Dr. P. Partheeban", affil: "Dean (Planning & Dev), Sr. Member IEEE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "RK", name: "Dr. R. Krishnamoorthy", affil: "Prof & CNS (Embedded Systems), Sr. Member IEEE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "ME", name: "Dr. M. Ettappan", affil: "Prof & Head, Dept. of EEE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "BS", name: "Dr. B. Sundarambal", affil: "Professor, Dept. of Computer Science & Engg", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "SS", name: "Mrs. S. Shanmugasundari", affil: "Asst. Professor & Head, Dept. of AI & DS", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "PK", name: "Dr. P. Karthikeyan", affil: "Associate Professor, Dept. of CSE (CS)", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
-            { avatar: "RM", name: "Dr. R. Meenakshi", affil: "Professor, Dept. of Computer Science & Engg", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CO-CHAIR" },
+            { avatar: "RR", name: "Prof. R. Ramesh", affil: "Dean (Admin), Dept. of Computer Science & Engineering", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "TREASURER" },
           ]
         },
         {
-          roleName: 'Organizing Secretaries',
+          roleName: 'Conference Treasurer & Financial Co-Chair',
           members: [
-            { avatar: "AK", name: "Dr. A. R. Kavitha", affil: "Professor, Department of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "ORGANIZING SECRETARY" },
-            { avatar: "JB", name: "Dr. J. Jai Jaganath Babu", affil: "Associate Professor, Dept. of ECE (IEEE SB Coordinator)", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "ORGANIZING SECRETARY" },
+            { avatar: "LP", name: "Dr. D. Lita Pansy", affil: "Asst. Professor, Dept. of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "FINANCIAL CO-CHAIR" },
           ]
         }
       ]
     },
     {
-      id: 'technical',
-      title: 'TECHNICAL PROGRAMME COMMITTEE',
-      subtitle: 'Global technical leadership, peer-review oversight, and publication management.',
+      id: 'advisory',
+      title: 'INTERNATIONAL ADVISORY COMMITTEE',
+      subtitle: 'Global academic leaders, IEEE Fellows, and international research advisors.',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
         </svg>
       ),
       roles: [
         {
-          roleName: 'Publication & Technical Program Chairs',
+          roleName: 'International Advisory Committee',
           members: [
-            { avatar: "OS", name: "Prof. Onn Shehory", affil: "Intelligent Info Systems Vice Chair", org: "Bar-Ilan University", location: "Ramat Gan, Israel", tag: "PUBLICATION & TPC CHAIR" },
-            { avatar: "RP", name: "Dr. R. Ponnusamy", affil: "Professor & Dean, Dept. of Computer Science & Engg", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PUBLICATION & TPC CHAIR" },
-          ]
-        }
-      ]
-    },
-    {
-      id: 'finance',
-      title: 'FINANCE COMMITTEE',
-      subtitle: 'Financial strategy, resource allocation, and sponsorship oversight.',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      roles: [
-        {
-          roleName: 'Conference Treasurer & Financial Chairs',
-          members: [
-            { avatar: "RR", name: "Prof. R. Ramesh", affil: "Dean (Admin), Dept. of Computer Science & Engg", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "FINANCIAL CHAIR" },
-            { avatar: "MS", name: "Dr. S. K. Muthu Sundar", affil: "Professor, Dept. of Computer Science & Engg", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "FINANCIAL CHAIR" },
-          ]
-        }
-      ]
-    },
-    {
-      id: 'tutorial',
-      title: 'TUTORIAL COMMITTEE',
-      subtitle: 'Curation of masterclasses, hands-on technical workshops, and tutorials.',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      ),
-      roles: [
-        {
-          roleName: 'Tutorial Chair',
-          members: [
-            { avatar: "PR", name: "Dr. Paul Rodrigues", affil: "Professor", org: "King Khalid University", location: "Saudi Arabia", tag: "TUTORIAL CHAIR" },
-          ]
-        },
-        {
-          roleName: 'Tutorial Co-Chairs',
-          members: [
-            { avatar: "DR", name: "Dr. D. Rosy", affil: "Prof & Dean-Campus Life, Dept. of CSE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "TUTORIAL CO-CHAIR" },
-            { avatar: "AP", name: "Dr. A. Prasina", affil: "Professor & Dean, Dept. of ECE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "TUTORIAL CO-CHAIR" },
-            { avatar: "RG", name: "Dr. R. Gowri", affil: "Professor & Head, Dept. of AI & DS", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "TUTORIAL CO-CHAIR" },
-          ]
-        }
-      ]
-    },
-    {
-      id: 'workshop',
-      title: 'WORKSHOP COMMITTEE',
-      subtitle: 'Organization of specialized domain tracks and industry focus sessions.',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
-      ),
-      roles: [
-        {
-          roleName: 'Workshop Chair',
-          members: [
-            { avatar: "LP", name: "Dr. D. Lita Pansy", affil: "Dept. of Information Technology", org: "IIIT Lucknow", location: "Lucknow, India", tag: "WORKSHOP CHAIR" },
-          ]
-        },
-        {
-          roleName: 'Workshop Co-Chairs',
-          members: [
-            { avatar: "JV", name: "Dr. J. Venkatesh", affil: "Professor & Controller of Examination, Dept. of CSE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "WORKSHOP CO-CHAIR" },
-            { avatar: "RB", name: "Dr. R. Balamurali", affil: "Prof & Dean-Industry Relations, Dept. of ECE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "WORKSHOP CO-CHAIR" },
-            { avatar: "DA", name: "Dr. Arulnath", affil: "Prof & Head, Dept. of ECE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "WORKSHOP CO-CHAIR" },
-          ]
-        }
-      ]
-    },
-    {
-      id: 'doctoral',
-      title: 'DOCTORAL CONSORTIUM',
-      subtitle: 'Research mentoring and academic guidance for doctoral scholars.',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-        </svg>
-      ),
-      roles: [
-        {
-          roleName: 'Doctoral Consortium Chairs',
-          members: [
-            { avatar: "DC", name: "Dr. Chandravadhana", affil: "Professor, Dept. of CSA", org: "IISc Bangalore", location: "Bangalore, India", tag: "DOCTORAL CONSORTIUM CHAIR" },
-            { avatar: "GS", name: "Dr. G. Shanmuga Sundaram", affil: "Professor, Dept. of CSE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "DOCTORAL CONSORTIUM CHAIR" },
-          ]
-        },
-        {
-          roleName: 'Doctoral Consortium Co-Chairs',
-          members: [
-            { avatar: "DS", name: "Dr. Sofia", affil: "Professor, Dept. of ECE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "DOCTORAL CO-CHAIR" },
-            { avatar: "EK", name: "Dr. E. Kothai", affil: "Professor, Dept. of CSE", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "DOCTORAL CO-CHAIR" },
-            { avatar: "MK", name: "Dr. M. Kayalvizhi", affil: "Professor, Dept. of Biomedical Engineering", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "DOCTORAL CO-CHAIR" },
+            { avatar: "RB", name: "Prof. Rajkumar Buyya", affil: "Professor", org: "The University of Melbourne", location: "Australia", tag: "ADVISORY COMMITTEE" },
+            { avatar: "VP", name: "Prof. Vincenzo Piuri", affil: "Professor (IEEE Fellow)", org: "University of Milan", location: "Italy", tag: "IEEE FELLOW" },
+            { avatar: "LY", name: "Prof. Laurence T. Yang", affil: "Professor", org: "St. Francis Xavier University", location: "Canada", tag: "ADVISORY COMMITTEE" },
+            { avatar: "SD", name: "Prof. Schahram Dustdar", affil: "Professor", org: "TU Wien", location: "Austria", tag: "ADVISORY COMMITTEE" },
+            { avatar: "EB", name: "Prof. Elisa Bertino", affil: "Professor (IEEE Fellow)", org: "Purdue University", location: "USA", tag: "IEEE FELLOW" },
+            { avatar: "NV", name: "Prof. Nitin H. Vaidya", affil: "Professor", org: "Georgetown University", location: "USA", tag: "ADVISORY COMMITTEE" },
+            { avatar: "AZ", name: "Prof. Albert Zomaya", affil: "Professor (IEEE Fellow)", org: "The University of Sydney", location: "Australia", tag: "IEEE FELLOW" },
+            { avatar: "HS", name: "Prof. Houbing Song", affil: "Professor", org: "University of Maryland", location: "USA", tag: "ADVISORY COMMITTEE" },
+            { avatar: "MA", name: "Prof. Mohamed Abdel-Aty", affil: "Professor", org: "University of Central Florida", location: "USA", tag: "ADVISORY COMMITTEE" },
           ]
         }
       ]
@@ -192,12 +93,8 @@ const Committee = () => {
 
   const tabs = [
     { id: 'all', label: 'ALL COMMITTEES' },
-    { id: 'organizing', label: 'ORGANIZING' },
-    { id: 'technical', label: 'TECHNICAL (TPC)' },
-    { id: 'finance', label: 'FINANCE' },
-    { id: 'tutorial', label: 'TUTORIAL' },
-    { id: 'workshop', label: 'WORKSHOP' },
-    { id: 'doctoral', label: 'DOCTORAL' },
+    { id: 'organizing', label: 'ORGANIZING COMMITTEE' },
+    { id: 'advisory', label: 'INTL ADVISORY' },
   ];
 
   const visibleSections = activeTab === 'all' 
