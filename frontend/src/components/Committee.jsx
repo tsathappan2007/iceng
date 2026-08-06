@@ -4,6 +4,9 @@ import sriramPic from '../assets/sriram-picture.jpg';
 import rameshPic from '../assets/ramesh-picture.jpg';
 import srideviPic from '../assets/sridevi-picture.jpg';
 import kavithaPic from '../assets/kavitha-picture.jpg';
+import litaPic from '../assets/lita-picture.jpg';
+import gokulPic from '../assets/gokulkrishnan-picture.jpg';
+import rameshTresurer from '../assets/ramesh-treasurer.webp';
 
 const Committee = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -24,7 +27,7 @@ const Committee = () => {
           members: [
             { image: sriramPic, avatar: "PS", name: "Shri P. Sriram", affil: "Chairman", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
             { image: srideviPic, name: "Mrs. S. Sridevi", affil: "Secretary", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
-            { avatar: "SG", name: "Mr. S. Gokulakrishnan", affil: "Director", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
+            { image: gokulPic, name: "Mr. S. Gokulakrishnan", affil: "Director", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
           ]
         },
         {
@@ -44,13 +47,13 @@ const Committee = () => {
         {
           roleName: 'Conference Treasurer',
           members: [
-            { avatar: "RR", name: "Prof. R. Ramesh", affil: "Dean (Admin), Dept. of Computer Science & Engineering", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "TREASURER" },
+            { image: rameshTresurer, name: "Prof. R. Ramesh", affil: "Dean (Admin), Dept. of Computer Science & Engineering", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "TREASURER" },
           ]
         },
         {
           roleName: 'Conference Treasurer & Financial Co-Chair',
           members: [
-            { avatar: "LP", name: "Dr. D. Lita Pansy", affil: "Asst. Professor, Dept. of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "FINANCIAL CO-CHAIR" },
+            { image: litaPic, name: "Dr. D. Lita Pansy", affil: "Asst. Professor, Dept. of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "FINANCIAL CO-CHAIR" },
           ]
         }
       ]
