@@ -223,7 +223,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 8px 8px 16px rgba(148, 163, 184, 0.3), -8px -8px 16px #ffffff;
 }
 
-/* 🌟 Dotted Curved Line Dash Flow Animation */
 @keyframes dashFlow {
   from {
     stroke-dashoffset: 0;
@@ -234,8 +233,59 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .animate-dash-flow {
-  animation: dashFlow 1.8s linear infinite;
+  animation: dashFlow 2s linear infinite;
 }
+
+/* 🌟 Holographic Cloud & Data Wave Streams Animations */
+@keyframes cloudStreamFlow {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-60px) scaleY(1.04);
+  }
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+}
+
+@keyframes cloudStreamReverse {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(50px) scaleY(0.96);
+  }
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+}
+
+@keyframes dataPulseGlow {
+  0%, 100% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.2));
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.45));
+  }
+}
+
+.animate-cloud-stream-flow {
+  animation: cloudStreamFlow 14s ease-in-out infinite;
+}
+
+.animate-cloud-stream-reverse {
+  animation: cloudStreamReverse 18s ease-in-out infinite;
+}
+
+.animate-data-pulse-glow {
+  animation: dataPulseGlow 4.5s ease-in-out infinite;
+}
+
+
+
 
 
 

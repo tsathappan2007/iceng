@@ -10,13 +10,134 @@ const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen pt-32 sm:pt-36 md:pt-40 pb-12 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#f8fafc] bg-grid-cyber">
       
-      {/* Light Mode Soft Radial Ambient Glow */}
+      {/* Light Mode Soft Ambient Gradient Glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle at 50% 45%, rgba(37, 99, 235, 0.08) 0%, rgba(245, 158, 11, 0.05) 45%, transparent 70%)'
+          background: 'radial-gradient(circle at 50% 45%, rgba(37, 99, 235, 0.08) 0%, rgba(79, 70, 229, 0.05) 45%, rgba(245, 158, 11, 0.04) 70%, transparent 85%)'
         }}
       />
+
+      {/* ☁️ 🧠 FLOATING CLOUDS WITH MOVING DASHED BORDERS & PURE WORKING AI CHIPS WITH "AI" TEXT */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        
+        {/* SVG Gradients for Clouds & AI Chips */}
+        <svg className="absolute w-0 h-0">
+          <defs>
+            <linearGradient id="cloudGradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.32" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.06" />
+            </linearGradient>
+            <linearGradient id="cloudGradIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#818cf8" stopOpacity="0.06" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* ☁️ Cloud 1 with Active Moving Dashed Border (Top Left) */}
+        <div className="absolute top-[16%] left-[3%] xl:left-[6%] opacity-85 animate-cloud-stream-flow">
+          <svg className="w-52 sm:w-72 h-auto filter drop-shadow-md" viewBox="0 0 120 70" fill="url(#cloudGradBlue)">
+            <path 
+              d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
+              stroke="#2563eb" 
+              strokeWidth="2" 
+              strokeDasharray="6 6" 
+              strokeOpacity="0.85" 
+              className="animate-dash-flow" 
+            />
+          </svg>
+        </div>
+
+        {/* ☁️ Cloud 2 with Active Moving Dashed Border (Top Right) */}
+        <div className="absolute top-[20%] right-[3%] xl:right-[6%] opacity-85 animate-cloud-stream-reverse">
+          <svg className="w-60 sm:w-80 h-auto filter drop-shadow-md" viewBox="0 0 120 70" fill="url(#cloudGradIndigo)">
+            <path 
+              d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
+              stroke="#4f46e5" 
+              strokeWidth="2" 
+              strokeDasharray="6 6" 
+              strokeOpacity="0.85" 
+              className="animate-dash-flow" 
+            />
+          </svg>
+        </div>
+
+        {/* ☁️ Cloud 3 with Active Moving Dashed Border (Bottom Left) */}
+        <div className="absolute bottom-[22%] left-[5%] opacity-75 animate-cloud-stream-reverse">
+          <svg className="w-44 sm:w-60 h-auto filter drop-shadow-sm" viewBox="0 0 120 70" fill="url(#cloudGradIndigo)">
+            <path 
+              d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
+              stroke="#4f46e5" 
+              strokeWidth="2" 
+              strokeDasharray="6 6" 
+              strokeOpacity="0.8" 
+              className="animate-dash-flow" 
+            />
+          </svg>
+        </div>
+
+        {/* ☁️ Cloud 4 with Active Moving Dashed Border (Bottom Right) */}
+        <div className="absolute bottom-[20%] right-[5%] opacity-75 animate-cloud-stream-flow">
+          <svg className="w-48 sm:w-64 h-auto filter drop-shadow-sm" viewBox="0 0 120 70" fill="url(#cloudGradBlue)">
+            <path 
+              d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
+              stroke="#2563eb" 
+              strokeWidth="2" 
+              strokeDasharray="6 6" 
+              strokeOpacity="0.8" 
+              className="animate-dash-flow" 
+            />
+          </svg>
+        </div>
+
+        {/* 🧠 1. PURE WORKING AI MICROCHIP (Left Side — With "AI" Text, No Badge Container) */}
+        <div className="hidden lg:flex absolute top-[44%] left-[3%] xl:left-[6%] opacity-95 animate-ai-float-slow pointer-events-none z-20">
+          <div className="relative">
+            <span className="w-3 h-3 rounded-full bg-blue-600 animate-ping absolute -top-1 -right-1" />
+            <svg className="w-20 h-20 filter drop-shadow-lg" viewBox="0 0 70 70" fill="none">
+              {/* Outer Chip Frame */}
+              <rect x="15" y="15" width="40" height="40" rx="10" fill="#ffffff" fillOpacity="0.95" stroke="#2563eb" strokeWidth="2.5" strokeDasharray="6 6" className="animate-dash-flow" />
+              <rect x="22" y="22" width="26" height="26" rx="6" fill="#2563eb" />
+              
+              {/* Center "AI" Text */}
+              <text x="35" y="39" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="900" fontFamily="Space Grotesk, sans-serif" letterSpacing="0.05em">
+                AI
+              </text>
+
+              {/* Active Animated Pins */}
+              <path d="M15 25 H5 M15 35 H5 M15 45 H5" stroke="#2563eb" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M55 25 H65 M55 35 H65 M55 45 H65" stroke="#2563eb" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 15 V5 M35 15 V5 M45 15 V5" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 55 V65 M35 55 V65 M45 55 V65" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+            </svg>
+          </div>
+        </div>
+
+        {/* 🧠 2. PURE WORKING AI MICROCHIP (Right Side — With "AI" Text, No Badge Container) */}
+        <div className="hidden lg:flex absolute top-[46%] right-[3%] xl:right-[6%] opacity-95 animate-ai-float-fast pointer-events-none z-20">
+          <div className="relative">
+            <span className="w-3 h-3 rounded-full bg-indigo-600 animate-ping absolute -top-1 -right-1" />
+            <svg className="w-20 h-20 filter drop-shadow-lg" viewBox="0 0 70 70" fill="none">
+              {/* Outer Chip Frame */}
+              <rect x="15" y="15" width="40" height="40" rx="10" fill="#ffffff" fillOpacity="0.95" stroke="#4f46e5" strokeWidth="2.5" strokeDasharray="6 6" className="animate-dash-flow" />
+              <rect x="22" y="22" width="26" height="26" rx="6" fill="#4f46e5" />
+              
+              {/* Center "AI" Text */}
+              <text x="35" y="39" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="900" fontFamily="Space Grotesk, sans-serif" letterSpacing="0.05em">
+                AI
+              </text>
+
+              {/* Active Animated Pins */}
+              <path d="M15 25 H5 M15 35 H5 M15 45 H5" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M55 25 H65 M55 35 H65 M55 45 H65" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 15 V5 M35 15 V5 M45 15 V5" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 55 V65 M35 55 V65 M45 55 V65" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
 
       {/* Main Content Container */}
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
@@ -30,11 +151,11 @@ const Hero = () => {
         </div>
 
         {/* Main Conference Logo */}
-        <div className="mb-6 w-full max-w-lg sm:max-w-3xl md:max-w-4xl lg:max-w-5xl px-4 flex items-center justify-center animate-symphony-title delay-200">
+        <div className="mb-6 w-full max-w-lg sm:max-w-3xl md:max-w-4xl lg:max-w-5xl px-4 flex items-center justify-center animate-symphony-title delay-200 relative">
           <img 
             src={heroLogo} 
             alt="ICAINGCIT 2027 Logo" 
-            className="w-full h-auto max-h-64 sm:max-h-96 md:max-h-[450px] lg:max-h-[520px] object-contain filter drop-shadow-md transition-all duration-300"
+            className="w-full h-auto max-h-64 sm:max-h-96 md:max-h-[450px] lg:max-h-[520px] object-contain filter drop-shadow-md transition-all duration-300 relative z-10"
           />
         </div>
 
@@ -123,13 +244,13 @@ const Hero = () => {
             </div>
             <div>
               <div className="text-[9px] uppercase font-bold text-slate-500">Indexing</div>
-              <div className="text-[11px] font-extrabold text-slate-900">Scopus / Web of Sci</div>
+              <div className="text-[11px] font-extrabold text-slate-900">Scopus</div>
             </div>
           </div>
 
           <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-sm text-left flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-blue-50 text-blue-600">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
             </div>
             <div>
               <div className="text-[9px] uppercase font-bold text-slate-500">Format</div>
