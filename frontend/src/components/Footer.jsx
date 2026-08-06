@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
 import logoImg from '../assets/logo-Photoroom.png';
 
 const Footer = () => {
+  const { isSignedIn } = useUser();
   return (
     <footer className="relative z-10 bg-white text-slate-900 shadow-[0_-15px_30px_-10px_rgba(15,23,42,0.06)] pt-10 pb-6 px-4 sm:px-6 overflow-hidden">
       
@@ -85,7 +87,7 @@ const Footer = () => {
             </div>
 
             <div className="space-y-0.5 text-xs">
-              <Link to="/submit" className="py-1.5 flex items-center justify-between font-semibold text-slate-700 hover:text-blue-600 group transition-all border-b border-slate-100">
+              <Link to={isSignedIn ? "/submit" : "/login"} className="py-1.5 flex items-center justify-between font-semibold text-slate-700 hover:text-blue-600 group transition-all border-b border-slate-100">
                 <div className="flex items-center gap-2">
                   <svg className="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
