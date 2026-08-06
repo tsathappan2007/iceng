@@ -1,8 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
 import CountdownTimer from './CountdownTimer';
 import heroLogo from '../assets/logo-Photoroom.png';
 
 const Hero = () => {
+  const { isSignedIn } = useUser();
+
   return (
     <section id="hero" className="relative min-h-screen pt-32 sm:pt-36 md:pt-40 pb-12 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#f8fafc] bg-grid-cyber">
       
@@ -34,27 +38,30 @@ const Hero = () => {
           />
         </div>
 
-        
-
         <p className="text-xs sm:text-sm md:text-base lg:text-lg font-bold tracking-wide text-slate-700 uppercase mb-6 max-w-4xl leading-relaxed animate-symphony-text delay-300">
           International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies · Chennai Institute of Technology
         </p>
 
         {/* Primary Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-3 max-w-4xl animate-symphony-cta delay-400">
-          <a
-            href="#submission"
+          
+          {/* Submit Paper Button: /submit if logged in, /login if not */}
+          <Link
+            to={isSignedIn ? "/submit" : "/login"}
             className="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
           >
             SUBMIT PAPER
-          </a>
+          </Link>
 
-          <a
-            href="#registration"
-            className="px-5 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
-          >
-            JOIN CONFERENCE
-          </a>
+          {/* Join Conference Button: /login if not logged in; REMOVED completely if logged in */}
+          {!isSignedIn && (
+            <Link
+              to="/login"
+              className="px-5 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+            >
+              JOIN CONFERENCE
+            </Link>
+          )}
 
           <a
             href="#about-conf"
@@ -69,25 +76,28 @@ const Hero = () => {
 
         {/* Secondary White Pill Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 mb-4 animate-symphony-cta delay-400">
-          <a
-            href="#speakers"
+          
+          {/* Keynote Speakers Button: Routes to Council */}
+          <Link
+            to="/council#speakers"
             className="inline-flex items-center gap-1.5 px-6 py-2 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-900 text-xs font-extrabold tracking-wider uppercase transition-all duration-300 shadow-sm hover:-translate-y-0.5"
           >
             <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             KEYNOTE SPEAKERS
-          </a>
+          </Link>
 
-          <a
-            href="#dates"
+          {/* Important Dates Button: Routes to Timeline */}
+          <Link
+            to="/timeline"
             className="inline-flex items-center gap-1.5 px-6 py-2 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-900 text-xs font-extrabold tracking-wider uppercase transition-all duration-300 shadow-sm hover:-translate-y-0.5"
           >
             <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             IMPORTANT DATES
-          </a>
+          </Link>
         </div>
 
         {/* Live Countdown Timer */}
