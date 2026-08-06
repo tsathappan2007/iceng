@@ -28,7 +28,6 @@ exports.submitPaper = async (req, res) => {
 
     await newPaper.save();
 
-    console.log(`✅ Paper Saved to DB: ${paperId} - "${title}" by ${author}`);
 
     return res.status(201).json({
       success: true,
