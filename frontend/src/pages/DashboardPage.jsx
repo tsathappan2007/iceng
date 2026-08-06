@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUser, useClerk } from '@clerk/clerk-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,24 @@ const DashboardPage = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   const { signOut } = useClerk();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn && user) {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      fetch(`${API_BASE}/api/user/sync`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          clerkId: user.id,
+          name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'IEEE Author',
+          email: user.primaryEmailAddress?.emailAddress || '',
+          institution: user.unsafeMetadata?.institution || '',
+          phone: user.unsafeMetadata?.phone || '',
+          department: user.unsafeMetadata?.department || '',
+        }),
+      }).catch(err => console.warn('User DB auto-sync error:', err));
+    }
+  }, [isLoaded, isSignedIn, user]);
 
   const handleSignOut = async () => {
     await signOut();

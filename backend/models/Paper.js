@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 
 const paperSchema = new mongoose.Schema(
   {
+    paperId: {
+      type: String,
+      unique: true,
+      required: true
+    },
     author: { 
       type: String, 
       required: true 
     },
     email: { 
-      type: String,
-      unique: true, 
+      type: String, 
       required: true 
     },
     title: { 
@@ -21,13 +25,13 @@ const paperSchema = new mongoose.Schema(
     },
     coauthors: { 
       type: String,
-      required: false
+      default: ''
     },
     abstract: { 
       type: String, 
-      required: true 
+      default: ''
     }, 
-    fileUrl: { 
+    driveLink: { 
       type: String, 
       required: true 
     },

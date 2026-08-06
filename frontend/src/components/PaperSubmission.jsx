@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom';
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const PaperSubmission = () => {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -42,7 +42,7 @@ const PaperSubmission = () => {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch(`${API_BASE}/api/submit-paper`, {
+      const res = await fetch(`${API_BASE}/paper/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

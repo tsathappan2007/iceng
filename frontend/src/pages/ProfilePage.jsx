@@ -97,7 +97,26 @@ const ProfilePage = () => {
         },
       });
 
-      setSuccessMsg('✓ Profile preferences updated successfully! Your institution information is now saved.');
+      // Also sync user to backend MongoDB database
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      try {
+        await fetch(`${API_BASE}/api/user/sync`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            clerkId: user.id,
+            name: `${formData.firstName} ${formData.lastName}`.trim(),
+            email: primaryEmail,
+            institution: formData.institution,
+            phone: formData.phone,
+            department: formData.department,
+          }),
+        });
+      } catch (syncErr) {
+        console.warn('Backend sync warning:', syncErr);
+      }
+
+      setSuccessMsg('✓ Profile preferences updated successfully! Your information is saved to DB.');
       setTimeout(() => setSuccessMsg(''), 5000);
     } catch (err) {
       console.error('Update profile error:', err);
