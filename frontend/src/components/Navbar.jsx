@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useUser } from '@clerk/clerk-react';
+import { useUser, useClerk } from '@clerk/clerk-react';
 import logoImg from '../assets/logo-Photoroom.png';
 
 const Navbar = () => {
   const { isSignedIn } = useUser();
+  const { signOut } = useClerk();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -136,6 +137,7 @@ const Navbar = () => {
       label: 'SUBMIT',
       path: '/submit',
       hasDropdown: false,
+      authRequired: true,
     },
     {
       id: 'contact',
@@ -143,7 +145,7 @@ const Navbar = () => {
       path: '/contact',
       hasDropdown: false,
     },
-  ];
+  ].filter(item => !item.authRequired || isSignedIn);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
@@ -284,15 +286,32 @@ const Navbar = () => {
                 );
               })}
 
-              {/* Action Pill Button: DASHBOARD or LOGIN (Amber pill styling) */}
+              {/* Action Pill Button: DASHBOARD or LOGIN (Amber pill styling) + Sign Out Icon */}
               {isSignedIn ? (
-                <Link
-                  to="/dashboard"
-                  onClick={closeMenu}
-                  className="ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
-                >
-                  DASHBOARD
-                </Link>
+                <div className="flex items-center gap-2 ml-2 xl:ml-3">
+                  <Link
+                    to="/dashboard"
+                    onClick={closeMenu}
+                    className="px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                  >
+                    DASHBOARD
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      closeMenu();
+                      await signOut();
+                      navigate('/login');
+                    }}
+                    title="Sign Out"
+                    aria-label="Sign Out"
+                    className="p-2 rounded-full bg-slate-100 border border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 hover:border-red-300 transition-all shadow-sm flex items-center justify-center shrink-0"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                  </button>
+                </div>
               ) : (
                 <Link
                   to="/login"
@@ -354,13 +373,39 @@ const Navbar = () => {
               </div>
             ))}
 
-            <Link
-              to="/login"
-              onClick={closeMenu}
-              className="block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
-            >
-              LOGIN
-            </Link>
+            {isSignedIn ? (
+              <div className="flex items-center gap-2 mt-4">
+                <Link
+                  to="/dashboard"
+                  onClick={closeMenu}
+                  className="flex-1 text-center px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
+                >
+                  DASHBOARD
+                </Link>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    closeMenu();
+                    await signOut();
+                    navigate('/login');
+                  }}
+                  className="p-3 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 flex items-center justify-center shrink-0"
+                  aria-label="Sign Out"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                onClick={closeMenu}
+                className="block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
+              >
+                LOGIN
+              </Link>
+            )}
           </div>
           </div>
         </div>

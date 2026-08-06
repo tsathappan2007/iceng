@@ -1,5 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import butterflyLogo from '../assets/butterfly-cit.png';
+import sriramPic from '../assets/sriram-picture.jpg';
+import rameshPic from '../assets/ramesh-picture.jpg';
+import srideviPic from '../assets/sridevi-picture.jpg';
+import kavithaPic from '../assets/kavitha-picture.jpg';
 
 const Committee = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -18,15 +22,15 @@ const Committee = () => {
         {
           roleName: 'Chief Patrons',
           members: [
-            { avatar: "PS", name: "Shri P. Sriram", affil: "Chairman", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
-            { avatar: "SS", name: "Mrs. S. Sridevi", affil: "Secretary", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
+            { image: sriramPic, avatar: "PS", name: "Shri P. Sriram", affil: "Chairman", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
+            { image: srideviPic, name: "Mrs. S. Sridevi", affil: "Secretary", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
             { avatar: "SG", name: "Mr. S. Gokulakrishnan", affil: "Director", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CHIEF PATRON" },
           ]
         },
         {
           roleName: 'Patrons',
           members: [
-            { avatar: "AR", name: "Dr. A. Ramesh", affil: "Principal", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
+            { image: rameshPic, name: "Dr. A. Ramesh", affil: "Principal", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
             { avatar: "SR", name: "Dr. Srinivasa Rao", affil: "Dean, School of Computing", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
             { avatar: "MM", name: "Dr. M. Manivannan", affil: "Director, Mechanical Department", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "PATRON" },
           ]
@@ -34,7 +38,7 @@ const Committee = () => {
         {
           roleName: 'Chair',
           members: [
-            { avatar: "AK", name: "Dr. A. R. Kavitha", affil: "Professor & Head, Dept. of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CONFERENCE CHAIR" },
+            { image: kavithaPic, name: "Dr. A. R. Kavitha", affil: "Professor & Head, Dept. of Information Technology", org: "Chennai Institute of Technology", location: "Chennai, India", tag: "CONFERENCE CHAIR" },
           ]
         },
         {
@@ -102,53 +106,53 @@ const Committee = () => {
     : sections.filter(sec => sec.id === activeTab);
 
   return (
-    <section id="committee" className="py-20 px-4 sm:px-6 relative z-10 bg-slate-50/60 border-t border-slate-200/80">
+    <section id="committee" className="py-24 px-4 sm:px-6 relative z-10 bg-slate-50/70">
       
-      {/* Background Decorative Ambient Gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-amber-500/5 blur-3xl pointer-events-none -z-10" />
+      {/* Background Ambient Blur Orbs */}
+      <div className="absolute top-10 left-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto space-y-12">
         
-        {/* Main Header Banner */}
+        {/* Section Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-black tracking-widest uppercase shadow-sm">
-            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-            ICAINGCIT 2027 LEADERSHIP &amp; COUNCILS
+          <div className="flex items-center justify-center gap-3">
+            <span className="w-12 h-px bg-blue-300/80" />
+            <span className="text-xs font-mono font-black tracking-widest text-blue-700 uppercase px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 shadow-sm">
+              GOVERNANCE &amp; LEADERSHIP
+            </span>
+            <span className="w-12 h-px bg-blue-300/80" />
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight uppercase">
-            Conference <span className="text-blue-600 glow-title">Committee</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight">
+            CONFERENCE <span className="text-blue-600 glow-title">COMMITTEES</span>
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-            Distinguished academicians, industry visionaries, and researchers guiding the International Conference on AI, Next-Gen Computing, and Information Technology.
+            Distinguished leaders, patrons, steering committee members, and international advisory board guiding IEEE ICAINGCIT 2027.
           </p>
         </div>
 
-        {/* Centered Category Filter Pills */}
+        {/* Tab Filters */}
         <div className="flex justify-center">
-          <div className="flex flex-wrap items-center justify-center gap-2 bg-white p-2.5 rounded-full border border-slate-200 shadow-sm">
-            {tabs.map((tab) => {
-              const count = tabCounts[tab.id] || 0;
-              const isSelected = activeTab === tab.id;
-
+          <div className="inline-flex flex-wrap items-center justify-center p-1.5 rounded-full bg-white border border-slate-200/90 shadow-md gap-1">
+            {tabs.map(tab => {
+              const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
-                    isSelected
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-105'
-                      : 'bg-transparent text-slate-700 hover:text-blue-600 hover:bg-blue-50/50'
+                  className={`px-5 py-2.5 rounded-full text-xs font-mono font-black tracking-wider transition-all duration-300 flex items-center gap-2 uppercase ${
+                    isActive
+                      ? 'bg-blue-600 text-white shadow-md scale-[1.02]'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   <span>{tab.label}</span>
-                  <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    isActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600'
                   }`}>
-                    {count}
+                    {tabCounts[tab.id]}
                   </span>
                 </button>
               );
@@ -156,26 +160,25 @@ const Committee = () => {
           </div>
         </div>
 
-        {/* Committee Render Sections */}
+        {/* Committee Sections */}
         <div className="space-y-16">
           {visibleSections.map((sec) => (
-            <div key={sec.id} className="space-y-8 scroll-mt-28">
+            <div key={sec.id} className="space-y-8">
               
-              {/* Light Theme Section Header Banner */}
-              <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-blue-400/10 to-transparent pointer-events-none" />
-                
-                <div className="space-y-1.5 relative z-10">
-                  <div className="flex items-center gap-2 text-blue-600 text-xs font-mono font-bold uppercase tracking-widest">
+              {/* Section Header Banner */}
+              <div className="p-6 sm:p-8 rounded-[32px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shrink-0">
                     {sec.icon}
-                    <span>ICAINGCIT 2027 TRACK</span>
                   </div>
-                  <h3 className="text-xl sm:text-3xl font-black uppercase tracking-tight text-slate-900">
-                    {sec.title}
-                  </h3>
-                  <p className="text-slate-600 text-xs sm:text-sm max-w-2xl font-medium">
-                    {sec.subtitle}
-                  </p>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight uppercase">
+                      {sec.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium">
+                      {sec.subtitle}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="shrink-0 relative z-10">
@@ -221,8 +224,16 @@ const Committee = () => {
                             <div className="flex items-start gap-4">
                               {/* Picture Avatar Box */}
                               <div className="relative shrink-0">
-                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-blue-600 p-1 bg-white shadow-md flex items-center justify-center text-blue-700 font-mono font-black text-xl sm:text-2xl group-hover:scale-105 transition-transform duration-300">
-                                  {member.avatar}
+                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-blue-600 p-1 bg-white shadow-md flex items-center justify-center text-blue-700 font-mono font-black text-xl sm:text-2xl group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+                                  {member.image ? (
+                                    <img
+                                      src={member.image}
+                                      alt={member.name}
+                                      className="w-full h-full object-cover rounded-xl"
+                                    />
+                                  ) : (
+                                    member.avatar
+                                  )}
                                 </div>
                               </div>
 

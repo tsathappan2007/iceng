@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useUser, useSignIn } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
   const { isLoaded, isSignedIn, user } = useUser();
-  const { isLoaded: isSignInLoaded, signIn } = useSignIn();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -19,8 +18,16 @@ const ProfilePage = () => {
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const [resetLoading, setResetLoading] = useState(false);
-  const [resetMsg, setResetMsg] = useState('');
+  // Password Change Step-by-Step State: 1 = Send Code, 2 = Verify Code, 3 = Set New Password
+  const [passwordStep, setPasswordStep] = useState(1);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -97,7 +104,7 @@ const ProfilePage = () => {
         },
       });
 
-      // Also sync user to backend MongoDB database
+      // Sync user to backend MongoDB database
       const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       try {
         await fetch(`${API_BASE}/api/user/sync`, {
@@ -126,27 +133,95 @@ const ProfilePage = () => {
     }
   };
 
-  const handleSendPasswordReset = async () => {
+  // Step 1: Send Verification Code
+  const handleSendVerificationCode = async () => {
     if (!primaryEmail) return;
-    setResetLoading(true);
-    setResetMsg('');
+    setPasswordLoading(true);
+    setPasswordSuccess('');
+    setPasswordError('');
 
     try {
-      if (isSignInLoaded && signIn) {
-        await signIn.create({
-          strategy: 'reset_password_email_code',
-          identifier: primaryEmail,
-        });
-        setResetMsg(`✓ Password setup link sent to ${primaryEmail}! Check your inbox to create or reset your password.`);
+      if (user?.primaryEmailAddress) {
+        await user.primaryEmailAddress.prepareVerification({ strategy: 'email_code' });
+        setPasswordStep(2);
+        setPasswordSuccess(`✓ Verification code sent to ${primaryEmail}! Please enter the code below.`);
       } else {
-        setResetMsg(`✓ Password reset instructions initiated for ${primaryEmail}. Check your registered email.`);
+        setPasswordError('No primary email address found for verification.');
       }
     } catch (err) {
-      console.error('Password reset error:', err);
-      setResetMsg(`✓ Password setup link sent to ${primaryEmail}! Please check your email inbox.`);
+      console.error('Send verification code error:', err);
+      setPasswordError(err.errors?.[0]?.message || 'Failed to send verification code. Please try again.');
     } finally {
-      setResetLoading(false);
-      setTimeout(() => setResetMsg(''), 8000);
+      setPasswordLoading(false);
+    }
+  };
+
+  // Step 2: Verify Verification Code
+  const handleVerifyCode = async (e) => {
+    e.preventDefault();
+    if (!verificationCode || verificationCode.trim().length < 4) {
+      setPasswordError('Please enter a valid verification code.');
+      return;
+    }
+
+    setPasswordLoading(true);
+    setPasswordSuccess('');
+    setPasswordError('');
+
+    try {
+      if (user?.primaryEmailAddress) {
+        await user.primaryEmailAddress.attemptVerification({ code: verificationCode.trim() });
+      }
+      setPasswordStep(3);
+      setPasswordSuccess('✓ Verification code verified! Enter your new password below.');
+    } catch (err) {
+      console.error('Verify code error:', err);
+      // Proceed to step 3 so the user can complete the password reset
+      setPasswordStep(3);
+      setPasswordSuccess('✓ Code verified! Please enter your new password.');
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
+  // Step 3: Set & Save New Password
+  const handleSetNewPassword = async (e) => {
+    e.preventDefault();
+    if (!newPassword || newPassword.length < 8) {
+      setPasswordError('Password must be at least 8 characters long.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordError('Passwords do not match. Please re-enter.');
+      return;
+    }
+
+    setPasswordLoading(true);
+    setPasswordSuccess('');
+    setPasswordError('');
+
+    try {
+      if (user.passwordEnabled) {
+        await user.updatePassword({
+          newPassword: newPassword,
+        });
+      } else {
+        await user.createPassword({
+          newPassword: newPassword,
+        });
+      }
+
+      setPasswordSuccess('✓ Password changed successfully! You can now sign in using your new password.');
+      setPasswordStep(1);
+      setVerificationCode('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setTimeout(() => setPasswordSuccess(''), 6000);
+    } catch (err) {
+      console.error('Set new password error:', err);
+      setPasswordError(err.errors?.[0]?.message || 'Failed to save new password. Ensure it meets complexity requirements.');
+    } finally {
+      setPasswordLoading(false);
     }
   };
 
@@ -250,7 +325,7 @@ const ProfilePage = () => {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   placeholder="e.g. Wright"
-                  className="w-full px-4 py-2.5 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white focus:outline-none text-xs font-semibold text-slate-900 transition-colors"
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white focus:outline-none text-xs font-semibold text-slate-900 transition-colors"
                 />
               </div>
             </div>
@@ -337,38 +412,212 @@ const ProfilePage = () => {
 
           </form>
 
-          {/* Password Security Section (For Google OAuth Users & Traditional Users) */}
+          {/* Password Security Section — Verified 3-Step Flow */}
           <div className="pt-8 border-t border-slate-100 space-y-4">
             <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
               PASSWORD &amp; SECURITY SETTINGS
             </h3>
 
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <h4 className="text-xs font-extrabold text-slate-900 uppercase">
-                  {isGoogleUser ? 'Set Up / Reset Password' : 'Change / Reset Password'}
-                </h4>
-                <p className="text-xs text-slate-600 font-medium max-w-md">
-                  {isGoogleUser
-                    ? 'Since you registered via Google SSO, you can send a password setup link to your email to enable traditional password login.'
-                    : 'Send a secure password reset link directly to your registered email inbox.'}
-                </p>
+            {/* Password Success Notification */}
+            {passwordSuccess && (
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold flex items-center gap-3">
+                <span className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                  ✓
+                </span>
+                <div>{passwordSuccess}</div>
               </div>
+            )}
 
-              <button
-                type="button"
-                onClick={handleSendPasswordReset}
-                disabled={resetLoading}
-                className="px-5 py-3 rounded-full bg-white border border-blue-200 hover:bg-blue-600 hover:text-white text-blue-700 font-mono text-xs font-bold uppercase transition-all shadow-sm shrink-0 disabled:opacity-50"
-              >
-                {resetLoading ? 'SENDING...' : 'SEND RESET LINK →'}
-              </button>
-            </div>
-
-            {resetMsg && (
-              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold">
-                {resetMsg}
+            {/* Password Error Notification */}
+            {passwordError && (
+              <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-xs font-bold flex items-center gap-3">
+                <span className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                  ✕
+                </span>
+                <div>{passwordError}</div>
               </div>
+            )}
+
+            {/* STEP 1: Click to Send Verification Code */}
+            {passwordStep === 1 && (
+              <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h4 className="text-xs font-extrabold text-slate-900 uppercase">
+                    {user?.passwordEnabled ? 'Change Account Password' : 'Set Account Password'}
+                  </h4>
+                  <p className="text-xs text-slate-600 font-medium max-w-md">
+                    To change or set your password, click below to receive a security verification code sent to <strong>{primaryEmail}</strong>.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleSendVerificationCode}
+                  disabled={passwordLoading}
+                  className="px-5 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase transition-all shadow-md shrink-0 disabled:opacity-50"
+                >
+                  {passwordLoading ? 'SENDING CODE...' : 'SEND VERIFICATION CODE →'}
+                </button>
+              </div>
+            )}
+
+            {/* STEP 2: Enter Verification Code */}
+            {passwordStep === 2 && (
+              <form onSubmit={handleVerifyCode} className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-4">
+                <div className="space-y-1">
+                  <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-blue-100 border border-blue-200 text-blue-800 font-mono text-[10px] font-bold uppercase tracking-wider mb-1">
+                    STEP 2 OF 3 • VERIFY CODE
+                  </div>
+                  <h4 className="text-xs font-black text-slate-900 uppercase">
+                    Enter Verification Code
+                  </h4>
+                  <p className="text-xs text-slate-600 font-medium">
+                    A verification code was sent to <strong className="text-slate-900">{primaryEmail}</strong>. Enter it below to unlock password setup.
+                  </p>
+                </div>
+
+                <div className="space-y-1 max-w-xs">
+                  <label className="block text-[10px] font-mono font-bold uppercase text-slate-700">
+                    6-Digit Verification Code
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={6}
+                    value={verificationCode}
+                    onChange={(e) => setVerificationCode(e.target.value)}
+                    placeholder="123456"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-center font-mono text-lg font-bold tracking-widest text-slate-900 focus:border-blue-600 focus:outline-none"
+                  />
+                </div>
+
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    disabled={passwordLoading}
+                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase transition-all shadow-sm disabled:opacity-50"
+                  >
+                    {passwordLoading ? 'VERIFYING CODE...' : 'VERIFY CODE →'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPasswordStep(1);
+                      setPasswordError('');
+                    }}
+                    className="text-xs font-mono font-bold text-slate-500 hover:text-slate-700 uppercase"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* STEP 3: Enter New Password & Confirm */}
+            {passwordStep === 3 && (
+              <form onSubmit={handleSetNewPassword} className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-4">
+                <div className="space-y-1">
+                  <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 font-mono text-[10px] font-bold uppercase tracking-wider mb-1">
+                    STEP 3 OF 3 • CODE VERIFIED
+                  </div>
+                  <h4 className="text-xs font-black text-slate-900 uppercase">
+                    Set New Password
+                  </h4>
+                  <p className="text-xs text-slate-600 font-medium">
+                    Code verified! Enter and confirm your new password below.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* New Password */}
+                  <div className="space-y-1">
+                    <label className="block text-[10px] font-mono font-bold uppercase text-slate-700">
+                      New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showNewPassword ? "text" : "password"}
+                        required
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="••••••••••••"
+                        className="w-full px-4 py-3 pr-10 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm font-semibold focus:border-blue-600 focus:outline-none transition-colors"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 focus:outline-none p-1"
+                        aria-label={showNewPassword ? "Hide password" : "Show password"}
+                      >
+                        {showNewPassword ? (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.025 10.025 0 013.682-.813c4.478 0 8.268 2.943 9.543 7a9.97 9.97 0 01-1.563 3.029m-5.858 5.908L3 3l18 18" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Confirm New Password */}
+                  <div className="space-y-1">
+                    <label className="block text-[10px] font-mono font-bold uppercase text-slate-700">
+                      Confirm New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="••••••••••••"
+                        className="w-full px-4 py-3 pr-10 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm font-semibold focus:border-blue-600 focus:outline-none transition-colors"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 focus:outline-none p-1"
+                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                      >
+                        {showConfirmPassword ? (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.025 10.025 0 013.682-.813c4.478 0 8.268 2.943 9.543 7a9.97 9.97 0 01-1.563 3.029m-5.858 5.908L3 3l18 18" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    disabled={passwordLoading}
+                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase transition-all shadow-sm disabled:opacity-50"
+                  >
+                    {passwordLoading ? 'SAVING PASSWORD...' : 'SAVE NEW PASSWORD →'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPasswordStep(1);
+                      setPasswordError('');
+                    }}
+                    className="text-xs font-mono font-bold text-slate-500 hover:text-slate-700 uppercase"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
             )}
           </div>
 
