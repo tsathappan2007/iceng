@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import SideNav from './components/SideNav';
 import Navbar from './components/Navbar';
@@ -15,7 +15,6 @@ import SpeakersPage from './pages/SpeakersPage';
 import CommitteePage from './pages/CommitteePage';
 import CouncilPage from './pages/CouncilPage';
 import SubmitPage from './pages/SubmitPage';
-import RegistrationPage from './pages/RegistrationPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -71,7 +70,7 @@ function AppContent() {
           <Route path="/committee" element={<CommitteePage />} />
           <Route path="/council" element={<CouncilPage />} />
           <Route path="/submit" element={<SubmitPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
+          <Route path="/registration" element={<Navigate to="/submit" replace />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />

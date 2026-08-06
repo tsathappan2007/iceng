@@ -186,10 +186,10 @@ const DashboardPage = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase">
-                    Submit Manuscript
+                    Submit Manuscript &amp; Pay Fees
                   </h4>
                   <p className="text-xs text-slate-600 mt-1">
-                    Upload paper draft, PDF file, and author guidelines.
+                    Upload cloud drive link, select registration rate &amp; pay fees.
                   </p>
                 </div>
               </Link>
@@ -206,24 +206,7 @@ const DashboardPage = () => {
                     Profile &amp; Password
                   </h4>
                   <p className="text-xs text-slate-600 mt-1">
-                    Update institution, phone, or send password reset link.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                to="/registration"
-                className="p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm hover:shadow-md hover:border-blue-400 transition-all group space-y-3"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center text-xl shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  💳
-                </div>
-                <div>
-                  <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase">
-                    Registration &amp; Payment
-                  </h4>
-                  <p className="text-xs text-slate-600 mt-1">
-                    View author registration tiers &amp; fee status.
+                    Update institution, phone, department &amp; password settings.
                   </p>
                 </div>
               </Link>
