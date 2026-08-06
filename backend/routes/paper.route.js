@@ -1,10 +1,8 @@
 const express = require('express');
 const Router = express.Router();
+const { submitPaper, getPapers } = require('../controllers/paper.controller');
 
-const validate = require('../middlewares/validate.middleware');
-const { paperSchema } = require('../validators/paper.schema');
-const { submitPaper } = require('../controllers/paper.controller');
-
-Router.post('/submit', validate(paperSchema), submitPaper);
+Router.post('/submit', submitPaper);
+Router.get('/', getPapers);
 
 module.exports = Router;
