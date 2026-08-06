@@ -36,7 +36,7 @@ const Hero = () => {
 
         
 
-        <p className="text-[11px] sm:text-xs font-semibold tracking-[0.18em] text-slate-600 uppercase mb-5 max-w-3xl animate-symphony-text delay-300">
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg font-bold tracking-wide text-slate-700 uppercase mb-6 max-w-4xl leading-relaxed animate-symphony-text delay-300">
           International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies · Chennai Institute of Technology
         </p>
 

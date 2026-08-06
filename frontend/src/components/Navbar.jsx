@@ -8,6 +8,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [hoveredNav, setHoveredNav] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -169,16 +170,27 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-2 xl:gap-3">
+            <div 
+              className="hidden lg:flex items-center gap-2 xl:gap-3"
+              onMouseLeave={() => setHoveredNav(null)}
+            >
               {navItems.map((item, idx) => {
                 const isActive = location.pathname === item.path || (item.id === 'council' && location.pathname.startsWith('/council')) || (item.id === 'about' && location.pathname.startsWith('/about'));
+                const isHovered = hoveredNav === idx;
+                const isAnyHovered = hoveredNav !== null;
+                const showUnderline = isHovered || (!isAnyHovered && isActive);
 
                 return (
                   <div
                     key={idx}
-                    className="relative group py-1.5"
-                    onMouseEnter={() => item.hasDropdown && setActiveDropdown(idx)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    className="relative group/navitem py-1.5"
+                    onMouseEnter={() => {
+                      setHoveredNav(idx);
+                      if (item.hasDropdown) setActiveDropdown(idx);
+                    }}
+                    onMouseLeave={() => {
+                      if (item.hasDropdown) setActiveDropdown(null);
+                    }}
                   >
                     <Link
                       to={item.path}
@@ -193,8 +205,10 @@ const Navbar = () => {
                       
                       {item.hasDropdown && (
                         <svg
-                          className={`w-3.5 h-3.5 transition-transform duration-300 hover:rotate-180 cursor-pointer ${
-                            isActive ? 'text-blue-600' : 'text-slate-400 hover:text-blue-600'
+                          className={`w-3.5 h-3.5 transition-transform duration-300 group-hover/navitem:rotate-180 ${
+                            isActive || isHovered || activeDropdown === idx ? 'text-blue-600' : 'text-slate-400 group-hover/navitem:text-blue-600'
+                          } ${
+                            isHovered || activeDropdown === idx ? 'rotate-180' : ''
                           }`}
                           fill="none"
                           stroke="currentColor"
@@ -204,16 +218,20 @@ const Navbar = () => {
                         </svg>
                       )}
 
-                      {/* Centered horizontal indicator bar underneath active button */}
-                      {isActive && (
-                        <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-amber-400 shadow-sm" />
-                      )}
+                      {/* Dynamic centered horizontal yellow indicator bar underneath section button */}
+                      <span
+                        className={`absolute -bottom-2.5 left-1/2 -translate-x-1/2 h-[3.5px] rounded-full bg-amber-400 shadow-[0_2px_10px_rgba(251,191,36,0.65)] transition-all duration-300 ease-out origin-center pointer-events-none ${
+                          showUnderline
+                            ? 'w-8 opacity-100 scale-x-100'
+                            : 'w-0 opacity-0 scale-x-0'
+                        }`}
+                      />
                     </Link>
 
                     {/* Light Neumorphism Popover Dropdown Box */}
                     {item.hasDropdown && (
                       <div
-                        className={`absolute top-full left-1/2 -translate-x-1/2 w-80 pt-4 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto ${
+                        className={`absolute top-full left-1/2 -translate-x-1/2 w-80 pt-4 transition-all duration-300 pointer-events-none group-hover/navitem:pointer-events-auto ${
                           activeDropdown === idx
                             ? 'opacity-100 translate-y-0 scale-100'
                             : 'opacity-0 translate-y-3 scale-95 pointer-events-none'
