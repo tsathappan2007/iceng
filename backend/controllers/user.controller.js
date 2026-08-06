@@ -26,7 +26,6 @@ exports.syncUser = async (req, res) => {
       { new: true, upsert: true }
     );
 
-    console.log(`✅ MongoDB User Synced: ${user.email} (${user.institution || 'No Institution'})`);
 
     return res.status(200).json({
       success: true,
