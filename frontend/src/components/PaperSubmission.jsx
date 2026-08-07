@@ -33,14 +33,74 @@ const PaperSubmission = () => {
   const [selectedBank, setSelectedBank] = useState('HDFC Bank');
   const [paymentProcessing, setPaymentProcessing] = useState(false);
 
-  // 3️⃣ 6 Research Track Options
+  // 3️⃣ 6 Research Track Options (Sleek Professional SVG Icons)
   const researchTracks = [
-    { id: 'Track 1', code: 'TRACK 01', title: 'Artificial Intelligence & Deep Learning', icon: '🧠', desc: 'LLMs, Neural Networks, Computer Vision & Generative AI' },
-    { id: 'Track 2', code: 'TRACK 02', title: 'Next-Gen Cloud & Distributed Systems', icon: '☁️', desc: 'Cloud Architectures, Serverless, Microservices & Edge Computing' },
-    { id: 'Track 3', code: 'TRACK 03', title: 'Cybersecurity, Privacy & Blockchain', icon: '🛡️', desc: 'Zero Trust, Cryptography, Smart Contracts & Network Defense' },
-    { id: 'Track 4', code: 'TRACK 04', title: 'IoT, Smart Sensors & Robotics', icon: '🤖', desc: 'Embedded Edge AI, Smart Cities, Automation & Autonomous Systems' },
-    { id: 'Track 5', code: 'TRACK 05', title: 'Big Data Analytics & Knowledge Graphs', icon: '📊', desc: 'Data Engineering, Graph Neural Networks & Predictive Analytics' },
-    { id: 'Track 6', code: 'TRACK 06', title: '6G Telemetry & Next-Gen Networking', icon: '📡', desc: 'Wireless Communication, Optical Networks & SDN/NFV' }
+    { 
+      id: 'Track 1', 
+      code: 'TRACK 01', 
+      title: 'Artificial Intelligence & Deep Learning', 
+      svg: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ), 
+      desc: 'LLMs, Neural Networks, Computer Vision & Generative AI' 
+    },
+    { 
+      id: 'Track 2', 
+      code: 'TRACK 02', 
+      title: 'Next-Gen Cloud & Distributed Systems', 
+      svg: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 00-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+      ), 
+      desc: 'Cloud Architectures, Serverless, Microservices & Edge Computing' 
+    },
+    { 
+      id: 'Track 3', 
+      code: 'TRACK 03', 
+      title: 'Cybersecurity, Privacy & Blockchain', 
+      svg: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ), 
+      desc: 'Zero Trust, Cryptography, Smart Contracts & Network Defense' 
+    },
+    { 
+      id: 'Track 4', 
+      code: 'TRACK 04', 
+      title: 'IoT, Smart Sensors & Robotics', 
+      svg: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      ), 
+      desc: 'Embedded Edge AI, Smart Cities, Automation & Autonomous Systems' 
+    },
+    { 
+      id: 'Track 5', 
+      code: 'TRACK 05', 
+      title: 'Big Data Analytics & Knowledge Graphs', 
+      svg: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ), 
+      desc: 'Data Engineering, Graph Neural Networks & Predictive Analytics' 
+    },
+    { 
+      id: 'Track 6', 
+      code: 'TRACK 06', 
+      title: '6G Telemetry & Next-Gen Networking', 
+      svg: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+        </svg>
+      ), 
+      desc: 'Wireless Communication, Optical Networks & SDN/NFV' 
+    }
   ];
 
   // 4️⃣ 5 Rich Registration Rates & Tiers Options
@@ -158,6 +218,67 @@ const PaperSubmission = () => {
       setAutoSaveStatus(`Autosaved locally at ${savedTime} (not submitted)`);
     }
   }, [authorName, authorEmail, paperTitle, selectedTrack, driveLink, selectedTierId, formStep]);
+
+  // 🚦 Step Completion Status Helpers ('full' = Green ✓ | 'partial' = Yellow ! | 'empty' = Red ✕)
+  const getStep1Status = () => {
+    const cAuthor = (authorName || user?.fullName || '').trim();
+    const cEmail = (authorEmail || user?.primaryEmailAddress?.emailAddress || '').trim();
+    const cTitle = paperTitle.trim();
+    const count = (cAuthor ? 1 : 0) + (cEmail ? 1 : 0) + (cTitle ? 1 : 0);
+    if (count === 3) return 'full';
+    if (count > 0) return 'partial';
+    return 'empty';
+  };
+
+  const getStep2Status = () => (selectedTrack ? 'full' : 'empty');
+  const getStep3Status = () => (driveLink.trim() ? 'full' : 'empty');
+  const getStep4Status = () => (selectedTierId ? 'full' : 'empty');
+
+  const getStep5Status = () => (formStep === 5 ? 'full' : 'empty');
+
+  const renderStepPillStyle = (stepNum, status) => {
+    const isActive = formStep === stepNum;
+    if (isActive) {
+      return 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-500 shadow-lg shadow-blue-500/30 ring-4 ring-blue-400/30 font-black scale-105 z-10 animate-pulse';
+    }
+    if (status === 'full') {
+      return 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-xs hover:scale-105 hover:bg-emerald-100/90 z-10';
+    }
+    if (status === 'partial') {
+      return 'bg-amber-50 border-amber-300 text-amber-900 shadow-xs hover:scale-105 hover:bg-amber-100/90 z-10';
+    }
+    return 'bg-red-50/90 border-red-200 text-red-900 shadow-xs hover:scale-105 hover:bg-red-100 z-10';
+  };
+
+  const renderStepBadgeIcon = (stepNum, status) => {
+    const isActive = formStep === stepNum;
+    if (isActive) {
+      return (
+        <span className="w-4 h-4 rounded-full bg-white/25 text-white flex items-center justify-center text-[9px] font-black shrink-0">
+          {stepNum}
+        </span>
+      );
+    }
+    if (status === 'full') {
+      return (
+        <span className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[9px] font-black shrink-0 shadow-xs">
+          ✓
+        </span>
+      );
+    }
+    if (status === 'partial') {
+      return (
+        <span className="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center text-[9px] font-black shrink-0 shadow-xs animate-bounce">
+          !
+        </span>
+      );
+    }
+    return (
+      <span className="w-4 h-4 rounded-full bg-red-500 text-white flex items-center justify-center text-[9px] font-black shrink-0 shadow-xs">
+        ✕
+      </span>
+    );
+  };
 
   // 🚦 Step Navigation Handlers
   const handleNextToTrack = (e) => {
@@ -402,78 +523,148 @@ const PaperSubmission = () => {
           </div>
         )}
 
-        {/* 🚦 5-Step Navigation Progress Indicator Bar */}
+        {/* 🚦 5-Step Navigation Progress Indicator Bar with Alternating Glowing Gradient Flow Arcs */}
         {!submissionReceipt && (
-          <div className="flex items-center justify-between gap-1.5 sm:gap-2.5 max-w-4xl mx-auto mb-8 font-mono text-[10px] sm:text-xs font-bold overflow-x-auto pb-2">
+          <div className="max-w-5xl mx-auto mb-12 px-2 sm:px-4">
             
-            {/* Step 1 Pill */}
-            <button
-              type="button"
-              onClick={() => setFormStep(1)}
-              className={`px-3 py-2.5 rounded-2xl border transition-all flex items-center gap-1.5 shrink-0 ${
-                formStep === 1 ? 'bg-blue-600 text-white border-blue-600 shadow-md' : formStep > 1 ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-white text-slate-600 border-slate-200'
-              }`}
-            >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] ${formStep > 1 ? 'bg-emerald-600 text-white' : 'bg-white/20'}`}>{formStep > 1 ? '✓' : '1'}</span>
-              <span>DETAILS</span>
-            </button>
+            {/* SVG Defs for Glowing Flow Arcs */}
+            <svg className="absolute w-0 h-0 pointer-events-none">
+              <defs>
+                <linearGradient id="glow-active" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#2563eb" />
+                  <stop offset="50%" stopColor="#6366f1" />
+                  <stop offset="100%" stopColor="#10b981" />
+                </linearGradient>
+                <linearGradient id="glow-completed" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#10b981" />
+                  <stop offset="100%" stopColor="#059669" />
+                </linearGradient>
+                <marker id="arrow-active" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#2563eb" />
+                </marker>
+                <marker id="arrow-completed" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#10b981" />
+                </marker>
+                <marker id="arrow-inactive" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#cbd5e1" />
+                </marker>
+              </defs>
+            </svg>
 
-            <div className="w-3 h-[2px] bg-slate-200 shrink-0" />
+            {/* 5 Step Navigation Pills with Alternating Glowing Gradient Flow Arcs */}
+            <div className="flex items-center justify-between font-mono text-[11px] sm:text-xs font-black relative z-10 py-5 gap-1.5 sm:gap-4 overflow-x-visible">
+              
+              {/* Step 1 Pill */}
+              <button
+                type="button"
+                onClick={() => setFormStep(1)}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(1, getStep1Status())}`}
+              >
+                {renderStepBadgeIcon(1, getStep1Status())}
+                <span>DETAILS</span>
+              </button>
 
-            {/* Step 2 Pill */}
-            <button
-              type="button"
-              onClick={() => { if (paperTitle) setFormStep(2); }}
-              className={`px-3 py-2.5 rounded-2xl border transition-all flex items-center gap-1.5 shrink-0 ${
-                formStep === 2 ? 'bg-blue-600 text-white border-blue-600 shadow-md' : formStep > 2 ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-white text-slate-600 border-slate-200'
-              }`}
-            >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] ${formStep > 2 ? 'bg-emerald-600 text-white' : 'bg-white/20'}`}>{formStep > 2 ? '✓' : '2'}</span>
-              <span>TRACK</span>
-            </button>
+              {/* Curved Flow Arrow 1 -> 2 (Curved UP ↑ with Glowing Dash Flow) */}
+              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                  <path
+                    d="M 5 34 Q 37.5 2 70 28"
+                    fill="none"
+                    stroke={formStep > 1 ? 'url(#glow-completed)' : formStep === 2 ? 'url(#glow-active)' : '#cbd5e1'}
+                    strokeWidth={formStep >= 2 ? '3' : '1.8'}
+                    strokeDasharray={formStep >= 2 ? '8 4' : '4 3'}
+                    markerEnd={formStep > 1 ? 'url(#arrow-completed)' : formStep === 2 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                    className={formStep >= 2 ? 'animate-dash-flow' : ''}
+                  />
+                </svg>
+              </div>
 
-            <div className="w-3 h-[2px] bg-slate-200 shrink-0" />
+              {/* Step 2 Pill */}
+              <button
+                type="button"
+                onClick={() => { if (paperTitle) setFormStep(2); }}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(2, getStep2Status())}`}
+              >
+                {renderStepBadgeIcon(2, getStep2Status())}
+                <span>TRACK</span>
+              </button>
 
-            {/* Step 3 Pill */}
-            <button
-              type="button"
-              onClick={() => { if (paperTitle) setFormStep(3); }}
-              className={`px-3 py-2.5 rounded-2xl border transition-all flex items-center gap-1.5 shrink-0 ${
-                formStep === 3 ? 'bg-blue-600 text-white border-blue-600 shadow-md' : formStep > 3 ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-white text-slate-600 border-slate-200'
-              }`}
-            >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] ${formStep > 3 ? 'bg-emerald-600 text-white' : 'bg-white/20'}`}>{formStep > 3 ? '✓' : '3'}</span>
-              <span>DRIVE LINK</span>
-            </button>
+              {/* Curved Flow Arrow 2 -> 3 (Curved DOWN ↓ with Glowing Dash Flow) */}
+              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                  <path
+                    d="M 5 8 Q 37.5 40 70 14"
+                    fill="none"
+                    stroke={formStep > 2 ? 'url(#glow-completed)' : formStep === 3 ? 'url(#glow-active)' : '#cbd5e1'}
+                    strokeWidth={formStep >= 3 ? '3' : '1.8'}
+                    strokeDasharray={formStep >= 3 ? '8 4' : '4 3'}
+                    markerEnd={formStep > 2 ? 'url(#arrow-completed)' : formStep === 3 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                    className={formStep >= 3 ? 'animate-dash-flow' : ''}
+                  />
+                </svg>
+              </div>
 
-            <div className="w-3 h-[2px] bg-slate-200 shrink-0" />
+              {/* Step 3 Pill */}
+              <button
+                type="button"
+                onClick={() => { if (paperTitle) setFormStep(3); }}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(3, getStep3Status())}`}
+              >
+                {renderStepBadgeIcon(3, getStep3Status())}
+                <span>DRIVE LINK</span>
+              </button>
 
-            {/* Step 4 Pill */}
-            <button
-              type="button"
-              onClick={() => { if (driveLink) setFormStep(4); }}
-              className={`px-3 py-2.5 rounded-2xl border transition-all flex items-center gap-1.5 shrink-0 ${
-                formStep === 4 ? 'bg-blue-600 text-white border-blue-600 shadow-md' : formStep > 4 ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-white text-slate-600 border-slate-200'
-              }`}
-            >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] ${formStep > 4 ? 'bg-emerald-600 text-white' : 'bg-white/20'}`}>{formStep > 4 ? '✓' : '4'}</span>
-              <span>RATES</span>
-            </button>
+              {/* Curved Flow Arrow 3 -> 4 (Curved UP ↑ with Glowing Dash Flow) */}
+              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                  <path
+                    d="M 5 34 Q 37.5 2 70 28"
+                    fill="none"
+                    stroke={formStep > 3 ? 'url(#glow-completed)' : formStep === 4 ? 'url(#glow-active)' : '#cbd5e1'}
+                    strokeWidth={formStep >= 4 ? '3' : '1.8'}
+                    strokeDasharray={formStep >= 4 ? '8 4' : '4 3'}
+                    markerEnd={formStep > 3 ? 'url(#arrow-completed)' : formStep === 4 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                    className={formStep >= 4 ? 'animate-dash-flow' : ''}
+                  />
+                </svg>
+              </div>
 
-            <div className="w-3 h-[2px] bg-slate-200 shrink-0" />
+              {/* Step 4 Pill */}
+              <button
+                type="button"
+                onClick={() => { if (driveLink) setFormStep(4); }}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(4, getStep4Status())}`}
+              >
+                {renderStepBadgeIcon(4, getStep4Status())}
+                <span>RATES</span>
+              </button>
 
-            {/* Step 5 Pill */}
-            <button
-              type="button"
-              onClick={() => { if (driveLink) setFormStep(5); }}
-              className={`px-3 py-2.5 rounded-2xl border transition-all flex items-center gap-1.5 shrink-0 ${
-                formStep === 5 ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-slate-600 border-slate-200'
-              }`}
-            >
-              <span className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[9px]">5</span>
-              <span>PAYMENT</span>
-            </button>
+              {/* Curved Flow Arrow 4 -> 5 (Curved DOWN ↓ with Glowing Dash Flow) */}
+              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                  <path
+                    d="M 5 8 Q 37.5 40 70 14"
+                    fill="none"
+                    stroke={formStep > 4 ? 'url(#glow-completed)' : formStep === 5 ? 'url(#glow-active)' : '#cbd5e1'}
+                    strokeWidth={formStep >= 5 ? '3' : '1.8'}
+                    strokeDasharray={formStep >= 5 ? '8 4' : '4 3'}
+                    markerEnd={formStep > 4 ? 'url(#arrow-completed)' : formStep === 5 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                    className={formStep >= 5 ? 'animate-dash-flow' : ''}
+                  />
+                </svg>
+              </div>
 
+              {/* Step 5 Pill (PAYMENT) - Generous Padding, NO Text Clipping! */}
+              <button
+                type="button"
+                onClick={() => { if (driveLink) setFormStep(5); }}
+                className={`px-5 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(5, getStep5Status())}`}
+              >
+                {renderStepBadgeIcon(5, getStep5Status())}
+                <span>PAYMENT</span>
+              </button>
+
+            </div>
           </div>
         )}
 
@@ -489,11 +680,19 @@ const PaperSubmission = () => {
                     STEP 1 OF 5 • AUTHOR &amp; MANUSCRIPT TITLE
                   </h3>
 
-                  {/* 💾 Repositioned Local Storage Auto-Save Badge with Checkmark Logo */}
+                  {/* 💾 Repositioned Local Storage Auto-Save Badge with Dynamic Status Icon */}
                   {autoSaveStatus && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[10px] font-bold shadow-xs">
-                      <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
-                        ✓
+                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border font-mono text-[10px] font-bold shadow-xs ${
+                      getStep1Status() === 'full'
+                        ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                        : getStep1Status() === 'partial'
+                        ? 'bg-amber-50 border-amber-200 text-amber-900'
+                        : 'bg-red-50 border-red-200 text-red-900'
+                    }`}>
+                      <span className={`w-3.5 h-3.5 rounded-full text-white flex items-center justify-center font-black text-[9px] shrink-0 ${
+                        getStep1Status() === 'full' ? 'bg-emerald-600' : getStep1Status() === 'partial' ? 'bg-amber-500' : 'bg-red-500'
+                      }`}>
+                        {getStep1Status() === 'full' ? '✓' : getStep1Status() === 'partial' ? '!' : '✕'}
                       </span>
                       <span>{autoSaveStatus}</span>
                     </div>
@@ -585,24 +784,28 @@ const PaperSubmission = () => {
                       <div
                         key={tr.id}
                         onClick={() => setSelectedTrack(tr.id)}
-                        className={`p-4 rounded-2xl transition-all duration-200 cursor-pointer relative flex flex-col justify-between border ${
+                        className={`p-4.5 rounded-2xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer relative flex flex-col justify-between border ${
                           isSelected
-                            ? 'bg-blue-50/90 border-blue-600 ring-2 ring-blue-600/30 shadow-md'
+                            ? 'bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border-blue-600 ring-2 ring-blue-600/30 shadow-md scale-[1.01]'
                             : 'bg-white hover:bg-slate-50 border-slate-200/90 hover:border-blue-300 shadow-xs'
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2">
-                            <span className="text-lg">{tr.icon}</span>
+                            <div className={`p-2 rounded-xl transition-colors ${
+                              isSelected ? 'bg-blue-600 text-white shadow-xs' : 'bg-blue-50 text-blue-700 border border-blue-100'
+                            }`}>
+                              {tr.svg}
+                            </div>
                             <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                              isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
+                              isSelected ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
                             }`}>
                               {tr.code}
                             </span>
                           </div>
 
                           {isSelected && (
-                            <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs shadow-xs">
+                            <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs shadow-xs animate-pulse">
                               ✓
                             </span>
                           )}
@@ -713,14 +916,14 @@ const PaperSubmission = () => {
 
             {/* 💎 STEP 4: REGISTRATION RATES CATEGORY */}
             {formStep === 4 && (
-              <div className="space-y-8 animate-fade-in">
+              <div className="space-y-6 animate-fade-in">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div>
                     <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                       STEP 4 OF 5 • SELECT REGISTRATION RATE CATEGORY
                     </h3>
-                    <p className="text-xs text-slate-600 font-medium mt-1">
-                      Click on any card to select your delegate tier. Includes full IEEE proceedings publication, presentation pass, and conference kit.
+                    <p className="text-xs text-slate-600 font-medium mt-0.5">
+                      Click on any card to select your rate tier. Includes full IEEE proceedings publication &amp; presentation pass.
                     </p>
                   </div>
 
@@ -734,8 +937,8 @@ const PaperSubmission = () => {
                   )}
                 </div>
 
-                {/* Grid of Luxurious Rich Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Compact Grid of Rate Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
                   {registrationTiers.map((tier) => {
                     const isSelected = selectedTierId === tier.id;
 
@@ -743,105 +946,99 @@ const PaperSubmission = () => {
                       <div
                         key={tier.id}
                         onClick={() => setSelectedTierId(tier.id)}
-                        className={`rounded-[32px] transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between p-7 sm:p-8 ${
+                        className={`rounded-3xl transition-all duration-200 cursor-pointer relative flex flex-col justify-between p-5 sm:p-6 ${
                           isSelected
-                            ? 'bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white shadow-2xl ring-4 ring-blue-400/50 scale-[1.01]'
-                            : 'bg-white hover:bg-slate-50/80 border-2 border-slate-200/90 hover:border-blue-400 text-slate-900 shadow-md hover:shadow-xl'
+                            ? 'bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl ring-2 ring-blue-400/50 scale-[1.01]'
+                            : 'bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-blue-300 text-slate-900 shadow-xs'
                         }`}
                       >
-                        {/* Top Pill Row */}
-                        <div className="flex items-center justify-between gap-2 mb-4">
-                          <span className={`text-[10px] font-mono font-black uppercase tracking-widest px-3.5 py-1 rounded-full border backdrop-blur-md ${
-                            isSelected
-                              ? 'bg-white/20 border-white/30 text-white'
-                              : 'bg-blue-50 border-blue-200 text-blue-800'
-                          }`}>
-                            {isSelected ? 'SELECTED REGISTRATION RATE' : 'CLICK TO SELECT'}
-                          </span>
-
-                          <span className={`px-3 py-1 rounded-full font-mono text-[10px] font-black uppercase shadow-xs ${
-                            isSelected
-                              ? 'bg-amber-400 text-slate-950'
-                              : 'bg-slate-100 text-slate-800 border border-slate-200'
-                          }`}>
-                            {tier.badge}
-                          </span>
-                        </div>
-
-                        {/* Title & Subtitle */}
-                        <div className="space-y-1.5 mb-6">
-                          <h4 className={`text-xl sm:text-2xl font-black uppercase tracking-tight ${
-                            isSelected ? 'text-white' : 'text-slate-900'
-                          }`}>
-                            {tier.label}
-                          </h4>
-                          <p className={`text-xs font-medium leading-relaxed ${
-                            isSelected ? 'text-blue-100' : 'text-slate-600'
-                          }`}>
-                            {tier.sub}
-                          </p>
-                        </div>
-
-                        {/* Price Display */}
-                        <div className="mb-6">
-                          <div className="flex items-baseline gap-2">
-                            <span className={`text-4xl sm:text-5xl font-black tracking-tight ${
-                              isSelected ? 'text-white' : 'text-blue-700'
+                        <div>
+                          {/* Top Pill Row */}
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <span className={`text-[9px] font-mono font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                              isSelected
+                                ? 'bg-white/20 border-white/30 text-white'
+                                : 'bg-blue-50 border-blue-200 text-blue-800'
                             }`}>
-                              {tier.fee}
+                              {isSelected ? 'SELECTED' : 'CLICK TO SELECT'}
                             </span>
-                            <span className={`text-xs font-mono font-bold uppercase ${
-                              isSelected ? 'text-blue-200' : 'text-slate-600'
+
+                            <span className={`px-2.5 py-0.5 rounded-full font-mono text-[9px] font-black uppercase ${
+                              isSelected
+                                ? 'bg-amber-400 text-slate-950'
+                                : 'bg-slate-100 text-slate-700 border border-slate-200'
                             }`}>
-                              ({tier.currency})
+                              {tier.badge}
                             </span>
                           </div>
-                        </div>
 
-                        {/* Inclusions Feature List */}
-                        <div className={`pt-5 border-t space-y-2.5 text-xs font-medium ${
-                          isSelected ? 'border-white/20 text-white' : 'border-slate-100 text-slate-700'
-                        }`}>
-                          {tier.features.map((feat, fIdx) => (
-                            <div key={fIdx} className="flex items-start gap-2.5">
-                              <span className={`w-4 h-4 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5 ${
-                                isSelected ? 'bg-white text-blue-700' : 'bg-blue-100 text-blue-800'
+                          {/* Title & Subtitle */}
+                          <div className="space-y-1 mb-4">
+                            <h4 className={`text-base font-black uppercase tracking-tight leading-snug ${
+                              isSelected ? 'text-white' : 'text-slate-900'
+                            }`}>
+                              {tier.label}
+                            </h4>
+                            <p className={`text-[11px] font-medium leading-relaxed ${
+                              isSelected ? 'text-blue-100' : 'text-slate-500'
+                            }`}>
+                              {tier.sub}
+                            </p>
+                          </div>
+
+                          {/* Price Display */}
+                          <div className="mb-4 pb-3 border-b border-slate-100/30">
+                            <div className="flex items-baseline gap-1.5">
+                              <span className={`text-3xl font-black tracking-tight ${
+                                isSelected ? 'text-white' : 'text-blue-700'
                               }`}>
-                                ✓
+                                {tier.fee}
                               </span>
-                              <span>{feat}</span>
+                              <span className={`text-[10px] font-mono font-bold uppercase ${
+                                isSelected ? 'text-blue-200' : 'text-slate-500'
+                              }`}>
+                                ({tier.currency})
+                              </span>
                             </div>
-                          ))}
-                        </div>
+                          </div>
 
-                        {/* Footer Row */}
-                        <div className={`mt-6 pt-4 border-t flex items-center justify-between text-[11px] font-bold ${
-                          isSelected ? 'border-white/20 text-blue-100' : 'border-slate-100 text-slate-600'
-                        }`}>
-                          <span>Includes IEEE Proceedings &amp; Tax</span>
-                          <span>Registration Pass Included</span>
+                          {/* Inclusions Feature List */}
+                          <div className={`space-y-2 text-[11px] font-medium ${
+                            isSelected ? 'text-blue-50' : 'text-slate-600'
+                          }`}>
+                            {tier.features.map((feat, fIdx) => (
+                              <div key={fIdx} className="flex items-start gap-2">
+                                <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center font-black text-[8px] shrink-0 mt-0.5 ${
+                                  isSelected ? 'bg-white text-blue-700' : 'bg-blue-100 text-blue-800'
+                                }`}>
+                                  ✓
+                                </span>
+                                <span>{feat}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Step 4 Action Buttons */}
-                <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/90 text-slate-900 shadow-md flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <div className="space-y-1 text-center sm:text-left">
+                {/* Step 4 Compact Action Card */}
+                <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/90 text-slate-900 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="space-y-0.5 text-center sm:text-left">
                     <span className="text-[10px] font-mono font-bold text-blue-700 uppercase tracking-widest">
-                      SELECTED REGISTRATION RATE
+                      SELECTED REGISTRATION TIER
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-black uppercase text-slate-900">
+                    <h3 className="text-lg sm:text-xl font-black uppercase text-slate-900">
                       {selectedTier.label} ({selectedTier.fee})
                     </h3>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+                  <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0 w-full sm:w-auto">
                     <button
                       type="button"
                       onClick={() => setFormStep(3)}
-                      className="w-full sm:w-auto px-6 py-4 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-mono text-xs font-bold uppercase transition-all shadow-sm"
+                      className="w-full sm:w-auto px-5 py-3 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-mono text-xs font-bold uppercase transition-all shadow-xs"
                     >
                       ← BACK TO DRIVE LINK
                     </button>
@@ -849,7 +1046,7 @@ const PaperSubmission = () => {
                     <button
                       type="button"
                       onClick={handleNextToCheckout}
-                      className="w-full sm:w-auto px-8 py-4.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all shadow-md shadow-blue-500/25 flex items-center justify-center gap-2"
                     >
                       <span>PROCEED TO PAYMENT CHECKOUT ({selectedTier.fee}) →</span>
                     </button>
@@ -904,151 +1101,6 @@ const PaperSubmission = () => {
                   </div>
                 </div>
 
-                {/* Interactive Payment Gateway Tabs */}
-                <div className="p-8 sm:p-10 rounded-[36px] bg-white border border-slate-200/90 shadow-md space-y-6">
-                  <h4 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
-                    SELECT PAYMENT METHOD
-                  </h4>
-
-                  {/* Payment Tabs */}
-                  <div className="flex border-b border-slate-200">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentTab('upi')}
-                      className={`flex-1 py-3 px-4 font-mono text-xs font-bold uppercase border-b-2 transition-all ${
-                        paymentTab === 'upi'
-                          ? 'border-blue-600 text-blue-600 bg-blue-50/50'
-                          : 'border-transparent text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      📱 UPI / QR CODE
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentTab('card')}
-                      className={`flex-1 py-3 px-4 font-mono text-xs font-bold uppercase border-b-2 transition-all ${
-                        paymentTab === 'card'
-                          ? 'border-blue-600 text-blue-600 bg-blue-50/50'
-                          : 'border-transparent text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      💳 CREDIT / DEBIT CARD
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentTab('netbanking')}
-                      className={`flex-1 py-3 px-4 font-mono text-xs font-bold uppercase border-b-2 transition-all ${
-                        paymentTab === 'netbanking'
-                          ? 'border-blue-600 text-blue-600 bg-blue-50/50'
-                          : 'border-transparent text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      🏦 NET BANKING
-                    </button>
-                  </div>
-
-                  {/* UPI Tab */}
-                  {paymentTab === 'upi' && (
-                    <div className="space-y-4 pt-2">
-                      <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-1">
-                        <span className="text-[10px] font-mono font-bold text-blue-700 uppercase block">OFFICIAL CONFERENCE UPI ID</span>
-                        <span className="font-mono font-black text-slate-900 text-sm">icaingcit2027@citchennai.edu.in</span>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="block text-[11px] font-mono font-black uppercase text-slate-800">
-                          ENTER 12-DIGIT UPI / BANK TRANSACTION REF (UTR) NUMBER
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={utrNumber}
-                          onChange={(e) => setUtrNumber(e.target.value)}
-                          placeholder="e.g. 329104859102"
-                          className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 font-mono text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Card Tab */}
-                  {paymentTab === 'card' && (
-                    <div className="space-y-4 pt-2">
-                      <div className="space-y-1">
-                        <label className="block text-[11px] font-mono font-black uppercase text-slate-800">Cardholder Name</label>
-                        <input
-                          type="text"
-                          required
-                          value={cardName}
-                          onChange={(e) => setCardName(e.target.value)}
-                          placeholder="Dr. Alexander Wright"
-                          className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        />
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="block text-[11px] font-mono font-black uppercase text-slate-800">Card Number</label>
-                        <input
-                          type="text"
-                          required
-                          maxLength={19}
-                          value={cardNumber}
-                          onChange={(e) => setCardNumber(e.target.value)}
-                          placeholder="4532 •••• •••• 8912"
-                          className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 font-mono text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="block text-[11px] font-mono font-black uppercase text-slate-800">Expiry (MM/YY)</label>
-                          <input
-                            type="text"
-                            required
-                            maxLength={5}
-                            value={cardExpiry}
-                            onChange={(e) => setCardExpiry(e.target.value)}
-                            placeholder="08/28"
-                            className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 font-mono text-xs font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="block text-[11px] font-mono font-black uppercase text-slate-800">CVV Code</label>
-                          <input
-                            type="password"
-                            required
-                            maxLength={4}
-                            value={cardCvv}
-                            onChange={(e) => setCardCvv(e.target.value)}
-                            placeholder="•••"
-                            className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 font-mono text-xs font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Net Banking Tab */}
-                  {paymentTab === 'netbanking' && (
-                    <div className="space-y-4 pt-2">
-                      <div className="space-y-1">
-                        <label className="block text-[11px] font-mono font-black uppercase text-slate-800">Select Bank</label>
-                        <select
-                          value={selectedBank}
-                          onChange={(e) => setSelectedBank(e.target.value)}
-                          className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 font-bold text-xs text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        >
-                          <option value="HDFC Bank">HDFC Bank</option>
-                          <option value="State Bank of India">State Bank of India (SBI)</option>
-                          <option value="ICICI Bank">ICICI Bank</option>
-                          <option value="Axis Bank">Axis Bank</option>
-                          <option value="Kotak Mahindra">Kotak Mahindra Bank</option>
-                        </select>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
                 {/* Submit Action Buttons */}
                 <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
                   <div className="space-y-1 text-center sm:text-left">
@@ -1077,10 +1129,10 @@ const PaperSubmission = () => {
                       {paymentProcessing ? (
                         <>
                           <span className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                          <span>PROCESSING SUBMISSION...</span>
+                          <span>PROCESSING PAYMENT...</span>
                         </>
                       ) : (
-                        <span>PAY NOW &amp; FINALIZE SUBMISSION ({selectedTier.fee}) →</span>
+                        <span>PAY &amp; COMPLETE REGISTRATION ({selectedTier.fee}) →</span>
                       )}
                     </button>
                   </div>

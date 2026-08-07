@@ -163,7 +163,7 @@ const PricingPage = () => {
                 </div>
 
                 {/* Feature List */}
-                <div className="space-y-3 text-xs font-medium text-slate-700 mb-8">
+                <div className="space-y-3 text-xs font-medium text-slate-700">
                   {tier.features.map((feat, fIdx) => (
                     <div key={fIdx} className="flex items-start gap-2.5">
                       <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
@@ -174,15 +174,6 @@ const PricingPage = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Select & Submit Button */}
-              <button
-                type="button"
-                onClick={() => handleSelectTierAndSubmit(tier.id)}
-                className="w-full py-3.5 px-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 group-hover:shadow-lg"
-              >
-                <span>SELECT &amp; SUBMIT MANUSCRIPT →</span>
-              </button>
             </div>
           ))}
         </div>
