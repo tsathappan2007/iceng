@@ -109,6 +109,12 @@ const Navbar = () => {
       hasDropdown: false,
     },
     {
+      id: 'pricing',
+      label: 'PRICING',
+      path: '/pricing',
+      hasDropdown: false,
+    },
+    {
       id: 'council',
       label: 'COUNCIL',
       path: '/council',

@@ -71,7 +71,6 @@ const DashboardPage = () => {
   const createdAt = user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '2027';
 
   const institution = user?.unsafeMetadata?.institution || '';
-  const isProfileIncomplete = !institution;
 
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 bg-slate-50/70 relative z-10">
@@ -136,7 +135,7 @@ const DashboardPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* User Account Info Card */}
-          <div className="lg:col-span-4 p-6 sm:p-7 rounded-[28px] bg-white border border-slate-200/90 shadow-sm space-y-6">
+          <div className="lg:col-span-4 p-6 sm:p-7 rounded-[32px] bg-white border border-slate-200/90 shadow-md space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                 ACCOUNT DETAILS
@@ -174,55 +173,107 @@ const DashboardPage = () => {
           {/* Quick Actions & Submissions Status */}
           <div className="lg:col-span-8 space-y-6">
             
-            {/* Quick Actions Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Quick Actions Grid matching user screenshot */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
+              {/* Card 1: Submit Manuscript & Pay Fees */}
               <Link
                 to="/submit"
-                className="p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm hover:shadow-md hover:border-blue-400 transition-all group space-y-3"
+                className="p-7 sm:p-8 rounded-[32px] bg-white border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between"
               >
-                <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center text-xl shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  📄
-                </div>
                 <div>
-                  <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase">
-                    Submit Manuscript &amp; Pay Fees
+                  {/* Top Icon & Arrow Bar */}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="w-14 h-14 rounded-2xl bg-blue-50/90 border border-blue-100/90 text-blue-600 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+
+                    <div className="w-10 h-10 rounded-full border border-slate-200/90 bg-white group-hover:bg-blue-600 group-hover:border-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center shadow-sm transition-all duration-300 shrink-0">
+                      <svg className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Title & Blue Line Indicator */}
+                  <h4 className="text-base font-black text-slate-900 tracking-tight uppercase group-hover:text-blue-600 transition-colors">
+                    SUBMIT MANUSCRIPT &amp; PAY FEES
                   </h4>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <div className="h-[3.5px] w-9 bg-blue-600 rounded-full mt-2 mb-3.5" />
+
+                  {/* Subtext */}
+                  <p className="text-xs font-semibold text-slate-500 leading-relaxed">
                     Upload cloud drive link, select registration rate &amp; pay fees.
                   </p>
                 </div>
               </Link>
 
+              {/* Card 2: Profile & Password */}
               <Link
                 to="/profile"
-                className="p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm hover:shadow-md hover:border-blue-400 transition-all group space-y-3"
+                className="p-7 sm:p-8 rounded-[32px] bg-white border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between"
               >
-                <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center text-xl shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  ⚙️
-                </div>
                 <div>
-                  <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase">
-                    Profile &amp; Password
+                  {/* Top Icon & Arrow Bar */}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="w-14 h-14 rounded-2xl bg-blue-50/90 border border-blue-100/90 text-blue-600 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+
+                    <div className="w-10 h-10 rounded-full border border-slate-200/90 bg-white group-hover:bg-blue-600 group-hover:border-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center shadow-sm transition-all duration-300 shrink-0">
+                      <svg className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Title & Blue Line Indicator */}
+                  <h4 className="text-base font-black text-slate-900 tracking-tight uppercase group-hover:text-blue-600 transition-colors">
+                    PROFILE &amp; PASSWORD
                   </h4>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <div className="h-[3.5px] w-9 bg-blue-600 rounded-full mt-2 mb-3.5" />
+
+                  {/* Subtext */}
+                  <p className="text-xs font-semibold text-slate-500 leading-relaxed">
                     Update institution, phone, department &amp; password settings.
                   </p>
                 </div>
               </Link>
 
+              {/* Card 3: Help & Support Desk */}
               <Link
                 to="/contact"
-                className="p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm hover:shadow-md hover:border-blue-400 transition-all group space-y-3"
+                className="p-7 sm:p-8 rounded-[32px] bg-white border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between"
               >
-                <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center text-xl shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  ✉️
-                </div>
                 <div>
-                  <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase">
-                    Help &amp; Support Desk
+                  {/* Top Icon & Arrow Bar */}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="w-14 h-14 rounded-2xl bg-blue-50/90 border border-blue-100/90 text-blue-600 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+
+                    <div className="w-10 h-10 rounded-full border border-slate-200/90 bg-white group-hover:bg-blue-600 group-hover:border-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center shadow-sm transition-all duration-300 shrink-0">
+                      <svg className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Title & Blue Line Indicator */}
+                  <h4 className="text-base font-black text-slate-900 tracking-tight uppercase group-hover:text-blue-600 transition-colors">
+                    HELP &amp; SUPPORT DESK
                   </h4>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <div className="h-[3.5px] w-9 bg-blue-600 rounded-full mt-2 mb-3.5" />
+
+                  {/* Subtext */}
+                  <p className="text-xs font-semibold text-slate-500 leading-relaxed">
                     Reach out to the IEEE ICAINGCIT 2027 organizing team.
                   </p>
                 </div>
@@ -231,7 +282,7 @@ const DashboardPage = () => {
             </div>
 
             {/* Submission Status Box */}
-            <div className="p-7 rounded-[28px] bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <div className="p-7 rounded-[32px] bg-white border border-slate-200/90 shadow-md space-y-4">
               <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                 YOUR SUBMISSION STATUS
               </h3>

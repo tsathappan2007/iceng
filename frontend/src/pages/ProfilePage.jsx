@@ -336,11 +336,6 @@ const ProfilePage = () => {
                 <label className="block text-[11px] font-mono font-black uppercase tracking-wider text-slate-800">
                   Registered Email Address (Managed by Clerk)
                 </label>
-                {isGoogleUser && (
-                  <span className="text-[10px] font-mono font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-                    GOOGLE SSO CONNECTED
-                  </span>
-                )}
               </div>
               <input
                 type="email"
@@ -443,10 +438,12 @@ const ProfilePage = () => {
               <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <h4 className="text-xs font-extrabold text-slate-900 uppercase">
-                    {user?.passwordEnabled ? 'Change Account Password' : 'Set Account Password'}
+                    {user?.passwordEnabled ? 'RESET / CHANGE ACCOUNT PASSWORD' : 'SET ACCOUNT PASSWORD'}
                   </h4>
                   <p className="text-xs text-slate-600 font-medium max-w-md">
-                    To change or set your password, click below to receive a security verification code sent to <strong>{primaryEmail}</strong>.
+                    {user?.passwordEnabled
+                      ? <>To reset or change your password, click below to receive a security verification code sent to <strong>{primaryEmail}</strong>.</>
+                      : <>You signed in via Google and do not have an account password yet. Click below to receive a security verification code sent to <strong>{primaryEmail}</strong> to set your password.</>}
                   </p>
                 </div>
 
@@ -521,10 +518,12 @@ const ProfilePage = () => {
                     STEP 3 OF 3 • CODE VERIFIED
                   </div>
                   <h4 className="text-xs font-black text-slate-900 uppercase">
-                    Set New Password
+                    {user?.passwordEnabled ? 'RESET NEW PASSWORD' : 'SET NEW ACCOUNT PASSWORD'}
                   </h4>
                   <p className="text-xs text-slate-600 font-medium">
-                    Code verified! Enter and confirm your new password below.
+                    {user?.passwordEnabled
+                      ? 'Code verified! Enter and confirm your updated password below.'
+                      : 'Code verified! Create and confirm your new password below.'}
                   </p>
                 </div>
 
