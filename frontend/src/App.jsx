@@ -19,6 +19,7 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
+import PricingPage from './pages/PricingPage';
 
 // Scroll reveal effect hook for routes
 const ScrollRevealController = () => {
@@ -66,6 +67,7 @@ function AppContent() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/domains" element={<DomainsPage />} />
           <Route path="/timeline" element={<TimelinePage />} />
+          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/speakers" element={<SpeakersPage />} />
           <Route path="/committee" element={<CommitteePage />} />
           <Route path="/council" element={<CouncilPage />} />

@@ -14,125 +14,125 @@ const Hero = () => {
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle at 50% 45%, rgba(37, 99, 235, 0.08) 0%, rgba(79, 70, 229, 0.05) 45%, rgba(245, 158, 11, 0.04) 70%, transparent 85%)'
+          background: 'radial-gradient(circle at 50% 45%, rgba(37, 99, 235, 0.05) 0%, rgba(79, 70, 229, 0.03) 45%, transparent 75%)'
         }}
       />
 
-      {/* ☁️ 🧠 FLOATING CLOUDS WITH MOVING DASHED BORDERS & PURE WORKING AI CHIPS WITH "AI" TEXT */}
+      {/* ☁️ 🧠 MINIMAL LIGHT-THEMED FLOATING CLOUDS & ELEGANT AI MICROCHIPS */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         
-        {/* SVG Gradients for Clouds & AI Chips */}
+        {/* SVG Soft Pastels Gradients */}
         <svg className="absolute w-0 h-0">
           <defs>
             <linearGradient id="cloudGradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.32" />
-              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.06" />
+              <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#bfdbfe" stopOpacity="0.03" />
             </linearGradient>
             <linearGradient id="cloudGradIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#818cf8" stopOpacity="0.06" />
+              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.15" />
+              <stop offset="100%" stopColor="#c7d2fe" stopOpacity="0.03" />
             </linearGradient>
           </defs>
         </svg>
 
-        {/* ☁️ Cloud 1 with Active Moving Dashed Border (Top Left) */}
-        <div className="absolute top-[16%] left-[3%] xl:left-[6%] opacity-85 animate-cloud-stream-flow">
-          <svg className="w-52 sm:w-72 h-auto filter drop-shadow-md" viewBox="0 0 120 70" fill="url(#cloudGradBlue)">
+        {/* ☁️ Cloud 1: Minimal Soft Dashed Outline (Top Left) */}
+        <div className="absolute top-[16%] left-[3%] xl:left-[6%] opacity-45 animate-cloud-stream-flow">
+          <svg className="w-48 sm:w-64 h-auto" viewBox="0 0 120 70" fill="url(#cloudGradBlue)">
             <path 
               d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
-              stroke="#2563eb" 
-              strokeWidth="2" 
-              strokeDasharray="6 6" 
-              strokeOpacity="0.85" 
+              stroke="#60a5fa" 
+              strokeWidth="1.2" 
+              strokeDasharray="5 5" 
+              strokeOpacity="0.5" 
               className="animate-dash-flow" 
             />
           </svg>
         </div>
 
-        {/* ☁️ Cloud 2 with Active Moving Dashed Border (Top Right) */}
-        <div className="absolute top-[20%] right-[3%] xl:right-[6%] opacity-85 animate-cloud-stream-reverse">
-          <svg className="w-60 sm:w-80 h-auto filter drop-shadow-md" viewBox="0 0 120 70" fill="url(#cloudGradIndigo)">
+        {/* ☁️ Cloud 2: Minimal Soft Dashed Outline (Top Right) */}
+        <div className="absolute top-[20%] right-[3%] xl:right-[6%] opacity-45 animate-cloud-stream-reverse">
+          <svg className="w-56 sm:w-72 h-auto" viewBox="0 0 120 70" fill="url(#cloudGradIndigo)">
             <path 
               d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
-              stroke="#4f46e5" 
-              strokeWidth="2" 
-              strokeDasharray="6 6" 
-              strokeOpacity="0.85" 
+              stroke="#818cf8" 
+              strokeWidth="1.2" 
+              strokeDasharray="5 5" 
+              strokeOpacity="0.5" 
               className="animate-dash-flow" 
             />
           </svg>
         </div>
 
-        {/* ☁️ Cloud 3 with Active Moving Dashed Border (Bottom Left) */}
-        <div className="absolute bottom-[22%] left-[5%] opacity-75 animate-cloud-stream-reverse">
-          <svg className="w-44 sm:w-60 h-auto filter drop-shadow-sm" viewBox="0 0 120 70" fill="url(#cloudGradIndigo)">
+        {/* ☁️ Cloud 3: Minimal Soft Dashed Outline (Bottom Left) */}
+        <div className="absolute bottom-[22%] left-[5%] opacity-35 animate-cloud-stream-reverse">
+          <svg className="w-40 sm:w-52 h-auto" viewBox="0 0 120 70" fill="url(#cloudGradIndigo)">
             <path 
               d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
-              stroke="#4f46e5" 
-              strokeWidth="2" 
-              strokeDasharray="6 6" 
-              strokeOpacity="0.8" 
+              stroke="#818cf8" 
+              strokeWidth="1.2" 
+              strokeDasharray="5 5" 
+              strokeOpacity="0.4" 
               className="animate-dash-flow" 
             />
           </svg>
         </div>
 
-        {/* ☁️ Cloud 4 with Active Moving Dashed Border (Bottom Right) */}
-        <div className="absolute bottom-[20%] right-[5%] opacity-75 animate-cloud-stream-flow">
-          <svg className="w-48 sm:w-64 h-auto filter drop-shadow-sm" viewBox="0 0 120 70" fill="url(#cloudGradBlue)">
+        {/* ☁️ Cloud 4: Minimal Soft Dashed Outline (Bottom Right) */}
+        <div className="absolute bottom-[20%] right-[5%] opacity-35 animate-cloud-stream-flow">
+          <svg className="w-44 sm:w-56 h-auto" viewBox="0 0 120 70" fill="url(#cloudGradBlue)">
             <path 
               d="M25 55 C12 55 5 45 8 33 C11 22 22 18 32 20 C38 10 52 8 64 15 C74 8 90 12 95 23 C105 25 110 37 104 47 C98 55 88 55 80 55 Z" 
-              stroke="#2563eb" 
-              strokeWidth="2" 
-              strokeDasharray="6 6" 
-              strokeOpacity="0.8" 
+              stroke="#60a5fa" 
+              strokeWidth="1.2" 
+              strokeDasharray="5 5" 
+              strokeOpacity="0.4" 
               className="animate-dash-flow" 
             />
           </svg>
         </div>
 
-        {/* 🧠 1. PURE WORKING AI MICROCHIP (Left Side — With "AI" Text, No Badge Container) */}
-        <div className="hidden lg:flex absolute top-[44%] left-[3%] xl:left-[6%] opacity-95 animate-ai-float-slow pointer-events-none z-20">
+        {/* 🧠 1. MINIMAL ELEGANT AI MICROCHIP (Left Side) */}
+        <div className="hidden lg:flex absolute top-[44%] left-[3%] xl:left-[6%] opacity-70 animate-ai-float-slow pointer-events-none z-20">
           <div className="relative">
-            <span className="w-3 h-3 rounded-full bg-blue-600 animate-ping absolute -top-1 -right-1" />
-            <svg className="w-20 h-20 filter drop-shadow-lg" viewBox="0 0 70 70" fill="none">
-              {/* Outer Chip Frame */}
-              <rect x="15" y="15" width="40" height="40" rx="10" fill="#ffffff" fillOpacity="0.95" stroke="#2563eb" strokeWidth="2.5" strokeDasharray="6 6" className="animate-dash-flow" />
-              <rect x="22" y="22" width="26" height="26" rx="6" fill="#2563eb" />
+            <span className="w-2 h-2 rounded-full bg-blue-500/60 animate-ping absolute -top-0.5 -right-0.5" />
+            <svg className="w-14 sm:w-16 h-14 sm:h-16" viewBox="0 0 70 70" fill="none">
+              {/* Soft Light Frame */}
+              <rect x="15" y="15" width="40" height="40" rx="10" fill="#ffffff" fillOpacity="0.9" stroke="#60a5fa" strokeWidth="1.5" strokeDasharray="4 4" className="animate-dash-flow" />
+              <rect x="23" y="23" width="24" height="24" rx="6" fill="#dbeafe" stroke="#93c5fd" strokeWidth="1" />
               
-              {/* Center "AI" Text */}
-              <text x="35" y="39" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="900" fontFamily="Space Grotesk, sans-serif" letterSpacing="0.05em">
+              {/* Minimal Clean "AI" Text */}
+              <text x="35" y="39" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="800" fontFamily="Space Grotesk, sans-serif" letterSpacing="0.04em">
                 AI
               </text>
 
-              {/* Active Animated Pins */}
-              <path d="M15 25 H5 M15 35 H5 M15 45 H5" stroke="#2563eb" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
-              <path d="M55 25 H65 M55 35 H65 M55 45 H65" stroke="#2563eb" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
-              <path d="M25 15 V5 M35 15 V5 M45 15 V5" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
-              <path d="M25 55 V65 M35 55 V65 M45 55 V65" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              {/* Subtle Pins */}
+              <path d="M15 25 H7 M15 35 H7 M15 45 H7" stroke="#93c5fd" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M55 25 H63 M55 35 H63 M55 45 H63" stroke="#93c5fd" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 15 V7 M35 15 V7 M45 15 V7" stroke="#a5b4fc" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 55 V63 M35 55 V63 M45 55 V63" stroke="#a5b4fc" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
             </svg>
           </div>
         </div>
 
-        {/* 🧠 2. PURE WORKING AI MICROCHIP (Right Side — With "AI" Text, No Badge Container) */}
-        <div className="hidden lg:flex absolute top-[46%] right-[3%] xl:right-[6%] opacity-95 animate-ai-float-fast pointer-events-none z-20">
+        {/* 🧠 2. MINIMAL ELEGANT AI MICROCHIP (Right Side) */}
+        <div className="hidden lg:flex absolute top-[46%] right-[3%] xl:right-[6%] opacity-70 animate-ai-float-fast pointer-events-none z-20">
           <div className="relative">
-            <span className="w-3 h-3 rounded-full bg-indigo-600 animate-ping absolute -top-1 -right-1" />
-            <svg className="w-20 h-20 filter drop-shadow-lg" viewBox="0 0 70 70" fill="none">
-              {/* Outer Chip Frame */}
-              <rect x="15" y="15" width="40" height="40" rx="10" fill="#ffffff" fillOpacity="0.95" stroke="#4f46e5" strokeWidth="2.5" strokeDasharray="6 6" className="animate-dash-flow" />
-              <rect x="22" y="22" width="26" height="26" rx="6" fill="#4f46e5" />
+            <span className="w-2 h-2 rounded-full bg-indigo-500/60 animate-ping absolute -top-0.5 -right-0.5" />
+            <svg className="w-14 sm:w-16 h-14 sm:h-16" viewBox="0 0 70 70" fill="none">
+              {/* Soft Light Frame */}
+              <rect x="15" y="15" width="40" height="40" rx="10" fill="#ffffff" fillOpacity="0.9" stroke="#818cf8" strokeWidth="1.5" strokeDasharray="4 4" className="animate-dash-flow" />
+              <rect x="23" y="23" width="24" height="24" rx="6" fill="#e0e7ff" stroke="#a5b4fc" strokeWidth="1" />
               
-              {/* Center "AI" Text */}
-              <text x="35" y="39" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="900" fontFamily="Space Grotesk, sans-serif" letterSpacing="0.05em">
+              {/* Minimal Clean "AI" Text */}
+              <text x="35" y="39" textAnchor="middle" fill="#3730a3" fontSize="12" fontWeight="800" fontFamily="Space Grotesk, sans-serif" letterSpacing="0.04em">
                 AI
               </text>
 
-              {/* Active Animated Pins */}
-              <path d="M15 25 H5 M15 35 H5 M15 45 H5" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
-              <path d="M55 25 H65 M55 35 H65 M55 45 H65" stroke="#4f46e5" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
-              <path d="M25 15 V5 M35 15 V5 M45 15 V5" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
-              <path d="M25 55 V65 M35 55 V65 M45 55 V65" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3 3" className="animate-dash-flow" />
+              {/* Subtle Pins */}
+              <path d="M15 25 H7 M15 35 H7 M15 45 H7" stroke="#a5b4fc" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M55 25 H63 M55 35 H63 M55 45 H63" stroke="#a5b4fc" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 15 V7 M35 15 V7 M45 15 V7" stroke="#fcd34d" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
+              <path d="M25 55 V63 M35 55 V63 M45 55 V63" stroke="#fcd34d" strokeWidth="1.2" strokeDasharray="3 3" className="animate-dash-flow" />
             </svg>
           </div>
         </div>
@@ -244,7 +244,7 @@ const Hero = () => {
             </div>
             <div>
               <div className="text-[9px] uppercase font-bold text-slate-500">Indexing</div>
-              <div className="text-[11px] font-extrabold text-slate-900">Scopus</div>
+              <div className="text-[11px] font-extrabold text-slate-900">Scopus / Web of Sci</div>
             </div>
           </div>
 
