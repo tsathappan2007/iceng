@@ -519,6 +519,25 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(59, 130, 246, 0.8);
 }
 
+/* Auth Form Mode Switch Animation */
+@keyframes authFormSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-auth-fade {
+  animation: authFormSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
 
 
 
