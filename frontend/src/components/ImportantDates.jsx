@@ -117,24 +117,25 @@ const ImportantDates = () => {
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Main Section Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-black tracking-widest uppercase shadow-sm animate-symphony-badge">
+        {/* Main Section Header */}
+        <div className="reveal-init text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-black tracking-widest uppercase shadow-sm">
             <svg className="w-4 h-4 text-blue-600 animate-spin" style={{ animationDuration: '8s' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             OFFICIAL CONFERENCE ROADMAP
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight uppercase animate-symphony-title">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight uppercase">
             Conference <span className="text-blue-600 glow-title">Timeline</span>
           </h2>
 
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium animate-symphony-text">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
             IEEE International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies (IEEE ICAINGCIT 2027)
           </p>
 
           {/* Animated Hero Date Banner */}
-          <div className="pt-2 animate-symphony-cta">
+          <div className="pt-2">
             <span className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white font-mono font-bold text-xs sm:text-sm shadow-xl border border-slate-800 transition-all duration-300 hover:scale-105">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
@@ -146,24 +147,24 @@ const ImportantDates = () => {
         </div>
 
         {/* View Toggle Tabs */}
-        <div className="flex justify-center">
+        <div className="reveal-scale delay-100 flex justify-center">
           <div className="flex flex-wrap items-center justify-center gap-2 bg-white p-2 rounded-full border border-slate-200 shadow-sm">
             <button
               onClick={() => setActiveTab('roadmap')}
-              className={`px-5 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
+              className={`btn-interactive px-5 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 activeTab === 'roadmap'
                   ? 'bg-blue-600 text-white shadow-md scale-105'
-                  : 'bg-transparent text-slate-700 hover:text-blue-600'
+                  : 'bg-transparent text-slate-700 hover:text-blue-600 hover:bg-slate-50'
               }`}
             >
               Full Roadmap (10 Phases)
             </button>
             <button
               onClick={() => setActiveTab('milestones')}
-              className={`px-5 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
+              className={`btn-interactive px-5 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 activeTab === 'milestones'
                   ? 'bg-blue-600 text-white shadow-md scale-105'
-                  : 'bg-transparent text-slate-700 hover:text-blue-600'
+                  : 'bg-transparent text-slate-700 hover:text-blue-600 hover:bg-slate-50'
               }`}
             >
               Major Milestones Summary
@@ -174,7 +175,7 @@ const ImportantDates = () => {
         {/* Major Milestones Summary Grid View */}
         {activeTab === 'milestones' && (
           <div className="space-y-6 transition-all duration-500">
-            <div className="text-center">
+            <div className="reveal-init text-center">
               <h3 className="text-lg font-black text-slate-900 uppercase tracking-wide">
                 Key Conference Milestones
               </h3>
@@ -184,45 +185,48 @@ const ImportantDates = () => {
             </div>
 
             <div className="flex flex-wrap justify-center items-stretch gap-6">
-              {milestones.map((m, idx) => (
-                <div
-                  key={idx}
-                  className={`w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] max-w-sm p-6 rounded-[28px] bg-white border transition-all duration-500 shadow-md hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between group ${
-                    m.active
-                      ? 'border-amber-400 ring-2 ring-amber-400/30 animate-timeline-glow'
-                      : m.highlight
-                      ? 'border-blue-400 ring-2 ring-blue-400/20'
-                      : 'border-slate-200/90 hover:border-blue-400'
-                  }`}
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-700 font-mono font-black text-sm flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                        {m.icon}
-                      </span>
-                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${
-                        m.active ? 'bg-amber-400 text-slate-950 border-amber-500 font-black shadow-sm' : 'bg-slate-100 text-slate-700 border-slate-200'
-                      }`}>
-                        {m.status}
-                      </span>
+              {milestones.map((m, idx) => {
+                const delayClass = `delay-${Math.min((idx % 4) * 100 + 100, 500)}`;
+                return (
+                  <div
+                    key={idx}
+                    className={`reveal-init ${delayClass} card-interactive w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] max-w-sm p-6 rounded-[28px] bg-white border transition-all duration-300 shadow-md hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between group ${
+                      m.active
+                        ? 'border-amber-400 ring-2 ring-amber-400/30 animate-timeline-glow'
+                        : m.highlight
+                        ? 'border-blue-400 ring-2 ring-blue-400/20'
+                        : 'border-slate-200/90 hover:border-blue-400'
+                    }`}
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-700 font-mono font-black text-sm flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                          {m.icon}
+                        </span>
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${
+                          m.active ? 'bg-amber-400 text-slate-950 border-amber-500 font-black shadow-sm' : 'bg-slate-100 text-slate-700 border-slate-200'
+                        }`}>
+                          {m.status}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h4 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                          {m.title}
+                        </h4>
+                        <p className="text-xs font-mono font-bold text-amber-600 mt-1">
+                          {m.date}
+                        </p>
+                      </div>
                     </div>
 
-                    <div>
-                      <h4 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
-                        {m.title}
-                      </h4>
-                      <p className="text-xs font-mono font-bold text-amber-600 mt-1">
-                        {m.date}
-                      </p>
+                    <div className="pt-3 mt-4 border-t border-slate-100 text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center justify-between">
+                      <span>{m.phase}</span>
+                      <span className="text-blue-500 group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                   </div>
-
-                  <div className="pt-3 mt-4 border-t border-slate-100 text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center justify-between">
-                    <span>{m.phase}</span>
-                    <span className="text-blue-500 group-hover:translate-x-1 transition-transform">→</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -258,7 +262,7 @@ const ImportantDates = () => {
               {fullTimeline.map((item, idx) => (
                 <div
                   key={idx}
-                  className={`relative flex flex-col sm:flex-row items-center gap-6 group ${
+                  className={`reveal-init delay-${(idx % 4) * 100 + 100} relative flex flex-col sm:flex-row items-center gap-6 group ${
                     idx % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'
                   }`}
                 >
@@ -278,7 +282,7 @@ const ImportantDates = () => {
 
                   {/* Main Card Side Column with Hover Lift */}
                   <div className={`w-full sm:w-1/2 ${idx % 2 === 0 ? 'sm:pl-10' : 'sm:pr-10'}`}>
-                    <div className="p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 transition-all duration-300 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-blue-400 relative overflow-hidden space-y-3">
+                    <div className="card-interactive p-6 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 transition-all duration-300 shadow-sm hover:border-blue-400 relative overflow-hidden space-y-3">
                       {/* Top Row: Phase + Tag */}
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">

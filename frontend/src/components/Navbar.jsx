@@ -221,7 +221,7 @@ const Navbar = () => {
                     <Link
                       to={item.path}
                       onClick={closeMenu}
-                      className={`relative inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-2 rounded-full text-[11px] xl:text-xs font-extrabold tracking-wider uppercase transition-all duration-300 ${
+                      className={`relative inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-2 rounded-full text-[11px] xl:text-xs font-extrabold tracking-wider uppercase transition-all duration-300 active:scale-95 ${
                         isActive
                           ? 'bg-blue-50 text-blue-700 border border-blue-600/40 shadow-sm scale-105'
                           : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100/80 border border-transparent'
@@ -277,7 +277,7 @@ const Navbar = () => {
                                 key={sIdx}
                                 to={sub.path}
                                 onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
-                                className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 hover:bg-blue-50 border border-slate-200/70 hover:border-blue-300 shadow-sm transition-all duration-200 group/sub relative z-10 hover:translate-x-1"
+                                className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 hover:bg-blue-50 border border-slate-200/70 hover:border-blue-300 shadow-sm transition-all duration-200 group/sub relative z-10 hover:translate-x-1 active:scale-[0.98]"
                               >
                                 <div className="flex items-center gap-3">
                                   <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover/sub:bg-blue-600 group-hover/sub:text-white transition-all shrink-0">
@@ -316,7 +316,7 @@ const Navbar = () => {
                   <Link
                     to="/dashboard"
                     onClick={closeMenu}
-                    className="px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                    className="btn-interactive btn-shimmer px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md shrink-0 whitespace-nowrap"
                   >
                     DASHBOARD
                   </Link>
@@ -329,7 +329,7 @@ const Navbar = () => {
                     }}
                     title="Sign Out"
                     aria-label="Sign Out"
-                    className="p-2 rounded-full bg-slate-100 border border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 hover:border-red-300 transition-all shadow-sm flex items-center justify-center shrink-0"
+                    className="p-2 rounded-full bg-slate-100 border border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 hover:border-red-300 transition-all shadow-sm active:scale-90 flex items-center justify-center shrink-0"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -340,7 +340,7 @@ const Navbar = () => {
                 <Link
                   to="/login"
                   onClick={closeMenu}
-                  className="ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md transition-all transform hover:scale-105 shrink-0 whitespace-nowrap"
+                  className="btn-interactive btn-shimmer ml-2 xl:ml-3 px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md shrink-0 whitespace-nowrap"
                 >
                   LOGIN
                 </Link>
@@ -371,14 +371,14 @@ const Navbar = () => {
 
       {/* Mobile Menu Drawer */}
       {menuOpen && (
-        <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2">
+        <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2 animate-page-enter">
           <div className="relative">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#491f78]/30 via-[#491f78]/10 to-[#491f78]/30 rounded-3xl blur-lg opacity-85" />
             <div className="relative bg-white/98 backdrop-blur-2xl rounded-3xl p-6 space-y-4 shadow-[0_12px_36px_-6px_rgba(73,31,120,0.35)] max-h-[80vh] overflow-y-auto">
             {navItems.map((item, idx) => (
               <div key={idx} className="border-b border-slate-100 pb-3">
                 <div className="flex items-center justify-between py-1 text-xs font-extrabold tracking-widest text-blue-600 uppercase">
-                  <Link to={item.path} onClick={closeMenu}>{item.label}</Link>
+                  <Link to={item.path} onClick={closeMenu} className="hover:text-blue-700 active:scale-95 transition-all">{item.label}</Link>
                 </div>
                 {item.hasDropdown && (
                   <div className="pl-3 mt-2 space-y-2 border-l border-slate-200">
@@ -387,7 +387,7 @@ const Navbar = () => {
                         key={sIdx}
                         to={sub.path}
                         onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
-                        className="block text-xs font-semibold text-slate-600 hover:text-blue-600 py-1"
+                        className="block text-xs font-semibold text-slate-600 hover:text-blue-600 active:scale-95 py-1 transition-all"
                       >
                         {sub.title}
                       </Link>
@@ -402,7 +402,7 @@ const Navbar = () => {
                 <Link
                   to="/dashboard"
                   onClick={closeMenu}
-                  className="flex-1 text-center px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
+                  className="btn-interactive btn-shimmer flex-1 text-center px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
                 >
                   DASHBOARD
                 </Link>
@@ -413,7 +413,7 @@ const Navbar = () => {
                     await signOut();
                     navigate('/login');
                   }}
-                  className="p-3 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 flex items-center justify-center shrink-0"
+                  className="p-3 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 active:scale-90 flex items-center justify-center shrink-0 transition-all"
                   aria-label="Sign Out"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -425,7 +425,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 onClick={closeMenu}
-                className="block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
+                className="btn-interactive btn-shimmer block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
               >
                 LOGIN
               </Link>

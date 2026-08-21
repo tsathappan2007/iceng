@@ -53,9 +53,8 @@ const Contact = () => {
     <section id="contact" className="py-24 px-4 sm:px-6 relative z-10 bg-slate-50/60 border-t border-slate-200/80">
       
       <div className="max-w-6xl mx-auto space-y-12">
-        
-        {/* Main Section Header */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
+            {/* Main Section Header */}
+        <div className="reveal-init text-center space-y-3 max-w-2xl mx-auto">
           <div className="flex items-center justify-center gap-3">
             <span className="w-12 h-px bg-blue-300/80" />
             <span className="text-xs font-mono font-black tracking-widest text-blue-700 uppercase px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 shadow-sm">
@@ -80,7 +79,7 @@ const Contact = () => {
           <div className="lg:col-span-5 space-y-6">
             
             {/* Card 1: EMAIL ENQUIRIES */}
-            <div className="p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 flex items-start gap-4 transition-all duration-300 hover:shadow-md group relative overflow-hidden shadow-sm">
+            <div className="reveal-left delay-100 card-interactive p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 flex items-start gap-4 hover:border-blue-400 group relative overflow-hidden shadow-sm">
               <div className="w-14 h-14 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -103,7 +102,7 @@ const Contact = () => {
             </div>
 
             {/* Card 2: PHONE CONTACT */}
-            <div className="p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 flex items-start gap-4 transition-all duration-300 hover:shadow-md group relative overflow-hidden shadow-sm">
+            <div className="reveal-left delay-200 card-interactive p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 flex items-start gap-4 hover:border-blue-400 group relative overflow-hidden shadow-sm">
               <div className="w-14 h-14 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
@@ -126,7 +125,7 @@ const Contact = () => {
             </div>
 
             {/* Card 3: CONFERENCE VENUE */}
-            <div className="p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 flex items-start gap-4 transition-all duration-300 hover:shadow-md group relative overflow-hidden shadow-sm">
+            <div className="reveal-left delay-300 card-interactive p-6 sm:p-7 rounded-[28px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 flex items-start gap-4 hover:border-blue-400 group relative overflow-hidden shadow-sm">
               <div className="w-14 h-14 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
@@ -149,8 +148,8 @@ const Contact = () => {
           </div>
 
           {/* Right Column: SEND A MESSAGE Form Card */}
-          <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm relative overflow-hidden">
+          <div className="reveal-right delay-200 lg:col-span-7">
+            <div className="card-interactive p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm relative overflow-hidden hover:border-blue-400">
               
               {/* Top Form Header with Paper Plane Icon */}
               <div className="flex items-start gap-4 mb-8">
@@ -268,7 +267,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                  className="btn-interactive btn-shimmer w-full py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   <svg className="w-4 h-4 transform -rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
