@@ -1,16 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 const Contact = () => {
+  const { isSignedIn, user } = useUser();
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      setFormData(prev => ({
+        ...prev,
+        name: user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || prev.name,
+        email: user.primaryEmailAddress?.emailAddress || prev.email
+      }));
+    }
+  }, [isSignedIn, user]);
+
+  const handleInputChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   const handleContactSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim()
+    };
 
     if (!payload.email || !payload.name || !payload.message) {
       setFeedback({ type: 'error', message: 'Please fill in all required fields.' });
@@ -32,14 +58,24 @@ const Contact = () => {
         type: 'success',
         message: `✓ Message sent! Thank you ${payload.name}. The organizing committee will get back to you shortly.`
       });
-      form.reset();
+      setFormData({
+        name: isSignedIn && user ? (user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim()) : '',
+        email: isSignedIn && user ? (user.primaryEmailAddress?.emailAddress || '') : '',
+        subject: '',
+        message: ''
+      });
     } catch (err) {
       if (API_BASE === "") {
         setFeedback({
           type: 'success',
           message: "✓ Message received! (Demo mode) — Connect backend API to receive real email inquiries."
         });
-        form.reset();
+        setFormData({
+          name: isSignedIn && user ? (user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim()) : '',
+          email: isSignedIn && user ? (user.primaryEmailAddress?.emailAddress || '') : '',
+          subject: '',
+          message: ''
+        });
       } else {
         setFeedback({ type: 'error', message: "Failed to send message. Please try again later." });
       }
@@ -176,14 +212,23 @@ const Contact = () => {
                   
                   {/* Your Name Input */}
                   <div className="space-y-1.5">
-                    <label htmlFor="c-name" className="block text-[11px] font-mono font-black uppercase tracking-wider text-slate-800">
-                      YOUR NAME <span className="text-blue-600">*</span>
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="c-name" className="block text-[11px] font-mono font-black uppercase tracking-wider text-slate-800">
+                        YOUR NAME <span className="text-blue-600">*</span>
+                      </label>
+                      {isSignedIn && formData.name && (
+                        <span className="text-[9px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 shadow-2xs">
+                          ✓ Autofilled
+                        </span>
+                      )}
+                    </div>
                     <div className="relative">
                       <input
                         type="text"
                         id="c-name"
                         name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                         placeholder="Full Name"
                         required
                         className="w-full px-4 py-3 pl-10 rounded-2xl bg-white border border-blue-200/80 text-slate-900 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
@@ -198,14 +243,23 @@ const Contact = () => {
 
                   {/* Your Email Input */}
                   <div className="space-y-1.5">
-                    <label htmlFor="c-email" className="block text-[11px] font-mono font-black uppercase tracking-wider text-slate-800">
-                      YOUR EMAIL <span className="text-blue-600">*</span>
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="c-email" className="block text-[11px] font-mono font-black uppercase tracking-wider text-slate-800">
+                        YOUR EMAIL <span className="text-blue-600">*</span>
+                      </label>
+                      {isSignedIn && formData.email && (
+                        <span className="text-[9px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 shadow-2xs">
+                          ✓ Autofilled
+                        </span>
+                      )}
+                    </div>
                     <div className="relative">
                       <input
                         type="email"
                         id="c-email"
                         name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="email@example.com"
                         required
                         className="w-full px-4 py-3 pl-10 rounded-2xl bg-white border border-blue-200/80 text-slate-900 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
@@ -230,6 +284,8 @@ const Contact = () => {
                       type="text"
                       id="c-subject"
                       name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
                       placeholder="e.g., Paper Submission Query / Sponsorship"
                       className="w-full px-4 py-3 pl-10 rounded-2xl bg-white border border-blue-200/80 text-slate-900 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     />
@@ -250,6 +306,8 @@ const Contact = () => {
                     <textarea
                       id="c-message"
                       name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
                       rows="4"
                       placeholder="Type your message here..."
                       required

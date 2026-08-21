@@ -10,8 +10,23 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [hoveredNav, setHoveredNav] = useState(null);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    if (isSigningOut) return;
+    try {
+      setIsSigningOut(true);
+      await signOut();
+      closeMenu();
+      navigate('/login');
+    } catch (err) {
+      console.error('Sign out error:', err);
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,24 +90,57 @@ const Navbar = () => {
           desc: 'Prestige gathering for Next-Gen Computing', 
           path: '/about#about-conf', 
           targetId: 'about-conf',
-          tag: 'INFO', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          tag: 'INFO',
+          tagColor: 'bg-blue-50/90 text-blue-600 border-blue-200/90',
+          iconBoxColor: 'bg-blue-50/80 border-blue-100',
+          badgeIcon: (
+            <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          ),
+          icon: (
+            <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-sm shadow-md font-serif">
+              i
+            </div>
+          )
         },
         { 
           title: 'Department of IT', 
           desc: '30+ years of computing excellence at CIT', 
           path: '/about#about-dept', 
           targetId: 'about-dept',
-          tag: 'DEPT', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          tag: 'DEPT',
+          tagColor: 'bg-purple-50/90 text-purple-600 border-purple-200/90',
+          iconBoxColor: 'bg-indigo-50/80 border-indigo-100',
+          badgeIcon: (
+            <svg className="w-3 h-3 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          ),
+          icon: (
+            <svg className="w-7 h-7 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14H7v-2h4v2zm0-4H7v-2h4v2zm0-4H7V7h4v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V7h4v2z" />
+            </svg>
+          )
         },
         { 
           title: 'Host Institution', 
           desc: 'Chennai Institute of Technology (NAAC A+)', 
           path: '/about#about-cit', 
           targetId: 'about-cit',
-          tag: 'CAMPUS', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+          tag: 'CAMPUS',
+          tagColor: 'bg-emerald-50/90 text-emerald-600 border-emerald-200/90',
+          iconBoxColor: 'bg-emerald-50/80 border-emerald-100',
+          badgeIcon: (
+            <svg className="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          ),
+          icon: (
+            <svg className="w-7 h-7 text-emerald-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+            </svg>
+          )
         },
       ],
     },
@@ -125,16 +173,38 @@ const Navbar = () => {
           desc: 'Distinguished global luminaries & keynote sessions', 
           path: '/council#speakers', 
           targetId: 'speakers',
-          tag: 'SPEAKERS', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+          tag: 'SPEAKERS',
+          tagColor: 'bg-amber-50/90 text-amber-600 border-amber-200/90',
+          iconBoxColor: 'bg-amber-50/80 border-amber-100',
+          badgeIcon: (
+            <svg className="w-3 h-3 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+            </svg>
+          ),
+          icon: (
+            <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+            </svg>
+          )
         },
         { 
           title: 'Committee Members', 
           desc: 'Organizing committee & track leadership', 
           path: '/council#committee', 
           targetId: 'committee',
-          tag: 'COMMITTEE', 
-          svg: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          tag: 'COMMITTEE',
+          tagColor: 'bg-blue-50/90 text-blue-600 border-blue-200/90',
+          iconBoxColor: 'bg-blue-50/80 border-blue-100',
+          badgeIcon: (
+            <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          ),
+          icon: (
+            <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          )
         },
       ],
     },
@@ -186,9 +256,17 @@ const Navbar = () => {
 
                   {/* Elegant Professional Container */}
                   <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-2xl relative overflow-hidden backdrop-blur-3xl">
-                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-blue-600" />
-                    <p className="text-xs sm:text-sm font-extrabold text-slate-900 leading-relaxed tracking-tight">
-                      International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-[#491f78]" />
+                    <p className="text-xs sm:text-sm font-bold text-slate-500 leading-relaxed tracking-tight">
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">I</span>nternational{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">C</span>onference on{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">A</span>rtificial{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">I</span>ntelligence and{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">N</span>ext-
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">G</span>eneration{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">C</span>omputing &amp;{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">I</span>nformation{' '}
+                      <span className="text-[#491f78] font-black text-sm sm:text-base">T</span>echnologies
                     </p>
                   </div>
                 </div>
@@ -221,17 +299,17 @@ const Navbar = () => {
                     <Link
                       to={item.path}
                       onClick={closeMenu}
-                      className={`relative inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-2 rounded-full text-[11px] xl:text-xs font-extrabold tracking-wider uppercase transition-all duration-300 active:scale-95 ${
+                      className={`relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 active:scale-95 ${
                         isActive
-                          ? 'bg-blue-50 text-blue-700 border border-blue-600/40 shadow-sm scale-105'
-                          : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100/80 border border-transparent'
+                          ? 'bg-blue-50/90 text-blue-700 border border-blue-600/30 shadow-xs'
+                          : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100/70 border border-transparent'
                       }`}
                     >
                       <span>{item.label}</span>
                       
                       {item.hasDropdown && (
                         <svg
-                          className={`w-3.5 h-3.5 transition-transform duration-300 group-hover/navitem:rotate-180 ${
+                          className={`w-3.5 h-3.5 transition-transform duration-300 ${
                             isActive || isHovered || activeDropdown === idx ? 'text-blue-600' : 'text-slate-400 group-hover/navitem:text-blue-600'
                           } ${
                             isHovered || activeDropdown === idx ? 'rotate-180' : ''
@@ -244,20 +322,20 @@ const Navbar = () => {
                         </svg>
                       )}
 
-                      {/* Dynamic centered horizontal yellow indicator bar underneath section button */}
+                      {/* Dynamic centered horizontal gold indicator bar */}
                       <span
                         className={`absolute -bottom-2.5 left-1/2 -translate-x-1/2 h-[3.5px] rounded-full bg-amber-400 shadow-[0_2px_10px_rgba(251,191,36,0.65)] transition-all duration-300 ease-out origin-center pointer-events-none ${
                           showUnderline
-                            ? 'w-8 opacity-100 scale-x-100'
+                            ? 'w-10 opacity-100 scale-x-100'
                             : 'w-0 opacity-0 scale-x-0'
                         }`}
                       />
                     </Link>
 
-                    {/* Light Neumorphism Popover Dropdown Box */}
+                    {/* High-Fidelity Popover Dropdown Box Matching Mockup */}
                     {item.hasDropdown && (
                       <div
-                        className={`absolute top-full left-1/2 -translate-x-1/2 w-80 pt-4 transition-all duration-300 pointer-events-none group-hover/navitem:pointer-events-auto ${
+                        className={`absolute top-full left-1/2 -translate-x-1/2 w-[420px] sm:w-[460px] pt-4 transition-all duration-300 pointer-events-none group-hover/navitem:pointer-events-auto z-50 ${
                           activeDropdown === idx
                             ? 'opacity-100 translate-y-0 scale-100'
                             : 'opacity-0 translate-y-3 scale-95 pointer-events-none'
@@ -265,40 +343,47 @@ const Navbar = () => {
                       >
                         <div className="relative">
                           {/* Top Arrow Pointer Beak */}
-                          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-slate-200 rotate-45 z-30 shadow-sm" />
+                          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-blue-200/80 rotate-45 z-30 shadow-2xs" />
 
-                          {/* Light Soft Container */}
-                          <div className="p-4 rounded-3xl bg-white border border-slate-200 shadow-2xl space-y-2 relative overflow-hidden backdrop-blur-3xl">
+                          {/* Dropdown Container */}
+                          <div className="p-3.5 sm:p-4 rounded-[32px] bg-white border border-blue-100/90 shadow-[0_20px_50px_rgba(37,99,235,0.12),0_4px_20px_rgba(15,23,42,0.06)] space-y-2.5 relative overflow-hidden backdrop-blur-3xl">
                             
-                            <div className="absolute top-0 left-0 right-0 h-[2px] bg-blue-600" />
+                            {/* Top Subtle Gold Accent Bar */}
+                            <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-amber-400 rounded-full shadow-xs" />
 
                             {item.dropdown.map((sub, sIdx) => (
                               <Link
                                 key={sIdx}
                                 to={sub.path}
                                 onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
-                                className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 hover:bg-blue-50 border border-slate-200/70 hover:border-blue-300 shadow-sm transition-all duration-200 group/sub relative z-10 hover:translate-x-1 active:scale-[0.98]"
+                                className="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-100/90 hover:border-blue-200/90 shadow-2xs hover:shadow-md transition-all duration-250 group/sub relative z-10 hover:-translate-y-0.5 active:scale-[0.99]"
                               >
-                                <div className="flex items-center gap-3">
-                                  <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover/sub:bg-blue-600 group-hover/sub:text-white transition-all shrink-0">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      {sub.svg}
-                                    </svg>
+                                {/* Left Icon Box + Text */}
+                                <div className="flex items-center gap-3.5 min-w-0 pr-2">
+                                  <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center shrink-0 shadow-2xs group-hover/sub:scale-105 transition-transform duration-300 ${sub.iconBoxColor}`}>
+                                    {sub.icon}
                                   </div>
 
-                                  <div className="space-y-0.5 text-left">
-                                    <div className="text-xs font-extrabold text-slate-900 group-hover/sub:text-blue-600 transition-colors tracking-wide">
+                                  <div className="space-y-0.5 text-left min-w-0">
+                                    <div className="text-sm font-bold text-slate-900 group-hover/sub:text-blue-600 transition-colors tracking-tight truncate">
                                       {sub.title}
                                     </div>
-                                    <div className="text-[10px] text-slate-500 leading-tight">
+                                    <div className="text-xs text-slate-500 font-medium leading-snug line-clamp-1">
                                       {sub.desc}
                                     </div>
                                   </div>
                                 </div>
 
-                                <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 group-hover/sub:bg-blue-600 group-hover/sub:text-white shrink-0 ml-2 shadow-sm transition-colors">
-                                  {sub.tag}
-                                </span>
+                                {/* Right Badge & Chevron */}
+                                <div className="flex items-center gap-2 shrink-0">
+                                  <span className={`text-[10px] font-mono font-bold px-3 py-1.5 rounded-full border shadow-2xs flex items-center gap-1.5 transition-all duration-200 ${sub.tagColor}`}>
+                                    {sub.badgeIcon}
+                                    <span>{sub.tag}</span>
+                                  </span>
+                                  <svg className="w-3.5 h-3.5 text-slate-400 group-hover/sub:text-blue-600 group-hover/sub:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                                  </svg>
+                                </div>
                               </Link>
                             ))}
                           </div>
@@ -314,22 +399,43 @@ const Navbar = () => {
               {isSignedIn ? (
                 <div className="flex items-center gap-2 ml-2 xl:ml-3">
                   <Link
-                    to="/dashboard"
-                    onClick={closeMenu}
-                    className="btn-interactive btn-shimmer px-5 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md shrink-0 whitespace-nowrap"
+                    to={isSigningOut ? '#' : '/dashboard'}
+                    onClick={(e) => {
+                      if (isSigningOut) {
+                        e.preventDefault();
+                        return;
+                      }
+                      closeMenu();
+                    }}
+                    className={`btn-interactive px-5 py-2 rounded-full font-black text-[11px] xl:text-xs tracking-wider uppercase shadow-md shrink-0 whitespace-nowrap transition-all duration-300 flex items-center justify-center gap-2 ${
+                      isSigningOut
+                        ? 'bg-amber-300/90 text-slate-800 opacity-90 cursor-none pointer-events-none'
+                        : 'btn-shimmer bg-amber-400 hover:bg-amber-300 text-slate-950'
+                    }`}
                   >
-                    DASHBOARD
+                    {isSigningOut ? (
+                      <>
+                        <svg className="w-3.5 h-3.5 animate-spin text-slate-950 shrink-0" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        <span>SIGNING OUT...</span>
+                      </>
+                    ) : (
+                      <span>DASHBOARD</span>
+                    )}
                   </Link>
                   <button
                     type="button"
-                    onClick={async () => {
-                      closeMenu();
-                      await signOut();
-                      navigate('/login');
-                    }}
+                    disabled={isSigningOut}
+                    onClick={handleSignOut}
                     title="Sign Out"
                     aria-label="Sign Out"
-                    className="p-2 rounded-full bg-slate-100 border border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 hover:border-red-300 transition-all shadow-sm active:scale-90 flex items-center justify-center shrink-0"
+                    className={`p-2 rounded-full border transition-all shadow-sm flex items-center justify-center shrink-0 ${
+                      isSigningOut
+                        ? 'bg-slate-100 border-slate-200 text-slate-400 opacity-50 cursor-none pointer-events-none'
+                        : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 hover:border-red-300 active:scale-90'
+                    }`}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -381,15 +487,25 @@ const Navbar = () => {
                   <Link to={item.path} onClick={closeMenu} className="hover:text-blue-700 active:scale-95 transition-all">{item.label}</Link>
                 </div>
                 {item.hasDropdown && (
-                  <div className="pl-3 mt-2 space-y-2 border-l border-slate-200">
+                  <div className="pl-2 mt-2 space-y-2 border-l-2 border-blue-100">
                     {item.dropdown.map((sub, sIdx) => (
                       <Link
                         key={sIdx}
                         to={sub.path}
                         onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
-                        className="block text-xs font-semibold text-slate-600 hover:text-blue-600 active:scale-95 py-1 transition-all"
+                        className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-100 active:scale-95 transition-all"
                       >
-                        {sub.title}
+                        <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                          <div className={`w-7 h-7 rounded-lg border flex items-center justify-center shrink-0 ${sub.iconBoxColor}`}>
+                            {sub.icon}
+                          </div>
+                          <div className="text-xs font-bold text-slate-800 truncate">
+                            {sub.title}
+                          </div>
+                        </div>
+                        <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full border shrink-0 ${sub.tagColor}`}>
+                          {sub.tag}
+                        </span>
                       </Link>
                     ))}
                   </div>
@@ -400,20 +516,41 @@ const Navbar = () => {
             {isSignedIn ? (
               <div className="flex items-center gap-2 mt-4">
                 <Link
-                  to="/dashboard"
-                  onClick={closeMenu}
-                  className="btn-interactive btn-shimmer flex-1 text-center px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
+                  to={isSigningOut ? '#' : '/dashboard'}
+                  onClick={(e) => {
+                    if (isSigningOut) {
+                      e.preventDefault();
+                      return;
+                    }
+                    closeMenu();
+                  }}
+                  className={`btn-interactive flex-1 text-center px-5 py-3 rounded-full font-black text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all duration-300 ${
+                    isSigningOut
+                      ? 'bg-amber-300/90 text-slate-800 opacity-90 cursor-none pointer-events-none'
+                      : 'btn-shimmer bg-amber-400 text-slate-950'
+                  }`}
                 >
-                  DASHBOARD
+                  {isSigningOut ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin text-slate-950 shrink-0" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      <span>SIGNING OUT...</span>
+                    </>
+                  ) : (
+                    <span>DASHBOARD</span>
+                  )}
                 </Link>
                 <button
                   type="button"
-                  onClick={async () => {
-                    closeMenu();
-                    await signOut();
-                    navigate('/login');
-                  }}
-                  className="p-3 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 active:scale-90 flex items-center justify-center shrink-0 transition-all"
+                  disabled={isSigningOut}
+                  onClick={handleSignOut}
+                  className={`p-3 rounded-full border flex items-center justify-center shrink-0 transition-all ${
+                    isSigningOut
+                      ? 'bg-slate-100 border-slate-200 text-slate-400 opacity-50 cursor-none pointer-events-none'
+                      : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 active:scale-90'
+                  }`}
                   aria-label="Sign Out"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

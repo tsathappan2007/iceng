@@ -399,9 +399,17 @@ const LoginPage = () => {
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between bg-white relative">
             
             <div>
-              {/* Top Mode Toggler Switcher */}
+              {/* Top Mode Toggler Switcher with Animated Sliding Pill */}
               <div className="flex justify-center mb-8">
-                <div className="flex items-center p-1.5 rounded-full bg-slate-100 border border-slate-200 shadow-inner w-full max-w-sm">
+                <div className="relative flex items-center p-1.5 rounded-full bg-slate-100/90 border border-slate-200/90 shadow-inner w-full max-w-sm overflow-hidden select-none">
+                  
+                  {/* Sliding Pill Indicator with High-Fidelity Spring Easing */}
+                  <div
+                    className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 shadow-[0_4px_16px_rgba(37,99,235,0.35)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      mode === 'login' ? 'left-1.5' : 'left-[calc(50%+3px)]'
+                    }`}
+                  />
+
                   <button
                     type="button"
                     onClick={() => {
@@ -410,14 +418,18 @@ const LoginPage = () => {
                       setPendingVerification(false);
                       setAlreadyRegisteredToast(false);
                     }}
-                    className={`flex-1 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
+                    className={`relative z-10 flex-1 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer ${
                       mode === 'login'
-                        ? 'bg-blue-600 text-white shadow-md scale-[1.02]'
-                        : 'text-slate-600 hover:text-blue-600'
+                        ? 'text-white drop-shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    Sign In
+                    <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${mode === 'login' ? 'scale-110 text-white' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    </svg>
+                    <span>Sign In</span>
                   </button>
+
                   <button
                     type="button"
                     onClick={() => {
@@ -426,20 +438,23 @@ const LoginPage = () => {
                       setPendingVerification(false);
                       setAlreadyRegisteredToast(false);
                     }}
-                    className={`flex-1 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
+                    className={`relative z-10 flex-1 py-2.5 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer ${
                       mode === 'signup'
-                        ? 'bg-blue-600 text-white shadow-md scale-[1.02]'
-                        : 'text-slate-600 hover:text-blue-600'
+                        ? 'text-white drop-shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    Sign Up
+                    <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${mode === 'signup' ? 'scale-110 text-white' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+                    <span>Sign Up</span>
                   </button>
                 </div>
               </div>
 
               {/* Error Alert Box */}
               {error && (
-                <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-xs font-bold flex items-center justify-between gap-3">
+                <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-xs font-bold flex items-center justify-between gap-3 animate-auth-fade">
                   <div className="flex items-center gap-3">
                     <span className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-xs shrink-0">
                       ✕
@@ -464,7 +479,7 @@ const LoginPage = () => {
 
               {/* Email Verification Step for Sign-Up */}
               {pendingVerification ? (
-                <form onSubmit={handleVerifyCode} className="space-y-5">
+                <form onSubmit={handleVerifyCode} className="space-y-5 animate-auth-fade">
                   <div className="space-y-1 text-center sm:text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-mono text-[10px] font-bold uppercase tracking-wider mb-1">
                       STEP 2 OF 2 • EMAIL VERIFICATION
@@ -512,9 +527,9 @@ const LoginPage = () => {
                   </div>
                 </form>
               ) : (
-                <>
+                <div key={mode} className="animate-auth-fade space-y-6">
                   {/* Header Text */}
-                  <div className="mb-6 space-y-1 text-center sm:text-left">
+                  <div className="space-y-1 text-center sm:text-left">
                     <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">
                       {mode === 'login' ? 'Sign In to Your Account' : 'Sign Up for Account'}
                     </h2>
@@ -565,9 +580,9 @@ const LoginPage = () => {
                   {/* 2. TRADITIONAL EMAIL / PASSWORD FORM */}
                   <form onSubmit={mode === 'login' ? handleSignIn : handleSignUp} className="space-y-4">
                     
-                    {/* Extra Full Name & Institution Fields for Sign Up */}
+                    {/* Extra Full Name & Institution Fields for Sign Up with staggered slide */}
                     {mode === 'signup' && (
-                      <>
+                      <div className="space-y-4 animate-auth-fade">
                         <div className="space-y-1">
                           <label className="block text-[11px] font-mono font-bold text-slate-700 uppercase tracking-wider">
                             Full Name &amp; Title
@@ -597,7 +612,7 @@ const LoginPage = () => {
                             className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white focus:outline-none text-xs font-semibold text-slate-900 transition-colors"
                           />
                         </div>
-                      </>
+                      </div>
                     )}
 
                     {/* Email Address */}
@@ -704,7 +719,7 @@ const LoginPage = () => {
                     </button>
 
                   </form>
-                </>
+                </div>
               )}
             </div>
 
