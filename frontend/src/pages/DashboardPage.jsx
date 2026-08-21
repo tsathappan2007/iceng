@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser, useClerk } from '@clerk/clerk-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const DashboardPage = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   const { signOut } = useClerk();
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,8 +27,16 @@ const DashboardPage = () => {
   }, [isLoaded, isSignedIn, user]);
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/login');
+    if (isSigningOut) return;
+    try {
+      setIsSigningOut(true);
+      await signOut();
+      navigate('/login');
+    } catch (err) {
+      console.error('Dashboard Sign out error:', err);
+    } finally {
+      setIsSigningOut(false);
+    }
   };
 
   if (!isLoaded) {
@@ -113,20 +122,43 @@ const DashboardPage = () => {
 
           <div className="flex flex-wrap items-center gap-3 z-10 w-full sm:w-auto">
             <Link
-              to="/profile"
-              className="px-5 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase transition-all shadow-md flex items-center justify-center gap-2"
+              to={isSigningOut ? '#' : '/profile'}
+              onClick={(e) => {
+                if (isSigningOut) e.preventDefault();
+              }}
+              className={`px-5 py-3 rounded-full bg-blue-600 font-mono text-xs font-bold uppercase transition-all shadow-md flex items-center justify-center gap-2 ${
+                isSigningOut ? 'opacity-50 cursor-none pointer-events-none' : 'hover:bg-blue-700 text-white'
+              }`}
             >
               <span>MY PROFILE &amp; PREFERENCES</span>
             </Link>
 
             <button
+              type="button"
+              disabled={isSigningOut}
               onClick={handleSignOut}
-              className="px-5 py-3 rounded-full bg-white border border-slate-200 hover:border-red-400 hover:bg-red-50 text-slate-700 hover:text-red-600 font-mono text-xs font-bold uppercase transition-all shadow-sm flex items-center justify-center gap-2"
+              className={`px-5 py-3 rounded-full border font-mono text-xs font-bold uppercase transition-all duration-300 shadow-sm flex items-center justify-center gap-2 ${
+                isSigningOut
+                  ? 'bg-red-50 border-red-300 text-red-700 opacity-90 cursor-none pointer-events-none'
+                  : 'bg-white border-slate-200 hover:border-red-400 hover:bg-red-50 text-slate-700 hover:text-red-600 active:scale-95 cursor-pointer'
+              }`}
             >
-              <span>SIGN OUT</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
+              {isSigningOut ? (
+                <>
+                  <svg className="w-4 h-4 animate-spin text-red-600 shrink-0" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  <span>SIGNING OUT...</span>
+                </>
+              ) : (
+                <>
+                  <span>SIGN OUT</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                </>
+              )}
             </button>
           </div>
         </div>

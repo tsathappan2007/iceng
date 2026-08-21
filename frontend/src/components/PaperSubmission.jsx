@@ -200,6 +200,14 @@ const PaperSubmission = () => {
     }
   }, []);
 
+  // Auto-fill author name and email from Clerk user if left empty (without displaying any autofill badge)
+  useEffect(() => {
+    if (isSignedIn && user) {
+      setAuthorName(prev => prev || user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || '');
+      setAuthorEmail(prev => prev || user.primaryEmailAddress?.emailAddress || '');
+    }
+  }, [isSignedIn, user]);
+
   // 💾 Auto-Save Draft to LocalStorage whenever form state updates
   useEffect(() => {
     if (paperTitle || driveLink || authorName || authorEmail) {
@@ -239,7 +247,7 @@ const PaperSubmission = () => {
   const renderStepPillStyle = (stepNum, status) => {
     const isActive = formStep === stepNum;
     if (isActive) {
-      return 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-500 shadow-lg shadow-blue-500/30 ring-4 ring-blue-400/30 font-black scale-105 z-10 animate-pulse';
+      return 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white border-blue-400/80 font-black z-20 animate-active-pill relative overflow-hidden';
     }
     if (status === 'full') {
       return 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-xs hover:scale-105 hover:bg-emerald-100/90 z-10';
@@ -254,7 +262,7 @@ const PaperSubmission = () => {
     const isActive = formStep === stepNum;
     if (isActive) {
       return (
-        <span className="w-4 h-4 rounded-full bg-white/25 text-white flex items-center justify-center text-[9px] font-black shrink-0">
+        <span className="w-4 h-4 rounded-full bg-white/30 text-white flex items-center justify-center text-[9px] font-black shrink-0 shadow-xs animate-pulse relative z-10">
           {stepNum}
         </span>
       );
@@ -305,7 +313,6 @@ const PaperSubmission = () => {
     }
     setFeedback({ type: '', message: '' });
     setFormStep(2);
-    window.scrollTo({ top: 350, behavior: 'smooth' });
   };
 
   const handleNextToDriveLink = (e) => {
@@ -316,7 +323,6 @@ const PaperSubmission = () => {
     }
     setFeedback({ type: '', message: '' });
     setFormStep(3);
-    window.scrollTo({ top: 350, behavior: 'smooth' });
   };
 
   const handleNextToRates = (e) => {
@@ -327,14 +333,12 @@ const PaperSubmission = () => {
     }
     setFeedback({ type: '', message: '' });
     setFormStep(4);
-    window.scrollTo({ top: 350, behavior: 'smooth' });
   };
 
   const handleNextToCheckout = (e) => {
     if (e) e.preventDefault();
     setFeedback({ type: '', message: '' });
     setFormStep(5);
-    window.scrollTo({ top: 350, behavior: 'smooth' });
   };
 
   // 💳 Complete Payment & Finalize Manuscript Submission
@@ -558,10 +562,13 @@ const PaperSubmission = () => {
               <button
                 type="button"
                 onClick={() => setFormStep(1)}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(1, getStep1Status())}`}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(1, getStep1Status())}`}
               >
+                {formStep === 1 && (
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                )}
                 {renderStepBadgeIcon(1, getStep1Status())}
-                <span>DETAILS</span>
+                <span className="relative z-10">DETAILS</span>
               </button>
 
               {/* Curved Flow Arrow 1 -> 2 (Curved UP ↑ with Glowing Dash Flow) */}
@@ -583,10 +590,13 @@ const PaperSubmission = () => {
               <button
                 type="button"
                 onClick={() => { if (paperTitle) setFormStep(2); }}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(2, getStep2Status())}`}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(2, getStep2Status())}`}
               >
+                {formStep === 2 && (
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                )}
                 {renderStepBadgeIcon(2, getStep2Status())}
-                <span>TRACK</span>
+                <span className="relative z-10">TRACK</span>
               </button>
 
               {/* Curved Flow Arrow 2 -> 3 (Curved DOWN ↓ with Glowing Dash Flow) */}
@@ -608,10 +618,13 @@ const PaperSubmission = () => {
               <button
                 type="button"
                 onClick={() => { if (paperTitle) setFormStep(3); }}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(3, getStep3Status())}`}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(3, getStep3Status())}`}
               >
+                {formStep === 3 && (
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                )}
                 {renderStepBadgeIcon(3, getStep3Status())}
-                <span>DRIVE LINK</span>
+                <span className="relative z-10">DRIVE LINK</span>
               </button>
 
               {/* Curved Flow Arrow 3 -> 4 (Curved UP ↑ with Glowing Dash Flow) */}
@@ -633,10 +646,13 @@ const PaperSubmission = () => {
               <button
                 type="button"
                 onClick={() => { if (driveLink) setFormStep(4); }}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(4, getStep4Status())}`}
+                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(4, getStep4Status())}`}
               >
+                {formStep === 4 && (
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                )}
                 {renderStepBadgeIcon(4, getStep4Status())}
-                <span>RATES</span>
+                <span className="relative z-10">RATES</span>
               </button>
 
               {/* Curved Flow Arrow 4 -> 5 (Curved DOWN ↓ with Glowing Dash Flow) */}
@@ -658,10 +674,13 @@ const PaperSubmission = () => {
               <button
                 type="button"
                 onClick={() => { if (driveLink) setFormStep(5); }}
-                className={`px-5 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap overflow-visible ${renderStepPillStyle(5, getStep5Status())}`}
+                className={`px-5 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(5, getStep5Status())}`}
               >
+                {formStep === 5 && (
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                )}
                 {renderStepBadgeIcon(5, getStep5Status())}
-                <span>PAYMENT</span>
+                <span className="relative z-10">PAYMENT</span>
               </button>
 
             </div>
@@ -674,7 +693,7 @@ const PaperSubmission = () => {
             
             {/* 📝 STEP 1: AUTHOR & MANUSCRIPT TITLE */}
             {formStep === 1 && (
-              <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-fade-in">
+              <div key={1} className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-auth-fade">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                     STEP 1 OF 5 • AUTHOR &amp; MANUSCRIPT TITLE
@@ -708,7 +727,7 @@ const PaperSubmission = () => {
                     <input
                       type="text"
                       required
-                      value={authorName || user?.fullName || ''}
+                      value={authorName}
                       onChange={(e) => setAuthorName(e.target.value)}
                       placeholder="Dr. Alexander Wright"
                       className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
@@ -723,7 +742,7 @@ const PaperSubmission = () => {
                     <input
                       type="email"
                       required
-                      value={authorEmail || user?.primaryEmailAddress?.emailAddress || ''}
+                      value={authorEmail}
                       onChange={(e) => setAuthorEmail(e.target.value)}
                       placeholder="author@university.edu"
                       className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
@@ -761,7 +780,7 @@ const PaperSubmission = () => {
 
             {/* 🧠 STEP 2: PRIMARY RESEARCH TRACK */}
             {formStep === 2 && (
-              <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-fade-in">
+              <div key={2} className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-auth-fade">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                     STEP 2 OF 5 • SELECT PRIMARY RESEARCH TRACK
@@ -847,7 +866,7 @@ const PaperSubmission = () => {
 
             {/* 🔗 STEP 3: MANUSCRIPT CLOUD DRIVE LINK */}
             {formStep === 3 && (
-              <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-fade-in">
+              <div key={3} className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-auth-fade">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                     STEP 3 OF 5 • MANUSCRIPT DRIVE / CLOUD LINK
@@ -916,7 +935,7 @@ const PaperSubmission = () => {
 
             {/* 💎 STEP 4: REGISTRATION RATES CATEGORY */}
             {formStep === 4 && (
-              <div className="space-y-6 animate-fade-in">
+              <div key={4} className="space-y-6 animate-auth-fade">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div>
                     <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
@@ -990,7 +1009,7 @@ const PaperSubmission = () => {
                           <div className="mb-4 pb-3 border-b border-slate-100/30">
                             <div className="flex items-baseline gap-1.5">
                               <span className={`text-3xl font-black tracking-tight ${
-                                isSelected ? 'text-white' : 'text-blue-700'
+                                selectedTierId === tier.id ? 'text-white' : 'text-blue-700'
                               }`}>
                                 {tier.fee}
                               </span>
@@ -1057,7 +1076,7 @@ const PaperSubmission = () => {
 
             {/* 💳 STEP 5: PAYMENT CHECKOUT & FINAL SUBMISSION */}
             {formStep === 5 && (
-              <form onSubmit={handleConfirmPaymentAndSubmit} className="space-y-8 animate-fade-in">
+              <form key={5} onSubmit={handleConfirmPaymentAndSubmit} className="space-y-8 animate-auth-fade">
                 
                 {/* Summary Card */}
                 <div className="p-8 sm:p-10 rounded-[36px] bg-white border border-slate-200/90 shadow-md space-y-6">
