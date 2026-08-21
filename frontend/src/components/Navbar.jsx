@@ -11,8 +11,13 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [hoveredNav, setHoveredNav] = useState(null);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState({ about: false, council: false });
   const location = useLocation();
   const navigate = useNavigate();
+
+  const toggleMobileSub = (key) => {
+    setMobileExpanded(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const handleSignOut = async () => {
     if (isSigningOut) return;
@@ -76,14 +81,28 @@ const Navbar = () => {
     {
       id: 'home',
       label: 'HOME',
+      sub: 'Conference Hub & Highlights',
       path: '/',
       hasDropdown: false,
+      iconColor: 'bg-blue-50 text-blue-600 border border-blue-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      )
     },
     {
       id: 'about',
       label: 'ABOUT',
+      sub: 'Overview, Dept & Campus',
       path: '/about',
       hasDropdown: true,
+      iconColor: 'bg-purple-50 text-purple-600 border border-purple-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
       dropdown: [
         { 
           title: 'Conference Overview', 
@@ -147,26 +166,54 @@ const Navbar = () => {
     {
       id: 'domains',
       label: 'DOMAINS',
+      sub: '6 AI & Computing Tracks',
       path: '/domains',
       hasDropdown: false,
+      iconColor: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      )
     },
     {
       id: 'timeline',
       label: 'TIMELINE',
+      sub: 'Important Dates & Milestones',
       path: '/timeline',
       hasDropdown: false,
+      iconColor: 'bg-amber-50 text-amber-700 border border-amber-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      )
     },
     {
       id: 'pricing',
       label: 'PRICING',
+      sub: 'Registration Rates & Passes',
       path: '/pricing',
       hasDropdown: false,
+      iconColor: 'bg-emerald-50 text-emerald-700 border border-emerald-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
     },
     {
       id: 'council',
       label: 'COUNCIL',
+      sub: 'Keynotes & Committee Panels',
       path: '/council',
       hasDropdown: true,
+      iconColor: 'bg-violet-50 text-violet-600 border border-violet-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
       dropdown: [
         { 
           title: 'Keynote Speakers', 
@@ -211,15 +258,29 @@ const Navbar = () => {
     {
       id: 'submit',
       label: 'SUBMIT',
+      sub: 'Paper Submission & Fee Portal',
       path: '/submit',
       hasDropdown: false,
       authRequired: true,
+      iconColor: 'bg-blue-50 text-blue-700 border border-blue-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+      )
     },
     {
       id: 'contact',
       label: 'CONTACT',
+      sub: 'Organizing Desk & Inquiries',
       path: '/contact',
       hasDropdown: false,
+      iconColor: 'bg-rose-50 text-rose-600 border border-rose-100',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      )
     },
   ].filter(item => !item.authRequired || isSignedIn);
 
@@ -477,97 +538,206 @@ const Navbar = () => {
 
       {/* Mobile Menu Drawer */}
       {menuOpen && (
-        <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2 animate-page-enter">
+        <div className="lg:hidden max-w-7xl mx-auto px-2 sm:px-4 mt-2 animate-page-enter">
           <div className="relative">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#491f78]/30 via-[#491f78]/10 to-[#491f78]/30 rounded-3xl blur-lg opacity-85" />
-            <div className="relative bg-white/98 backdrop-blur-2xl rounded-3xl p-6 space-y-4 shadow-[0_12px_36px_-6px_rgba(73,31,120,0.35)] max-h-[80vh] overflow-y-auto">
-            {navItems.map((item, idx) => (
-              <div key={idx} className="border-b border-slate-100 pb-3">
-                <div className="flex items-center justify-between py-1 text-xs font-extrabold tracking-widest text-blue-600 uppercase">
-                  <Link to={item.path} onClick={closeMenu} className="hover:text-blue-700 active:scale-95 transition-all">{item.label}</Link>
-                </div>
-                {item.hasDropdown && (
-                  <div className="pl-2 mt-2 space-y-2 border-l-2 border-blue-100">
-                    {item.dropdown.map((sub, sIdx) => (
-                      <Link
-                        key={sIdx}
-                        to={sub.path}
-                        onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
-                        className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-100 active:scale-95 transition-all"
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                          <div className={`w-7 h-7 rounded-lg border flex items-center justify-center shrink-0 ${sub.iconBoxColor}`}>
-                            {sub.icon}
+            
+            <div className="relative bg-white/98 backdrop-blur-2xl rounded-3xl p-4 sm:p-5 space-y-3 shadow-[0_16px_40px_-6px_rgba(73,31,120,0.35)] max-h-[82vh] overflow-y-auto border border-slate-200/90">
+              
+              {/* Header Info */}
+              <div className="flex items-center justify-between px-2 pb-2.5 border-b border-slate-100">
+                <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest">
+                  NAVIGATION MENU
+                </span>
+                <span className="text-[9px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                  ICAINGCIT 2027
+                </span>
+              </div>
+
+              {/* Navigation Button Cards */}
+              <div className="space-y-1.5">
+                {navItems.map((item, idx) => {
+                  const isActive = location.pathname === item.path || (item.id === 'council' && location.pathname.startsWith('/council')) || (item.id === 'about' && location.pathname.startsWith('/about'));
+                  const isExpanded = mobileExpanded[item.id];
+
+                  return (
+                    <div key={idx} className="rounded-2xl transition-all duration-200">
+                      {item.hasDropdown ? (
+                        <div>
+                          <div
+                            className={`w-full flex items-center justify-between p-3 rounded-2xl border transition-all duration-200 cursor-pointer ${
+                              isActive
+                                ? 'bg-gradient-to-r from-blue-50/90 via-indigo-50/60 to-purple-50/80 border-blue-300 text-blue-950 shadow-xs'
+                                : 'bg-slate-50/80 hover:bg-slate-100/90 border-slate-200/70 text-slate-800'
+                            }`}
+                          >
+                            <Link
+                              to={item.path}
+                              onClick={closeMenu}
+                              className="flex items-center gap-3 flex-1 min-w-0"
+                            >
+                              <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-xs ${item.iconColor}`}>
+                                {item.icon}
+                              </div>
+                              <div className="text-left min-w-0">
+                                <div className="text-xs font-black uppercase tracking-wider flex items-center gap-2">
+                                  <span>{item.label}</span>
+                                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />}
+                                </div>
+                                <div className="text-[10px] text-slate-500 font-medium truncate">
+                                  {item.sub}
+                                </div>
+                              </div>
+                            </Link>
+
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleMobileSub(item.id);
+                              }}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-white/80 transition-all ml-2 shrink-0"
+                              aria-label={`Toggle ${item.label} sub-menu`}
+                            >
+                              <svg
+                                className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-180 text-blue-600' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </button>
                           </div>
-                          <div className="text-xs font-bold text-slate-800 truncate">
-                            {sub.title}
-                          </div>
+
+                          {/* Accordion Sub-cards */}
+                          {isExpanded && (
+                            <div className="mt-1.5 ml-3 pl-3 border-l-2 border-blue-200/80 space-y-1.5 animate-auth-fade">
+                              {item.dropdown.map((sub, sIdx) => (
+                                <Link
+                                  key={sIdx}
+                                  to={sub.path}
+                                  onClick={(e) => handleDropdownClick(e, sub.path, sub.targetId)}
+                                  className="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-blue-50/60 border border-slate-200/80 shadow-2xs active:scale-[0.98] transition-all"
+                                >
+                                  <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                                    <div className={`w-7 h-7 rounded-lg border flex items-center justify-center shrink-0 ${sub.iconBoxColor}`}>
+                                      {sub.icon}
+                                    </div>
+                                    <div className="text-left min-w-0">
+                                      <div className="text-xs font-bold text-slate-800 truncate">
+                                        {sub.title}
+                                      </div>
+                                      <div className="text-[9px] text-slate-500 font-medium truncate">
+                                        {sub.desc}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <span className={`text-[8px] font-mono font-bold px-2 py-0.5 rounded-full border shrink-0 ${sub.tagColor}`}>
+                                    {sub.tag}
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
+                          )}
                         </div>
-                        <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full border shrink-0 ${sub.tagColor}`}>
-                          {sub.tag}
-                        </span>
-                      </Link>
-                    ))}
+                      ) : (
+                        <Link
+                          to={item.path}
+                          onClick={closeMenu}
+                          className={`w-full flex items-center justify-between p-3 rounded-2xl border transition-all duration-200 active:scale-[0.99] ${
+                            isActive
+                              ? 'bg-gradient-to-r from-blue-50/90 via-indigo-50/60 to-purple-50/80 border-blue-300 text-blue-950 shadow-xs'
+                              : 'bg-slate-50/80 hover:bg-slate-100/90 border-slate-200/70 text-slate-800'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-xs ${item.iconColor}`}>
+                              {item.icon}
+                            </div>
+                            <div className="text-left min-w-0">
+                              <div className="text-xs font-black uppercase tracking-wider flex items-center gap-2">
+                                <span>{item.label}</span>
+                                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />}
+                              </div>
+                              <div className="text-[10px] text-slate-500 font-medium truncate">
+                                {item.sub}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="w-7 h-7 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 shrink-0">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Action Section */}
+              <div className="pt-2 border-t border-slate-100">
+                {isSignedIn ? (
+                  <div className="flex items-center gap-2">
+                    <Link
+                      to={isSigningOut ? '#' : '/dashboard'}
+                      onClick={(e) => {
+                        if (isSigningOut) {
+                          e.preventDefault();
+                          return;
+                        }
+                        closeMenu();
+                      }}
+                      className={`btn-interactive flex-1 text-center px-5 py-3.5 rounded-2xl font-black text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all duration-300 ${
+                        isSigningOut
+                          ? 'bg-amber-300/90 text-slate-800 opacity-90 cursor-none pointer-events-none'
+                          : 'btn-shimmer bg-amber-400 hover:bg-amber-300 text-slate-950'
+                      }`}
+                    >
+                      {isSigningOut ? (
+                        <>
+                          <svg className="w-4 h-4 animate-spin text-slate-950 shrink-0" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          <span>SIGNING OUT...</span>
+                        </>
+                      ) : (
+                        <span>DASHBOARD PORTAL →</span>
+                      )}
+                    </Link>
+
+                    <button
+                      type="button"
+                      disabled={isSigningOut}
+                      onClick={handleSignOut}
+                      className={`p-3.5 rounded-2xl border flex items-center justify-center shrink-0 transition-all ${
+                        isSigningOut
+                          ? 'bg-slate-100 border-slate-200 text-slate-400 opacity-50 cursor-none pointer-events-none'
+                          : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 hover:border-red-300 active:scale-90'
+                      }`}
+                      aria-label="Sign Out"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                    </button>
                   </div>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={closeMenu}
+                    className="btn-interactive btn-shimmer w-full block text-center px-5 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md active:scale-95"
+                  >
+                    SIGN IN / REGISTER →
+                  </Link>
                 )}
               </div>
-            ))}
 
-            {isSignedIn ? (
-              <div className="flex items-center gap-2 mt-4">
-                <Link
-                  to={isSigningOut ? '#' : '/dashboard'}
-                  onClick={(e) => {
-                    if (isSigningOut) {
-                      e.preventDefault();
-                      return;
-                    }
-                    closeMenu();
-                  }}
-                  className={`btn-interactive flex-1 text-center px-5 py-3 rounded-full font-black text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all duration-300 ${
-                    isSigningOut
-                      ? 'bg-amber-300/90 text-slate-800 opacity-90 cursor-none pointer-events-none'
-                      : 'btn-shimmer bg-amber-400 text-slate-950'
-                  }`}
-                >
-                  {isSigningOut ? (
-                    <>
-                      <svg className="w-4 h-4 animate-spin text-slate-950 shrink-0" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      <span>SIGNING OUT...</span>
-                    </>
-                  ) : (
-                    <span>DASHBOARD</span>
-                  )}
-                </Link>
-                <button
-                  type="button"
-                  disabled={isSigningOut}
-                  onClick={handleSignOut}
-                  className={`p-3 rounded-full border flex items-center justify-center shrink-0 transition-all ${
-                    isSigningOut
-                      ? 'bg-slate-100 border-slate-200 text-slate-400 opacity-50 cursor-none pointer-events-none'
-                      : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-red-600 hover:bg-red-50 active:scale-90'
-                  }`}
-                  aria-label="Sign Out"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className="btn-interactive btn-shimmer block text-center mt-4 px-5 py-3 rounded-full bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md"
-              >
-                LOGIN
-              </Link>
-            )}
-          </div>
+            </div>
           </div>
         </div>
       )}

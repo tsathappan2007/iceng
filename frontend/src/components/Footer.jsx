@@ -18,13 +18,15 @@ const Footer = () => {
           
           {/* 1. Brand Column (4 cols) */}
           <div className="lg:col-span-4 space-y-3.5">
-            <Link to="/" className="inline-block group">
-              <img 
-                src={logoImg} 
-                alt="ICAINGCIT 2027 Logo" 
-                className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-            </Link>
+            <div className="w-full flex justify-center sm:justify-start">
+              <Link to="/" className="inline-block group">
+                <img 
+                  src={logoImg} 
+                  alt="ICAINGCIT 2027 Logo" 
+                  className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              </Link>
+            </div>
 
             <p className="text-xs text-slate-600 leading-relaxed font-medium">
               International Conference on Artificial Intelligence and Next-Generation Computing &amp; Information Technologies.<br />
