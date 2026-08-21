@@ -61,7 +61,7 @@ const CustomCursor = () => {
     animId = requestAnimationFrame(loop);
 
     const onMouseOver = (e) => {
-      const isInteractive = e.target.closest('a, button, input, select, textarea, [role="button"], .group');
+      const isInteractive = e.target.closest('a, button, input, select, textarea, [role="button"], .group, .btn-interactive, .card-interactive');
       if (isInteractive) {
         isHovered.current = true;
         if (ringRef.current) {

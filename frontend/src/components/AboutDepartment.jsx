@@ -7,11 +7,12 @@ const AboutDepartment = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
           
           {/* Left Column: Department Text & Highlight Cards */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-8">
+          <div className="reveal-left lg:col-span-7 flex flex-col justify-between space-y-8">
             <div>
               {/* Eyebrow Tag */}
-              <div className="inline-block mb-3">
-                <span className="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 px-4 py-1.5 rounded-full border border-blue-200/80 shadow-sm">
+              <div className="inline-flex items-center gap-2 mb-3">
+                <span className="badge-glow text-xs font-mono font-black tracking-widest text-blue-700 uppercase bg-blue-50 px-4 py-1.5 rounded-full border border-blue-200 shadow-sm inline-flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
                   ORGANIZING DEPARTMENT
                 </span>
               </div>
@@ -41,21 +42,21 @@ const AboutDepartment = () => {
 
             {/* Bottom 3 Highlight Cards with Larger Text */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5">
+              <div className="reveal-init delay-150 card-interactive p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5 hover:border-blue-400">
                 <div className="text-sm font-extrabold text-slate-900">Computation &amp; Software</div>
                 <div className="text-xs text-slate-600 leading-relaxed">
                   Advanced algorithm design, software engineering paradigms, and complex problem-solving.
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5">
+              <div className="reveal-init delay-250 card-interactive p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5 hover:border-blue-400">
                 <div className="text-sm font-extrabold text-slate-900">Interdisciplinary Research</div>
                 <div className="text-xs text-slate-600 leading-relaxed">
                   Fusing computing with AI, bioinformatics, cloud architectures, and network security.
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5">
+              <div className="reveal-init delay-350 card-interactive p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm space-y-1.5 hover:border-blue-400">
                 <div className="text-sm font-extrabold text-slate-900">Innovation &amp; Excellence</div>
                 <div className="text-xs text-slate-600 leading-relaxed">
                   Fostering cutting-edge research labs, student innovation, and national laurels.
@@ -66,8 +67,8 @@ const AboutDepartment = () => {
           </div>
 
           {/* Right Column: High-Impact Image Card */}
-          <div className="lg:col-span-5 flex">
-            <div className="relative w-full rounded-3xl overflow-hidden border border-slate-200 shadow-xl min-h-[420px] lg:min-h-[500px] flex">
+          <div className="reveal-right delay-200 lg:col-span-5 flex">
+            <div className="card-interactive relative w-full rounded-3xl overflow-hidden border border-slate-200 shadow-xl min-h-[420px] lg:min-h-[500px] flex">
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
                 alt="Department of IT Research & Innovation Labs"

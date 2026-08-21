@@ -111,7 +111,7 @@ const AimScope = () => {
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="reveal-init text-center mb-16">
           <span className="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 px-4 py-1.5 rounded-full border border-blue-200 shadow-sm inline-block mb-3">
             CONFERENCE TRACKS &amp; THEMES
           </span>
@@ -125,41 +125,44 @@ const AimScope = () => {
 
         {/* 6-Track Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tracks.map((track) => (
-            <div
-              key={track.id}
-              className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between group"
-            >
-              <div>
-                {/* Header Row: Icon & Track Badge */}
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
-                    {track.icon}
+          {tracks.map((track, idx) => {
+            const delayClass = `delay-${(idx + 1) * 100}`;
+            return (
+              <div
+                key={track.id}
+                className={`reveal-init ${delayClass} card-interactive p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 hover:border-blue-400 shadow-sm flex flex-col justify-between group`}
+              >
+                <div>
+                  {/* Header Row: Icon & Track Badge */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm group-hover:scale-105">
+                      {track.icon}
+                    </div>
+                    <span className="text-[10px] font-mono font-black text-blue-700 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 uppercase group-hover:border-blue-400 transition-colors">
+                      TRACK {track.id}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono font-black text-blue-700 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 uppercase">
-                    TRACK {track.id}
-                  </span>
-                </div>
 
-                {/* Track Title */}
-                <h3 className="text-lg font-black text-slate-900 mb-4 group-hover:text-blue-600 transition-colors leading-snug">
-                  {track.title}
-                </h3>
+                  {/* Track Title */}
+                  <h3 className="text-lg font-black text-slate-900 mb-4 group-hover:text-blue-600 transition-colors leading-snug">
+                    {track.title}
+                  </h3>
 
-                {/* Bullet Points List */}
-                <div className="pt-3 border-t border-slate-100">
-                  <ul className="space-y-2">
-                    {track.topics.map((topic, tIdx) => (
-                      <li key={tIdx} className="text-xs sm:text-sm font-semibold text-slate-700 flex items-center gap-2.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
-                        <span>{topic}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Bullet Points List */}
+                  <div className="pt-3 border-t border-slate-100">
+                    <ul className="space-y-2">
+                      {track.topics.map((topic, tIdx) => (
+                        <li key={tIdx} className="text-xs sm:text-sm font-semibold text-slate-700 flex items-center gap-2.5 hover:text-blue-700 transition-colors">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0 group-hover:scale-125 transition-transform" />
+                          <span>{topic}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

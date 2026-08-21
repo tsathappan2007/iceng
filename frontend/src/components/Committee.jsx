@@ -118,7 +118,7 @@ const Committee = () => {
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Section Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <div className="reveal-init text-center space-y-4 max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-3">
             <span className="w-12 h-px bg-blue-300/80" />
             <span className="text-xs font-mono font-black tracking-widest text-blue-700 uppercase px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 shadow-sm">
@@ -137,7 +137,7 @@ const Committee = () => {
         </div>
 
         {/* Tab Filters */}
-        <div className="flex justify-center">
+        <div className="reveal-scale delay-100 flex justify-center">
           <div className="inline-flex flex-wrap items-center justify-center p-1.5 rounded-full bg-white border border-slate-200/90 shadow-md gap-1">
             {tabs.map(tab => {
               const isActive = activeTab === tab.id;
@@ -145,7 +145,7 @@ const Committee = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-5 py-2.5 rounded-full text-xs font-mono font-black tracking-wider transition-all duration-300 flex items-center gap-2 uppercase ${
+                  className={`btn-interactive px-5 py-2.5 rounded-full text-xs font-mono font-black tracking-wider transition-all duration-300 flex items-center gap-2 uppercase ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-md scale-[1.02]'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
@@ -169,7 +169,7 @@ const Committee = () => {
             <div key={sec.id} className="space-y-8">
               
               {/* Section Header Banner */}
-              <div className="p-6 sm:p-8 rounded-[32px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="reveal-init delay-150 p-6 sm:p-8 rounded-[32px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shrink-0">
                     {sec.icon}
@@ -197,7 +197,7 @@ const Committee = () => {
                   <div key={rIdx} className="space-y-6">
                     
                     {/* Role Title Bar */}
-                    <div className="flex items-center gap-3">
+                    <div className="reveal-left delay-200 flex items-center gap-3">
                       <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />
                       <h4 className="text-xs font-black tracking-widest text-slate-800 uppercase bg-white px-4 py-1.5 rounded-full border border-slate-200 shadow-sm">
                         {roleGroup.roleName}
@@ -207,75 +207,78 @@ const Committee = () => {
 
                     {/* Centered Member Grid */}
                     <div className="flex flex-wrap justify-center items-stretch gap-6">
-                      {roleGroup.members.map((member, mIdx) => (
-                        <div
-                          key={mIdx}
-                          className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] max-w-lg p-5 sm:p-6 rounded-[28px] bg-white border border-slate-200/90 shadow-md hover:shadow-xl hover:border-blue-400 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group min-h-[220px]"
-                        >
-                          {/* Top Right Decorative Background & Watermark Butterfly Logo */}
-                          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-100/50 via-blue-50/30 to-transparent rounded-bl-[60px] pointer-events-none z-0 flex items-start justify-end p-2 sm:p-3">
-                            <img
-                              src={butterflyLogo}
-                              alt="Butterfly Watermark Logo"
-                              className="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500 filter drop-shadow-sm"
-                            />
-                          </div>
-
-                          <div className="relative z-10 space-y-3.5">
-                            
-                            {/* Top Section: Avatar Left + Role Tag, Name, Org Right */}
-                            <div className="flex items-start gap-4">
-                              {/* Picture Avatar Box */}
-                              <div className="relative shrink-0">
-                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-blue-600 p-1 bg-white shadow-md flex items-center justify-center text-blue-700 font-mono font-black text-xl sm:text-2xl group-hover:scale-105 transition-transform duration-300 overflow-hidden">
-                                  {member.image ? (
-                                    <img
-                                      src={member.image}
-                                      alt={member.name}
-                                      className="w-full h-full object-cover rounded-xl"
-                                    />
-                                  ) : (
-                                    member.avatar
-                                  )}
-                                </div>
-                              </div>
-
-                              {/* Role Tag Capsule (Fully visible, no truncation), Name & Institution */}
-                              <div className="space-y-1.5 pt-0.5 min-w-0 flex-1 pr-4">
-                                <div className="flex flex-wrap items-center">
-                                  <span className="inline-block px-3 py-1 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 font-mono font-black text-[10px] uppercase tracking-wider leading-normal shadow-2xs whitespace-normal max-w-full">
-                                    {member.tag || roleGroup.roleName.toUpperCase()}
-                                  </span>
-                                </div>
-
-                                <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
-                                  {member.name}
-                                </h3>
-
-                                <p className="text-xs sm:text-sm font-bold text-amber-600 leading-snug">
-                                  {member.org}
-                                </p>
-
-                                <div className="text-[11px] font-semibold text-slate-500 pt-0.5">
-                                  📍 {member.location}
-                                </div>
-                              </div>
+                      {roleGroup.members.map((member, mIdx) => {
+                        const delayClass = `delay-${Math.min((mIdx % 6) * 100 + 100, 600)}`;
+                        return (
+                          <div
+                            key={mIdx}
+                            className={`reveal-init ${delayClass} card-interactive w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] max-w-lg p-5 sm:p-6 rounded-[28px] bg-white border border-slate-200/90 shadow-md hover:border-blue-400 relative overflow-hidden flex flex-col justify-between group min-h-[220px]`}
+                          >
+                            {/* Top Right Decorative Background & Watermark Butterfly Logo */}
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-100/50 via-blue-50/30 to-transparent rounded-bl-[60px] pointer-events-none z-0 flex items-start justify-end p-2 sm:p-3">
+                              <img
+                                src={butterflyLogo}
+                                alt="Butterfly Watermark Logo"
+                                className="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500 filter drop-shadow-sm"
+                              />
                             </div>
 
-                            {/* Minimal Designation Box */}
-                            <div className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-100/90">
-                              <div className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-0.5">
-                                DESIGNATION
+                            <div className="relative z-10 space-y-3.5">
+                              
+                              {/* Top Section: Avatar Left + Role Tag, Name, Org Right */}
+                              <div className="flex items-start gap-4">
+                                {/* Picture Avatar Box */}
+                                <div className="relative shrink-0">
+                                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-blue-600 p-1 bg-white shadow-md flex items-center justify-center text-blue-700 font-mono font-black text-xl sm:text-2xl group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+                                    {member.image ? (
+                                      <img
+                                        src={member.image}
+                                        alt={member.name}
+                                        className="w-full h-full object-cover rounded-xl"
+                                      />
+                                    ) : (
+                                      member.avatar
+                                    )}
+                                  </div>
+                                </div>
+
+                                {/* Role Tag Capsule (Fully visible, no truncation), Name & Institution */}
+                                <div className="space-y-1.5 pt-0.5 min-w-0 flex-1 pr-4">
+                                  <div className="flex flex-wrap items-center">
+                                    <span className="inline-block px-3 py-1 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 font-mono font-black text-[10px] uppercase tracking-wider leading-normal shadow-2xs whitespace-normal max-w-full">
+                                      {member.tag || roleGroup.roleName.toUpperCase()}
+                                    </span>
+                                  </div>
+
+                                  <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
+                                    {member.name}
+                                  </h3>
+
+                                  <p className="text-xs sm:text-sm font-bold text-amber-600 leading-snug">
+                                    {member.org}
+                                  </p>
+
+                                  <div className="text-[11px] font-semibold text-slate-500 pt-0.5">
+                                    📍 {member.location}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="text-xs font-bold text-slate-800 leading-snug">
-                                "{member.affil}"
+
+                              {/* Minimal Designation Box */}
+                              <div className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-100/90">
+                                <div className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-0.5">
+                                  DESIGNATION
+                                </div>
+                                <div className="text-xs font-bold text-slate-800 leading-snug">
+                                  "{member.affil}"
+                                </div>
                               </div>
+
                             </div>
 
                           </div>
-
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
 
                   </div>

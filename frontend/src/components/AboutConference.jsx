@@ -6,19 +6,28 @@ const AboutConference = () => {
       <div className="max-w-4xl mx-auto text-center">
         
         {/* Main Title: ABOUT (Black) + IEEE ICAINGCIT 2027 (Royal Blue) */}
-        <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-slate-950">
-          ABOUT <span className="text-blue-600">IEEE ICAINGCIT 2027</span>
-        </h2>
+        <div className="reveal-init">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="badge-glow text-xs font-mono font-black tracking-widest text-blue-700 uppercase bg-blue-50 px-4 py-1.5 rounded-full border border-blue-200 shadow-sm inline-flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+              CONFERENCE OVERVIEW
+            </span>
+          </div>
 
-        {/* Center Blue Dot & Line Accent */}
-        <div className="flex items-center justify-center gap-2 my-5">
-          <span className="w-12 h-[1.5px] bg-blue-200" />
-          <span className="w-2 h-2 rounded-full bg-blue-600 shadow-sm" />
-          <span className="w-12 h-[1.5px] bg-blue-200" />
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-slate-950">
+            ABOUT <span className="text-blue-600 glow-title">IEEE ICAINGCIT 2027</span>
+          </h2>
+
+          {/* Center Blue Dot & Line Accent */}
+          <div className="flex items-center justify-center gap-2 my-5">
+            <span className="w-12 h-[1.5px] bg-blue-200" />
+            <span className="w-2 h-2 rounded-full bg-blue-600 shadow-sm" />
+            <span className="w-12 h-[1.5px] bg-blue-200" />
+          </div>
         </div>
 
         {/* Executive Quote Card Container — Clean White Card without Dotted Texture */}
-        <div className="relative mt-8 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 border-l-[6px] border-l-blue-600 shadow-sm p-8 sm:p-12 text-left overflow-hidden">
+        <div className="reveal-scale delay-150 relative mt-8 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 border-l-[6px] border-l-blue-600 shadow-sm p-8 sm:p-12 text-left overflow-hidden">
           
           <div className="relative z-10">
             {/* SVG Giant Quote Mark Icon */}

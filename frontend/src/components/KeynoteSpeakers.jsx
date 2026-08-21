@@ -87,7 +87,7 @@ const KeynoteSpeakers = () => {
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Main Section Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <div className="reveal-init text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-black tracking-widest uppercase shadow-sm">
             <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
@@ -105,16 +105,16 @@ const KeynoteSpeakers = () => {
         </div>
 
         {/* Filter Controls */}
-        <div className="flex justify-center">
-          <div className="flex flex-wrap items-center justify-center gap-2 bg-white p-2 rounded-full border border-slate-200 shadow-sm">
+        <div className="reveal-scale delay-100 flex justify-center">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 bg-white p-2 rounded-full border border-slate-200 shadow-sm">
             {filterTabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveFilter(tab.id)}
-                className={`px-4 py-2 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
+                className={`btn-interactive px-4 py-2 rounded-full text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                   activeFilter === tab.id
                     ? 'bg-blue-600 text-white shadow-md scale-105'
-                    : 'bg-transparent text-slate-700 hover:text-blue-600'
+                    : 'bg-transparent text-slate-700 hover:text-blue-600 hover:bg-slate-50'
                 }`}
               >
                 {tab.label}
@@ -125,73 +125,76 @@ const KeynoteSpeakers = () => {
 
         {/* Flexbox Centered Speakers Grid */}
         <div className="flex flex-wrap justify-center items-stretch gap-6">
-          {filteredSpeakers.map((speaker) => (
-            <div
-              key={speaker.id}
-              className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] max-w-lg p-5 sm:p-6 rounded-[28px] bg-white border border-slate-200/90 shadow-md hover:shadow-xl hover:border-blue-400 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group min-h-[220px]"
-            >
-              {/* Top Right Decorative Background & Watermark Butterfly Logo */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-100/50 via-blue-50/30 to-transparent rounded-bl-[60px] pointer-events-none z-0 flex items-start justify-end p-2 sm:p-3">
-                <img
-                  src={butterflyLogo}
-                  alt="Butterfly Watermark Logo"
-                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500 filter drop-shadow-sm"
-                />
-              </div>
-
-              <div className="relative z-10 space-y-3.5">
-                
-                {/* Top Section: Picture Left + Category Tag, Name, Org Right */}
-                <div className="flex items-start gap-4">
-                  {/* Picture Box */}
-                  <div className="relative shrink-0">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-2 border-blue-600 p-0.5 bg-white shadow-md group-hover:scale-105 transition-transform duration-300">
-                      <img
-                        src={speaker.image}
-                        alt={speaker.name}
-                        className="w-full h-full object-cover rounded-xl"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Category Tag (Fully visible, no truncation), Name & Institution */}
-                  <div className="space-y-1.5 pt-0.5 min-w-0 flex-1 pr-4">
-                    <div className="flex flex-wrap items-center">
-                      <span className="inline-block px-3 py-1 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 font-mono font-black text-[10px] uppercase tracking-wider leading-normal shadow-2xs whitespace-normal max-w-full">
-                        {speaker.categoryLabel}
-                      </span>
-                    </div>
-
-                    <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
-                      {speaker.name}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm font-bold text-amber-600 leading-snug">
-                      {speaker.org}
-                    </p>
-
-                    <div className="text-[11px] font-semibold text-slate-500 pt-0.5">
-                      📍 {speaker.location}
-                    </div>
-                  </div>
+          {filteredSpeakers.map((speaker, sIdx) => {
+            const delayClass = `delay-${Math.min((sIdx % 6) * 100 + 100, 600)}`;
+            return (
+              <div
+                key={speaker.id}
+                className={`reveal-init ${delayClass} card-interactive w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] max-w-lg p-5 sm:p-6 rounded-[28px] bg-white border border-slate-200/90 shadow-md hover:border-blue-400 relative overflow-hidden flex flex-col justify-between group min-h-[220px]`}
+              >
+                {/* Top Right Decorative Background & Watermark Butterfly Logo */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-100/50 via-blue-50/30 to-transparent rounded-bl-[60px] pointer-events-none z-0 flex items-start justify-end p-2 sm:p-3">
+                  <img
+                    src={butterflyLogo}
+                    alt="Butterfly Watermark Logo"
+                    className="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500 filter drop-shadow-sm"
+                  />
                 </div>
 
-                {/* Minimal Keynote Topic Box */}
-                <div className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-100/90 space-y-1">
-                  <div className="flex items-center justify-between text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider">
-                    <span>KEYNOTE TOPIC</span>
-                    <span className="text-slate-500">📅 {speaker.day}</span>
+                <div className="relative z-10 space-y-3.5">
+                  
+                  {/* Top Section: Picture Left + Category Tag, Name, Org Right */}
+                  <div className="flex items-start gap-4">
+                    {/* Picture Box */}
+                    <div className="relative shrink-0">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-2 border-blue-600 p-0.5 bg-white shadow-md group-hover:scale-105 transition-transform duration-300">
+                        <img
+                          src={speaker.image}
+                          alt={speaker.name}
+                          className="w-full h-full object-cover rounded-xl"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Category Tag (Fully visible, no truncation), Name & Institution */}
+                    <div className="space-y-1.5 pt-0.5 min-w-0 flex-1 pr-4">
+                      <div className="flex flex-wrap items-center">
+                        <span className="inline-block px-3 py-1 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 font-mono font-black text-[10px] uppercase tracking-wider leading-normal shadow-2xs whitespace-normal max-w-full">
+                          {speaker.categoryLabel}
+                        </span>
+                      </div>
+
+                      <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
+                        {speaker.name}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm font-bold text-amber-600 leading-snug">
+                        {speaker.org}
+                      </p>
+
+                      <div className="text-[11px] font-semibold text-slate-500 pt-0.5">
+                        📍 {speaker.location}
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="text-xs font-extrabold text-slate-900 leading-snug">
-                    "{speaker.topic}"
+                  {/* Minimal Keynote Topic Box */}
+                  <div className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-100/90 space-y-1">
+                    <div className="flex items-center justify-between text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+                      <span>KEYNOTE TOPIC</span>
+                      <span className="text-slate-500">📅 {speaker.day}</span>
+                    </div>
+
+                    <div className="text-xs font-extrabold text-slate-900 leading-snug">
+                      "{speaker.topic}"
+                    </div>
                   </div>
+
                 </div>
 
               </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

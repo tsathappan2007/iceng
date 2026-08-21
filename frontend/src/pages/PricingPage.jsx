@@ -106,7 +106,7 @@ const PricingPage = () => {
       <div className="max-w-6xl mx-auto space-y-12">
 
         {/* Hero Title Container */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        <div className="reveal-init text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/90 border border-blue-300 text-blue-900 font-mono text-[10px] font-bold uppercase tracking-widest">
             <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
             IEEE ICAINGCIT 2027 REGISTRATION RATES
@@ -123,63 +123,66 @@ const PricingPage = () => {
 
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {registrationTiers.map((tier) => (
-            <div
-              key={tier.id}
-              className="rounded-[32px] bg-white border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-7 sm:p-8 flex flex-col justify-between group"
-            >
-              <div>
-                {/* Top Badge Row */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-[10px] font-mono font-black uppercase tracking-widest px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800">
-                    DELEGATE TIER
-                  </span>
-
-                  <span className="px-3 py-1 rounded-full font-mono text-[10px] font-black uppercase bg-amber-400 text-slate-950 shadow-xs">
-                    {tier.badge}
-                  </span>
-                </div>
-
-                {/* Title & Subtitle */}
-                <div className="space-y-2 mb-6">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight group-hover:text-blue-600 transition-colors">
-                    {tier.label}
-                  </h3>
-                  <p className="text-xs font-medium text-slate-600 leading-relaxed">
-                    {tier.sub}
-                  </p>
-                </div>
-
-                {/* Price Display */}
-                <div className="mb-6 pb-6 border-b border-slate-100">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl sm:text-5xl font-black text-blue-700 tracking-tight">
-                      {tier.fee}
+          {registrationTiers.map((tier, idx) => {
+            const delayClass = `delay-${(idx + 1) * 100}`;
+            return (
+              <div
+                key={tier.id}
+                className={`reveal-init ${delayClass} card-interactive rounded-[32px] bg-white border border-slate-200/90 shadow-md p-7 sm:p-8 flex flex-col justify-between group hover:border-blue-400`}
+              >
+                <div>
+                  {/* Top Badge Row */}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="text-[10px] font-mono font-black uppercase tracking-widest px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800">
+                      DELEGATE TIER
                     </span>
-                    <span className="text-xs font-mono font-bold text-slate-500 uppercase">
-                      ({tier.currency})
+
+                    <span className="px-3 py-1 rounded-full font-mono text-[10px] font-black uppercase bg-amber-400 text-slate-950 shadow-xs">
+                      {tier.badge}
                     </span>
                   </div>
-                </div>
 
-                {/* Feature List */}
-                <div className="space-y-3 text-xs font-medium text-slate-700">
-                  {tier.features.map((feat, fIdx) => (
-                    <div key={fIdx} className="flex items-start gap-2.5">
-                      <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
-                        ✓
+                  {/* Title & Subtitle */}
+                  <div className="space-y-2 mb-6">
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight group-hover:text-blue-600 transition-colors">
+                      {tier.label}
+                    </h3>
+                    <p className="text-xs font-medium text-slate-600 leading-relaxed">
+                      {tier.sub}
+                    </p>
+                  </div>
+
+                  {/* Price Display */}
+                  <div className="mb-6 pb-6 border-b border-slate-100">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl sm:text-5xl font-black text-blue-700 tracking-tight">
+                        {tier.fee}
                       </span>
-                      <span>{feat}</span>
+                      <span className="text-xs font-mono font-bold text-slate-500 uppercase">
+                        ({tier.currency})
+                      </span>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Feature List */}
+                  <div className="space-y-3 text-xs font-medium text-slate-700">
+                    {tier.features.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-2.5">
+                        <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                          ✓
+                        </span>
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Fee Inclusions & Policy Information Card */}
-        <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/90 shadow-md space-y-6">
+        <div className="reveal-scale delay-200 p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/90 shadow-md space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-blue-200/80 pb-4">
             <div>
               <span className="text-[10px] font-mono font-bold text-blue-700 uppercase tracking-widest">
@@ -192,14 +195,14 @@ const PricingPage = () => {
 
             <Link
               to={isSignedIn ? "/submit" : "/login"}
-              className="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase transition-all shadow-md shrink-0"
+              className="btn-interactive btn-shimmer px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase shadow-md shrink-0"
             >
               GO TO SUBMISSION PORTAL →
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-medium text-slate-700">
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2">
+            <div className="reveal-init delay-100 card-interactive p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2 hover:border-blue-400">
               <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-base">
                 📄
               </div>
@@ -209,7 +212,7 @@ const PricingPage = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2">
+            <div className="reveal-init delay-200 card-interactive p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2 hover:border-amber-400">
               <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-base">
                 🎓
               </div>
@@ -219,7 +222,7 @@ const PricingPage = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2">
+            <div className="reveal-init delay-300 card-interactive p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2 hover:border-blue-400">
               <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-base">
                 💳
               </div>
