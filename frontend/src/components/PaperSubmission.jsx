@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom';
 
@@ -22,6 +22,7 @@ const PaperSubmission = () => {
   const [showProfileToast, setShowProfileToast] = useState(false);
   const [autoSaveStatus, setAutoSaveStatus] = useState('');
   const [submissionReceipt, setSubmissionReceipt] = useState(null);
+  const stepBtnRefs = useRef({});
 
   // Payment Checkout State
   const [paymentTab, setPaymentTab] = useState('upi'); // 'upi' | 'card' | 'netbanking'
@@ -32,6 +33,17 @@ const PaperSubmission = () => {
   const [cardName, setCardName] = useState('');
   const [selectedBank, setSelectedBank] = useState('HDFC Bank');
   const [paymentProcessing, setPaymentProcessing] = useState(false);
+
+  // Auto-scroll active pill into view on mobile
+  useEffect(() => {
+    if (stepBtnRefs.current && stepBtnRefs.current[formStep]) {
+      stepBtnRefs.current[formStep].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [formStep]);
 
   // 3️⃣ 6 Research Track Options (Sleek Professional SVG Icons)
   const researchTracks = [
@@ -420,20 +432,20 @@ const PaperSubmission = () => {
   };
 
   return (
-    <section id="submission" className="py-24 px-4 sm:px-6 relative z-10 bg-slate-50/60 border-t border-slate-200/80">
+    <section id="submission" className="py-16 sm:py-24 px-3 sm:px-6 relative z-10 bg-slate-50/60 border-t border-slate-200/80 overflow-hidden w-full">
       
       {/* Background Ambient Blur Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
 
         {/* Section Header */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/90 border border-blue-300 text-blue-900 font-mono text-[10px] font-bold uppercase tracking-widest">
+        <div className="text-center space-y-2.5 sm:space-y-3 px-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/90 border border-blue-300 text-blue-900 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-widest">
             <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
             OFFICIAL MANUSCRIPT &amp; REGISTRATION PORTAL
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight uppercase">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight uppercase leading-tight">
             PAPER SUBMISSION &amp; REGISTRATION
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-medium">
@@ -443,7 +455,7 @@ const PaperSubmission = () => {
 
         {/* Profile Warning Toast */}
         {showProfileToast && isProfileIncomplete && (
-          <div className="p-5 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md animate-bounce">
+          <div className="p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md animate-bounce">
             <div className="flex items-center gap-3">
               <span className="w-8 h-8 rounded-xl bg-amber-200 text-amber-900 flex items-center justify-center font-bold text-sm shrink-0">
                 ⚠️
@@ -457,7 +469,7 @@ const PaperSubmission = () => {
             </div>
             <Link
               to="/profile"
-              className="px-4 py-2 rounded-full bg-amber-600 hover:bg-amber-700 text-white font-mono text-[11px] font-bold uppercase transition-all shadow-sm shrink-0"
+              className="w-full sm:w-auto text-center px-4 py-2 rounded-full bg-amber-600 hover:bg-amber-700 text-white font-mono text-[11px] font-bold uppercase transition-all shadow-sm shrink-0"
             >
               Update Profile Now →
             </Link>
@@ -466,7 +478,7 @@ const PaperSubmission = () => {
 
         {/* Successful Submission Receipt */}
         {submissionReceipt && (
-          <div className="p-8 sm:p-10 rounded-[36px] bg-emerald-50/90 border-2 border-emerald-300 text-emerald-950 shadow-xl space-y-6 animate-fade-in">
+          <div className="p-6 sm:p-10 rounded-[28px] sm:rounded-[36px] bg-emerald-50/90 border-2 border-emerald-300 text-emerald-950 shadow-xl space-y-6 animate-fade-in">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-emerald-200 pb-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl font-bold shadow-md">
@@ -505,12 +517,12 @@ const PaperSubmission = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-xs text-emerald-900 font-medium pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs text-emerald-900 font-medium pt-2">
               <span>Receipt Copy sent to <strong>{submissionReceipt.email}</strong></span>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono font-bold uppercase text-[11px] transition-all shadow-sm"
+                className="w-full sm:w-auto text-center px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono font-bold uppercase text-[11px] transition-all shadow-sm"
               >
                 PRINT RECEIPT 🖨️
               </button>
@@ -520,188 +532,250 @@ const PaperSubmission = () => {
 
         {/* Global Feedback Alert */}
         {feedback.message && (
-          <div className={`p-5 rounded-2xl text-xs font-bold ${
+          <div className={`p-4 sm:p-5 rounded-2xl text-xs font-bold ${
             feedback.type === 'success' ? 'bg-emerald-50 border border-emerald-300 text-emerald-900' : 'bg-red-50 border border-red-200 text-red-800'
           }`}>
             {feedback.message}
           </div>
         )}
 
-        {/* 🚦 5-Step Navigation Progress Indicator Bar with Alternating Glowing Gradient Flow Arcs */}
+        {/* 🚦 5-Step Navigation Indicator Bar */}
         {!submissionReceipt && (
-          <div className="max-w-5xl mx-auto mb-12 px-2 sm:px-4">
+          <div className="max-w-5xl mx-auto mb-6 sm:mb-12">
             
-            {/* SVG Defs for Glowing Flow Arcs */}
-            <svg className="absolute w-0 h-0 pointer-events-none">
-              <defs>
-                <linearGradient id="glow-active" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2563eb" />
-                  <stop offset="50%" stopColor="#6366f1" />
-                  <stop offset="100%" stopColor="#10b981" />
-                </linearGradient>
-                <linearGradient id="glow-completed" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#10b981" />
-                  <stop offset="100%" stopColor="#059669" />
-                </linearGradient>
-                <marker id="arrow-active" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#2563eb" />
-                </marker>
-                <marker id="arrow-completed" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#10b981" />
-                </marker>
-                <marker id="arrow-inactive" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#cbd5e1" />
-                </marker>
-              </defs>
-            </svg>
-
-            {/* 5 Step Navigation Pills with Alternating Glowing Gradient Flow Arcs */}
-            <div className="flex items-center justify-between font-mono text-[11px] sm:text-xs font-black relative z-10 py-5 gap-1.5 sm:gap-4 overflow-x-visible">
-              
-              {/* Step 1 Pill */}
-              <button
-                type="button"
-                onClick={() => setFormStep(1)}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(1, getStep1Status())}`}
-              >
-                {formStep === 1 && (
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
-                )}
-                {renderStepBadgeIcon(1, getStep1Status())}
-                <span className="relative z-10">DETAILS</span>
-              </button>
-
-              {/* Curved Flow Arrow 1 -> 2 (Curved UP ↑ with Glowing Dash Flow) */}
-              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
-                  <path
-                    d="M 5 34 Q 37.5 2 70 28"
-                    fill="none"
-                    stroke={formStep > 1 ? 'url(#glow-completed)' : formStep === 2 ? 'url(#glow-active)' : '#cbd5e1'}
-                    strokeWidth={formStep >= 2 ? '3' : '1.8'}
-                    strokeDasharray={formStep >= 2 ? '8 4' : '4 3'}
-                    markerEnd={formStep > 1 ? 'url(#arrow-completed)' : formStep === 2 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
-                    className={formStep >= 2 ? 'animate-dash-flow' : ''}
-                  />
-                </svg>
+            {/* 📱 MOBILE VIEW: Compact 5-Step Segmented Tab Control (md:hidden) */}
+            <div className="md:hidden p-2.5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2.5">
+              <div className="flex items-center justify-between text-[11px] font-mono font-black px-1">
+                <span className="text-blue-700 tracking-wider">STEP {formStep} OF 5</span>
+                <span className="text-slate-800 uppercase font-black">
+                  {formStep === 1 ? 'Details' : formStep === 2 ? 'Track' : formStep === 3 ? 'Drive Link' : formStep === 4 ? 'Rates' : 'Payment'}
+                </span>
               </div>
-
-              {/* Step 2 Pill */}
-              <button
-                type="button"
-                onClick={() => { if (paperTitle) setFormStep(2); }}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(2, getStep2Status())}`}
-              >
-                {formStep === 2 && (
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
-                )}
-                {renderStepBadgeIcon(2, getStep2Status())}
-                <span className="relative z-10">TRACK</span>
-              </button>
-
-              {/* Curved Flow Arrow 2 -> 3 (Curved DOWN ↓ with Glowing Dash Flow) */}
-              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
-                  <path
-                    d="M 5 8 Q 37.5 40 70 14"
-                    fill="none"
-                    stroke={formStep > 2 ? 'url(#glow-completed)' : formStep === 3 ? 'url(#glow-active)' : '#cbd5e1'}
-                    strokeWidth={formStep >= 3 ? '3' : '1.8'}
-                    strokeDasharray={formStep >= 3 ? '8 4' : '4 3'}
-                    markerEnd={formStep > 2 ? 'url(#arrow-completed)' : formStep === 3 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
-                    className={formStep >= 3 ? 'animate-dash-flow' : ''}
-                  />
-                </svg>
+              <div className="grid grid-cols-5 gap-1 font-mono">
+                {[
+                  { num: 1, label: 'Details', status: getStep1Status() },
+                  { num: 2, label: 'Track', status: getStep2Status() },
+                  { num: 3, label: 'Link', status: getStep3Status() },
+                  { num: 4, label: 'Rates', status: getStep4Status() },
+                  { num: 5, label: 'Pay', status: getStep5Status() },
+                ].map((st) => {
+                  const isActive = formStep === st.num;
+                  return (
+                    <button
+                      key={st.num}
+                      type="button"
+                      onClick={() => {
+                        if (st.num === 1) setFormStep(1);
+                        else if (st.num === 2 && paperTitle) setFormStep(2);
+                        else if (st.num === 3 && paperTitle) setFormStep(3);
+                        else if (st.num === 4 && driveLink) setFormStep(4);
+                        else if (st.num === 5 && driveLink) setFormStep(5);
+                      }}
+                      className={`py-2 px-1 rounded-xl flex flex-col items-center justify-center gap-1 transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md font-black animate-active-pill'
+                          : st.status === 'full'
+                          ? 'bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100'
+                          : st.status === 'partial'
+                          ? 'bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100'
+                          : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${
+                        isActive
+                          ? 'bg-white/30 text-white animate-pulse'
+                          : st.status === 'full'
+                          ? 'bg-emerald-600 text-white'
+                          : st.status === 'partial'
+                          ? 'bg-amber-500 text-white'
+                          : 'bg-slate-200 text-slate-700'
+                      }`}>
+                        {st.status === 'full' && !isActive ? '✓' : st.num}
+                      </span>
+                      <span className="text-[9px] font-bold uppercase truncate max-w-full">
+                        {st.label}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
-
-              {/* Step 3 Pill */}
-              <button
-                type="button"
-                onClick={() => { if (paperTitle) setFormStep(3); }}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(3, getStep3Status())}`}
-              >
-                {formStep === 3 && (
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
-                )}
-                {renderStepBadgeIcon(3, getStep3Status())}
-                <span className="relative z-10">DRIVE LINK</span>
-              </button>
-
-              {/* Curved Flow Arrow 3 -> 4 (Curved UP ↑ with Glowing Dash Flow) */}
-              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
-                  <path
-                    d="M 5 34 Q 37.5 2 70 28"
-                    fill="none"
-                    stroke={formStep > 3 ? 'url(#glow-completed)' : formStep === 4 ? 'url(#glow-active)' : '#cbd5e1'}
-                    strokeWidth={formStep >= 4 ? '3' : '1.8'}
-                    strokeDasharray={formStep >= 4 ? '8 4' : '4 3'}
-                    markerEnd={formStep > 3 ? 'url(#arrow-completed)' : formStep === 4 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
-                    className={formStep >= 4 ? 'animate-dash-flow' : ''}
-                  />
-                </svg>
-              </div>
-
-              {/* Step 4 Pill */}
-              <button
-                type="button"
-                onClick={() => { if (driveLink) setFormStep(4); }}
-                className={`px-4 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(4, getStep4Status())}`}
-              >
-                {formStep === 4 && (
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
-                )}
-                {renderStepBadgeIcon(4, getStep4Status())}
-                <span className="relative z-10">RATES</span>
-              </button>
-
-              {/* Curved Flow Arrow 4 -> 5 (Curved DOWN ↓ with Glowing Dash Flow) */}
-              <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
-                  <path
-                    d="M 5 8 Q 37.5 40 70 14"
-                    fill="none"
-                    stroke={formStep > 4 ? 'url(#glow-completed)' : formStep === 5 ? 'url(#glow-active)' : '#cbd5e1'}
-                    strokeWidth={formStep >= 5 ? '3' : '1.8'}
-                    strokeDasharray={formStep >= 5 ? '8 4' : '4 3'}
-                    markerEnd={formStep > 4 ? 'url(#arrow-completed)' : formStep === 5 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
-                    className={formStep >= 5 ? 'animate-dash-flow' : ''}
-                  />
-                </svg>
-              </div>
-
-              {/* Step 5 Pill (PAYMENT) - Generous Padding, NO Text Clipping! */}
-              <button
-                type="button"
-                onClick={() => { if (driveLink) setFormStep(5); }}
-                className={`px-5 sm:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(5, getStep5Status())}`}
-              >
-                {formStep === 5 && (
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
-                )}
-                {renderStepBadgeIcon(5, getStep5Status())}
-                <span className="relative z-10">PAYMENT</span>
-              </button>
-
             </div>
+
+            {/* 💻 DESKTOP VIEW: 5-Step Pipeline with Glowing Flow Arcs (hidden md:block) */}
+            <div className="hidden md:block">
+              {/* SVG Defs for Glowing Flow Arcs */}
+              <svg className="absolute w-0 h-0 pointer-events-none">
+                <defs>
+                  <linearGradient id="glow-active" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#2563eb" />
+                    <stop offset="50%" stopColor="#6366f1" />
+                    <stop offset="100%" stopColor="#10b981" />
+                  </linearGradient>
+                  <linearGradient id="glow-completed" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#10b981" />
+                    <stop offset="100%" stopColor="#059669" />
+                  </linearGradient>
+                  <marker id="arrow-active" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#2563eb" />
+                  </marker>
+                  <marker id="arrow-completed" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#10b981" />
+                  </marker>
+                  <marker id="arrow-inactive" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#cbd5e1" />
+                  </marker>
+                </defs>
+              </svg>
+
+              {/* 5 Step Navigation Pills with Alternating Glowing Gradient Flow Arcs */}
+              <div className="flex items-center justify-between font-mono text-xs font-black relative z-10 py-5 gap-3 lg:gap-4 overflow-visible">
+                
+                {/* Step 1 Pill */}
+                <button
+                  type="button"
+                  onClick={() => setFormStep(1)}
+                  className={`px-5 lg:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(1, getStep1Status())}`}
+                >
+                  {formStep === 1 && (
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                  )}
+                  {renderStepBadgeIcon(1, getStep1Status())}
+                  <span className="relative z-10">DETAILS</span>
+                </button>
+
+                {/* Curved Flow Arrow 1 -> 2 */}
+                <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                    <path
+                      d="M 5 34 Q 37.5 2 70 28"
+                      fill="none"
+                      stroke={formStep > 1 ? 'url(#glow-completed)' : formStep === 2 ? 'url(#glow-active)' : '#cbd5e1'}
+                      strokeWidth={formStep >= 2 ? '3' : '1.8'}
+                      strokeDasharray={formStep >= 2 ? '8 4' : '4 3'}
+                      markerEnd={formStep > 1 ? 'url(#arrow-completed)' : formStep === 2 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                      className={formStep >= 2 ? 'animate-dash-flow' : ''}
+                    />
+                  </svg>
+                </div>
+
+                {/* Step 2 Pill */}
+                <button
+                  type="button"
+                  onClick={() => { if (paperTitle) setFormStep(2); }}
+                  className={`px-5 lg:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(2, getStep2Status())}`}
+                >
+                  {formStep === 2 && (
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                  )}
+                  {renderStepBadgeIcon(2, getStep2Status())}
+                  <span className="relative z-10">TRACK</span>
+                </button>
+
+                {/* Curved Flow Arrow 2 -> 3 */}
+                <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                    <path
+                      d="M 5 8 Q 37.5 40 70 14"
+                      fill="none"
+                      stroke={formStep > 2 ? 'url(#glow-completed)' : formStep === 3 ? 'url(#glow-active)' : '#cbd5e1'}
+                      strokeWidth={formStep >= 3 ? '3' : '1.8'}
+                      strokeDasharray={formStep >= 3 ? '8 4' : '4 3'}
+                      markerEnd={formStep > 2 ? 'url(#arrow-completed)' : formStep === 3 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                      className={formStep >= 3 ? 'animate-dash-flow' : ''}
+                    />
+                  </svg>
+                </div>
+
+                {/* Step 3 Pill */}
+                <button
+                  type="button"
+                  onClick={() => { if (paperTitle) setFormStep(3); }}
+                  className={`px-5 lg:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(3, getStep3Status())}`}
+                >
+                  {formStep === 3 && (
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                  )}
+                  {renderStepBadgeIcon(3, getStep3Status())}
+                  <span className="relative z-10">DRIVE LINK</span>
+                </button>
+
+                {/* Curved Flow Arrow 3 -> 4 */}
+                <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                    <path
+                      d="M 5 34 Q 37.5 2 70 28"
+                      fill="none"
+                      stroke={formStep > 3 ? 'url(#glow-completed)' : formStep === 4 ? 'url(#glow-active)' : '#cbd5e1'}
+                      strokeWidth={formStep >= 4 ? '3' : '1.8'}
+                      strokeDasharray={formStep >= 4 ? '8 4' : '4 3'}
+                      markerEnd={formStep > 3 ? 'url(#arrow-completed)' : formStep === 4 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                      className={formStep >= 4 ? 'animate-dash-flow' : ''}
+                    />
+                  </svg>
+                </div>
+
+                {/* Step 4 Pill */}
+                <button
+                  type="button"
+                  onClick={() => { if (driveLink) setFormStep(4); }}
+                  className={`px-5 lg:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(4, getStep4Status())}`}
+                >
+                  {formStep === 4 && (
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                  )}
+                  {renderStepBadgeIcon(4, getStep4Status())}
+                  <span className="relative z-10">RATES</span>
+                </button>
+
+                {/* Curved Flow Arrow 4 -> 5 */}
+                <div className="flex-1 min-w-[24px] max-w-[75px] h-[42px] relative shrink-0 flex items-center justify-center pointer-events-none">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 75 42">
+                    <path
+                      d="M 5 8 Q 37.5 40 70 14"
+                      fill="none"
+                      stroke={formStep > 4 ? 'url(#glow-completed)' : formStep === 5 ? 'url(#glow-active)' : '#cbd5e1'}
+                      strokeWidth={formStep >= 5 ? '3' : '1.8'}
+                      strokeDasharray={formStep >= 5 ? '8 4' : '4 3'}
+                      markerEnd={formStep > 4 ? 'url(#arrow-completed)' : formStep === 5 ? 'url(#arrow-active)' : 'url(#arrow-inactive)'}
+                      className={formStep >= 5 ? 'animate-dash-flow' : ''}
+                    />
+                  </svg>
+                </div>
+
+                {/* Step 5 Pill (PAYMENT) */}
+                <button
+                  type="button"
+                  onClick={() => { if (driveLink) setFormStep(5); }}
+                  className={`px-5 lg:px-6 py-3 rounded-2xl border transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer ${renderStepPillStyle(5, getStep5Status())}`}
+                >
+                  {formStep === 5 && (
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pill-shimmer pointer-events-none" />
+                  )}
+                  {renderStepBadgeIcon(5, getStep5Status())}
+                  <span className="relative z-10">PAYMENT</span>
+                </button>
+
+              </div>
+            </div>
+
           </div>
         )}
 
         {/* 5-STEP PAGINATED FORM */}
         {!submissionReceipt && (
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             
             {/* 📝 STEP 1: AUTHOR & MANUSCRIPT TITLE */}
             {formStep === 1 && (
-              <div key={1} className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-auth-fade">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div key={1} className="p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-5 sm:space-y-6 animate-auth-fade">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 border-b border-slate-200/80 pb-3">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                     STEP 1 OF 5 • AUTHOR &amp; MANUSCRIPT TITLE
                   </h3>
 
                   {/* 💾 Repositioned Local Storage Auto-Save Badge with Dynamic Status Icon */}
                   {autoSaveStatus && (
-                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border font-mono text-[10px] font-bold shadow-xs ${
+                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border font-mono text-[9px] sm:text-[10px] font-bold shadow-xs ${
                       getStep1Status() === 'full'
                         ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
                         : getStep1Status() === 'partial'
@@ -713,12 +787,12 @@ const PaperSubmission = () => {
                       }`}>
                         {getStep1Status() === 'full' ? '✓' : getStep1Status() === 'partial' ? '!' : '✕'}
                       </span>
-                      <span>{autoSaveStatus}</span>
+                      <span className="truncate max-w-[200px] sm:max-w-none">{autoSaveStatus}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
                   {/* Author Name */}
                   <div className="space-y-1.5">
                     <label className="block text-[11px] font-mono font-black uppercase tracking-wider text-slate-800">
@@ -730,7 +804,7 @@ const PaperSubmission = () => {
                       value={authorName}
                       onChange={(e) => setAuthorName(e.target.value)}
                       placeholder="Dr. Alexander Wright"
-                      className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
+                      className="w-full px-3.5 sm:px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     />
                   </div>
 
@@ -745,7 +819,7 @@ const PaperSubmission = () => {
                       value={authorEmail}
                       onChange={(e) => setAuthorEmail(e.target.value)}
                       placeholder="author@university.edu"
-                      className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
+                      className="w-full px-3.5 sm:px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -761,16 +835,16 @@ const PaperSubmission = () => {
                     value={paperTitle}
                     onChange={(e) => setPaperTitle(e.target.value)}
                     placeholder="Enter complete manuscript title"
-                    className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
+                    className="w-full px-3.5 sm:px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-sm"
                   />
                 </div>
 
                 {/* Step 1 Action Button Row */}
-                <div className="pt-6 border-t border-slate-200/80 flex justify-end">
+                <div className="pt-5 sm:pt-6 border-t border-slate-200/80 flex justify-end">
                   <button
                     type="button"
                     onClick={handleNextToTrack}
-                    className="w-full sm:w-auto px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transform hover:scale-[1.02] active:scale-[0.98]"
                   >
                     <span>CONTINUE TO RESEARCH TRACKS →</span>
                   </button>
@@ -780,30 +854,30 @@ const PaperSubmission = () => {
 
             {/* 🧠 STEP 2: PRIMARY RESEARCH TRACK */}
             {formStep === 2 && (
-              <div key={2} className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-auth-fade">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div key={2} className="p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-5 sm:space-y-6 animate-auth-fade">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 border-b border-slate-200/80 pb-3">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                     STEP 2 OF 5 • SELECT PRIMARY RESEARCH TRACK
                   </h3>
 
                   {autoSaveStatus && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[10px] font-bold shadow-xs">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[9px] sm:text-[10px] font-bold shadow-xs">
                       <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
                         ✓
                       </span>
-                      <span>{autoSaveStatus}</span>
+                      <span className="truncate max-w-[200px] sm:max-w-none">{autoSaveStatus}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5">
                   {researchTracks.map((tr) => {
                     const isSelected = selectedTrack === tr.id;
                     return (
                       <div
                         key={tr.id}
                         onClick={() => setSelectedTrack(tr.id)}
-                        className={`p-4.5 rounded-2xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer relative flex flex-col justify-between border ${
+                        className={`p-4 sm:p-4.5 rounded-2xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer relative flex flex-col justify-between border ${
                           isSelected
                             ? 'bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border-blue-600 ring-2 ring-blue-600/30 shadow-md scale-[1.01]'
                             : 'bg-white hover:bg-slate-50 border-slate-200/90 hover:border-blue-300 shadow-xs'
@@ -844,11 +918,11 @@ const PaperSubmission = () => {
                 </div>
 
                 {/* Step 2 Action Buttons */}
-                <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="pt-5 sm:pt-6 border-t border-slate-200/80 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
                   <button
                     type="button"
                     onClick={() => setFormStep(1)}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-mono text-xs font-bold uppercase transition-all shadow-sm"
+                    className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-mono text-xs font-bold uppercase transition-all shadow-sm"
                   >
                     ← BACK TO AUTHOR DETAILS
                   </button>
@@ -856,7 +930,7 @@ const PaperSubmission = () => {
                   <button
                     type="button"
                     onClick={handleNextToDriveLink}
-                    className="w-full sm:w-auto px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
                   >
                     <span>CONTINUE TO DRIVE LINK →</span>
                   </button>
@@ -866,28 +940,28 @@ const PaperSubmission = () => {
 
             {/* 🔗 STEP 3: MANUSCRIPT CLOUD DRIVE LINK */}
             {formStep === 3 && (
-              <div key={3} className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-6 animate-auth-fade">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div key={3} className="p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/80 text-slate-900 shadow-sm space-y-5 sm:space-y-6 animate-auth-fade">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 border-b border-slate-200/80 pb-3">
                   <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                     STEP 3 OF 5 • MANUSCRIPT DRIVE / CLOUD LINK
                   </h3>
 
                   {autoSaveStatus && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[10px] font-bold shadow-xs">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[9px] sm:text-[10px] font-bold shadow-xs">
                       <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
                         ✓
                       </span>
-                      <span>{autoSaveStatus}</span>
+                      <span className="truncate max-w-[200px] sm:max-w-none">{autoSaveStatus}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+                <div className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                   <div className="space-y-1">
                     <label className="block text-xs font-mono font-black uppercase tracking-wider text-slate-900">
                       Manuscript Cloud / Drive Link (PDF / DOCX) <span className="text-blue-600">*</span>
                     </label>
-                    <p className="text-xs text-slate-600 font-medium">
+                    <p className="text-[11px] sm:text-xs text-slate-600 font-medium">
                       Provide a public Google Drive, Dropbox, or OneDrive link to your full manuscript paper.
                     </p>
                   </div>
@@ -899,25 +973,25 @@ const PaperSubmission = () => {
                       value={driveLink}
                       onChange={(e) => setDriveLink(e.target.value)}
                       placeholder="https://drive.google.com/file/d/1a2b3c4d5e6f... or Dropbox link"
-                      className="w-full px-5 py-4 pl-12 rounded-2xl bg-slate-50/70 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm font-semibold focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 transition-all shadow-inner"
+                      className="w-full px-4 sm:px-5 py-3.5 sm:py-4 pl-10 sm:pl-12 rounded-2xl bg-slate-50/70 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs sm:text-sm font-semibold focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 transition-all shadow-inner"
                     />
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">
+                    <span className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-lg sm:text-xl">
                       🔗
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200 text-[11px] text-blue-900 font-medium flex items-center gap-2">
-                    <span>💡</span>
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-blue-50/60 border border-blue-200 text-[10px] sm:text-[11px] text-blue-900 font-medium flex items-start sm:items-center gap-2">
+                    <span className="shrink-0 mt-0.5 sm:mt-0">💡</span>
                     <span>Make sure the link permissions are set to <strong>"Anyone with link can view"</strong> so reviewers can access it.</span>
                   </div>
                 </div>
 
                 {/* Step 3 Action Buttons */}
-                <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="pt-5 sm:pt-6 border-t border-slate-200/80 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
                   <button
                     type="button"
                     onClick={() => setFormStep(2)}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-mono text-xs font-bold uppercase transition-all shadow-sm"
+                    className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-mono text-xs font-bold uppercase transition-all shadow-sm"
                   >
                     ← BACK TO RESEARCH TRACKS
                   </button>
@@ -925,7 +999,7 @@ const PaperSubmission = () => {
                   <button
                     type="button"
                     onClick={handleNextToRates}
-                    className="w-full sm:w-auto px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
                   >
                     <span>CONTINUE TO REGISTRATION RATES →</span>
                   </button>
@@ -935,29 +1009,29 @@ const PaperSubmission = () => {
 
             {/* 💎 STEP 4: REGISTRATION RATES CATEGORY */}
             {formStep === 4 && (
-              <div key={4} className="space-y-6 animate-auth-fade">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div key={4} className="space-y-5 sm:space-y-6 animate-auth-fade">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
                   <div>
                     <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                       STEP 4 OF 5 • SELECT REGISTRATION RATE CATEGORY
                     </h3>
-                    <p className="text-xs text-slate-600 font-medium mt-0.5">
+                    <p className="text-[11px] sm:text-xs text-slate-600 font-medium mt-0.5">
                       Click on any card to select your rate tier. Includes full IEEE proceedings publication &amp; presentation pass.
                     </p>
                   </div>
 
                   {autoSaveStatus && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[10px] font-bold shadow-xs shrink-0">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[9px] sm:text-[10px] font-bold shadow-xs shrink-0">
                       <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black text-[9px] shrink-0">
                         ✓
                       </span>
-                      <span>{autoSaveStatus}</span>
+                      <span className="truncate max-w-[200px] sm:max-w-none">{autoSaveStatus}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Compact Grid of Rate Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4.5">
                   {registrationTiers.map((tier) => {
                     const isSelected = selectedTierId === tier.id;
 
@@ -965,7 +1039,7 @@ const PaperSubmission = () => {
                       <div
                         key={tier.id}
                         onClick={() => setSelectedTierId(tier.id)}
-                        className={`rounded-3xl transition-all duration-200 cursor-pointer relative flex flex-col justify-between p-5 sm:p-6 ${
+                        className={`rounded-2xl sm:rounded-3xl transition-all duration-200 cursor-pointer relative flex flex-col justify-between p-4.5 sm:p-6 ${
                           isSelected
                             ? 'bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl ring-2 ring-blue-400/50 scale-[1.01]'
                             : 'bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-blue-300 text-slate-900 shadow-xs'
@@ -1008,7 +1082,7 @@ const PaperSubmission = () => {
                           {/* Price Display */}
                           <div className="mb-4 pb-3 border-b border-slate-100/30">
                             <div className="flex items-baseline gap-1.5">
-                              <span className={`text-3xl font-black tracking-tight ${
+                              <span className={`text-2xl sm:text-3xl font-black tracking-tight ${
                                 selectedTierId === tier.id ? 'text-white' : 'text-blue-700'
                               }`}>
                                 {tier.fee}
@@ -1043,17 +1117,17 @@ const PaperSubmission = () => {
                 </div>
 
                 {/* Step 4 Compact Action Card */}
-                <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/90 text-slate-900 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/90 border border-blue-200/90 text-slate-900 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                   <div className="space-y-0.5 text-center sm:text-left">
                     <span className="text-[10px] font-mono font-bold text-blue-700 uppercase tracking-widest">
                       SELECTED REGISTRATION TIER
                     </span>
-                    <h3 className="text-lg sm:text-xl font-black uppercase text-slate-900">
+                    <h3 className="text-base sm:text-xl font-black uppercase text-slate-900">
                       {selectedTier.label} ({selectedTier.fee})
                     </h3>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0 w-full sm:w-auto">
+                  <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 w-full sm:w-auto">
                     <button
                       type="button"
                       onClick={() => setFormStep(3)}
@@ -1065,9 +1139,9 @@ const PaperSubmission = () => {
                     <button
                       type="button"
                       onClick={handleNextToCheckout}
-                      className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all shadow-md shadow-blue-500/25 flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-6 sm:px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all shadow-md shadow-blue-500/25 flex items-center justify-center gap-2"
                     >
-                      <span>PROCEED TO PAYMENT CHECKOUT ({selectedTier.fee}) →</span>
+                      <span>PROCEED TO PAYMENT ({selectedTier.fee}) →</span>
                     </button>
                   </div>
                 </div>
@@ -1076,25 +1150,25 @@ const PaperSubmission = () => {
 
             {/* 💳 STEP 5: PAYMENT CHECKOUT & FINAL SUBMISSION */}
             {formStep === 5 && (
-              <form key={5} onSubmit={handleConfirmPaymentAndSubmit} className="space-y-8 animate-auth-fade">
+              <form key={5} onSubmit={handleConfirmPaymentAndSubmit} className="space-y-6 sm:space-y-8 animate-auth-fade">
                 
                 {/* Summary Card */}
-                <div className="p-8 sm:p-10 rounded-[36px] bg-white border border-slate-200/90 shadow-md space-y-6">
-                  <div className="flex items-center justify-between border-b border-slate-200/80 pb-4">
+                <div className="p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[36px] bg-white border border-slate-200/90 shadow-md space-y-5 sm:space-y-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-4">
                     <div>
                       <h3 className="text-xs font-mono font-black text-blue-700 uppercase tracking-widest">
                         STEP 5 OF 5 • PAYMENT CHECKOUT &amp; FINAL SUBMISSION
                       </h3>
-                      <h4 className="text-2xl font-black text-slate-900 uppercase mt-1">
+                      <h4 className="text-xl sm:text-2xl font-black text-slate-900 uppercase mt-1">
                         CONFIRM MANUSCRIPT &amp; PAYMENT DETAILS
                       </h4>
                     </div>
-                    <span className="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-200 text-blue-800 font-mono text-xs font-bold uppercase">
+                    <span className="px-3.5 py-1 rounded-full bg-blue-100 border border-blue-200 text-blue-800 font-mono text-[11px] sm:text-xs font-bold uppercase">
                       FINAL CHECKOUT
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs font-medium">
                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                       <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Corresponding Author</span>
                       <span className="font-bold text-slate-900 text-sm block">{authorName || user?.fullName}</span>
@@ -1103,7 +1177,7 @@ const PaperSubmission = () => {
 
                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                       <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Manuscript Title</span>
-                      <span className="font-bold text-slate-900 text-sm block">{paperTitle}</span>
+                      <span className="font-bold text-slate-900 text-sm block truncate">{paperTitle}</span>
                       <span className="text-blue-600 font-mono text-[11px] font-bold block">{selectedTrack}</span>
                     </div>
 
@@ -1121,7 +1195,7 @@ const PaperSubmission = () => {
                 </div>
 
                 {/* Submit Action Buttons */}
-                <div className="p-8 sm:p-10 rounded-[36px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[36px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5 sm:gap-6">
                   <div className="space-y-1 text-center sm:text-left">
                     <span className="text-[10px] font-mono font-bold text-blue-200 uppercase tracking-widest">
                       TOTAL REGISTRATION FEE
@@ -1131,11 +1205,11 @@ const PaperSubmission = () => {
                     </h3>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+                  <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
                     <button
                       type="button"
                       onClick={() => setFormStep(4)}
-                      className="w-full sm:w-auto px-6 py-4 rounded-full bg-white/20 hover:bg-white/30 text-white font-mono text-xs font-bold uppercase transition-all shadow-sm"
+                      className="w-full sm:w-auto px-5 sm:px-6 py-3.5 sm:py-4 rounded-full bg-white/20 hover:bg-white/30 text-white font-mono text-xs font-bold uppercase transition-all shadow-sm"
                     >
                       ← BACK TO RATES
                     </button>
@@ -1143,7 +1217,7 @@ const PaperSubmission = () => {
                     <button
                       type="submit"
                       disabled={paymentProcessing}
-                      className="w-full sm:w-auto px-8 py-4.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs uppercase tracking-widest transition-all shadow-lg shrink-0 transform hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-4.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs uppercase tracking-widest transition-all shadow-lg shrink-0 transform hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
                     >
                       {paymentProcessing ? (
                         <>
