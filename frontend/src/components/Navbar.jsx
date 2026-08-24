@@ -305,7 +305,7 @@ const Navbar = () => {
                 <img 
                   src={logoImg} 
                   alt="ICAINGCIT 2027 Logo" 
-                  className="h-7 sm:h-8 md:h-9.5 w-auto object-contain transition-transform duration-300 group-hover/logo:scale-105"
+                  className="h-8 sm:h-9 md:h-10.5 w-auto object-contain transition-transform duration-300 group-hover/logo:scale-105 drop-shadow-2xs"
                 />
               </Link>
 
@@ -544,13 +544,21 @@ const Navbar = () => {
             
             <div className="relative bg-white/98 backdrop-blur-2xl rounded-3xl p-4 sm:p-5 space-y-3 shadow-[0_16px_40px_-6px_rgba(73,31,120,0.35)] max-h-[82vh] overflow-y-auto border border-slate-200/90">
               
-              {/* Header Info */}
-              <div className="flex items-center justify-between px-2 pb-2.5 border-b border-slate-100">
-                <span className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest">
-                  NAVIGATION MENU
-                </span>
+              {/* Header Info with Conference Brand Logo */}
+              <div className="flex items-center justify-between px-2 pb-3 border-b border-slate-100">
+                <Link to="/" onClick={closeMenu} className="flex items-center gap-2.5">
+                  <img src={logoImg} alt="ICAINGCIT 2027 Logo" className="h-7 w-auto object-contain drop-shadow-2xs" />
+                  <div className="flex flex-col text-left">
+                    <span className="text-[11px] font-black text-slate-900 tracking-wider uppercase font-mono leading-none">
+                      ICAINGCIT 2027
+                    </span>
+                    <span className="text-[8px] text-slate-400 font-mono tracking-widest uppercase mt-0.5">
+                      INTL CONFERENCE
+                    </span>
+                  </div>
+                </Link>
                 <span className="text-[9px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                  ICAINGCIT 2027
+                  PORTAL
                 </span>
               </div>
 

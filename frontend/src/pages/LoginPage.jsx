@@ -21,6 +21,115 @@ const LoginPage = () => {
   const [verificationCode, setVerificationCode] = useState('');
   const [alreadyRegisteredToast, setAlreadyRegisteredToast] = useState(false);
 
+  // Password Strength & Requirement Checklist Evaluator
+  const evaluatePasswordStrength = (pass, activeError = '') => {
+    const criteria = {
+      length: pass.length >= 8,
+      hasUpper: /[A-Z]/.test(pass),
+      hasLower: /[a-z]/.test(pass),
+      hasNumber: /[0-9]/.test(pass),
+      hasSpecial: /[^A-Za-z0-9]/.test(pass),
+    };
+
+    let score = 0;
+    if (criteria.length) score += 1;
+    if (criteria.hasUpper) score += 1;
+    if (criteria.hasLower) score += 1;
+    if (criteria.hasNumber) score += 1;
+    if (criteria.hasSpecial) score += 1;
+
+    let label = 'Too Weak';
+    let color = 'bg-red-500';
+    let textColor = 'text-red-600';
+    let barWidth = '20%';
+
+    if (pass.length === 0) {
+      label = 'Enter Password';
+      color = 'bg-slate-200';
+      textColor = 'text-slate-400';
+      barWidth = '0%';
+    } else if (score <= 2) {
+      label = 'Weak';
+      color = 'bg-red-500';
+      textColor = 'text-red-600';
+      barWidth = '25%';
+    } else if (score === 3) {
+      label = 'Fair';
+      color = 'bg-amber-500';
+      textColor = 'text-amber-600';
+      barWidth = '50%';
+    } else if (score === 4) {
+      label = 'Good';
+      color = 'bg-blue-600';
+      textColor = 'text-blue-600';
+      barWidth = '75%';
+    } else if (score === 5) {
+      label = 'Strong';
+      color = 'bg-emerald-500';
+      textColor = 'text-emerald-600';
+      barWidth = '100%';
+    }
+
+    const commonBreachedWords = ['admin', 'password', 'welcome', 'user', 'qwerty', '123456', 'company', 'sample', 'citchennai', 'secret', 'default'];
+    const isCommonWord = commonBreachedWords.some(w => pass.toLowerCase().includes(w));
+
+    // If server rejected the password or error is active
+    const isServerError = Boolean(activeError);
+
+    if (isServerError && pass.length > 0) {
+      return {
+        score: Math.min(score, 2),
+        criteria,
+        label: 'Easily Guessable / Rejected',
+        color: 'bg-red-500',
+        textColor: 'text-red-600',
+        barWidth: '25%',
+        isCommonWord: true,
+        isGuessable: true,
+      };
+    }
+
+    return {
+      score,
+      criteria,
+      label: isCommonWord && score >= 4 ? 'Common / Predictable' : label,
+      color: isCommonWord && score >= 4 ? 'bg-amber-500' : color,
+      textColor: isCommonWord && score >= 4 ? 'text-amber-600' : textColor,
+      barWidth,
+      isCommonWord,
+      isGuessable: false,
+    };
+  };
+
+  const formatClerkPasswordError = (err) => {
+    const firstErr = err?.errors?.[0];
+    const code = firstErr?.code || '';
+    const message = firstErr?.longMessage || firstErr?.message || '';
+
+    if (
+      code.includes('pwned') ||
+      code.includes('compromised') ||
+      message.toLowerCase().includes('data breach') ||
+      message.toLowerCase().includes('pwned') ||
+      message.toLowerCase().includes('compromised') ||
+      message.toLowerCase().includes('violated') ||
+      message.toLowerCase().includes('breach') ||
+      message.toLowerCase().includes('common')
+    ) {
+      return 'Security Notice: This password appears on public data breach lists (e.g. common dictionary words with numbers like "User@123"). Authentication services reject breached passwords. Please create a unique passphrase (e.g., "Sky#Matrix!94").';
+    }
+
+    if (code.includes('password_length') || message.toLowerCase().includes('characters')) {
+      return 'Password must be at least 8 characters long with uppercase, lowercase, digits, and special characters.';
+    }
+
+    if (message) {
+      return message;
+    }
+
+    return 'Sign up failed. Please check your password and details.';
+  };
+
   const { isLoaded: isSignInLoaded, signIn, setActive: setSignInActive } = useSignIn();
   const { isLoaded: isSignUpLoaded, signUp, setActive: setSignUpActive } = useSignUp();
   const { isSignedIn } = useUser();
@@ -80,6 +189,7 @@ const LoginPage = () => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError('');
   };
 
   // Google OAuth Handler (With Loader & Processing State)
@@ -158,6 +268,13 @@ const LoginPage = () => {
     setAlreadyRegisteredToast(false);
 
     try {
+      const strength = evaluatePasswordStrength(formData.password);
+      if (strength.isCommonWord) {
+        setError('Security Notice: This password contains a common word or predictable pattern (e.g. "User@123"). Security policies reject common breached passwords. Please choose a more unique passphrase.');
+        setLoading(false);
+        return;
+      }
+
       const nameParts = formData.fullName.trim().split(' ');
       const firstName = nameParts[0] || '';
       const lastName = nameParts.slice(1).join(' ') || '';
@@ -192,7 +309,7 @@ const LoginPage = () => {
         setAlreadyRegisteredToast(true);
         setError("Account already registered with this email address. Please sign in instead.");
       } else {
-        setError(errMsg || "Sign up failed. Please check your details.");
+        setError(formatClerkPasswordError(err));
       }
     } finally {
       setLoading(false);
@@ -638,8 +755,8 @@ const LoginPage = () => {
                       </div>
                     </div>
 
-                    {/* Password with Show/Hide Toggle */}
-                    <div className="space-y-1">
+                    {/* Password with Show/Hide Toggle & Live Strength Meter */}
+                    <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <label className="block text-[11px] font-mono font-bold text-slate-700 uppercase tracking-wider">
                           Password
@@ -647,7 +764,7 @@ const LoginPage = () => {
                         {mode === 'login' && (
                           <button
                             type="button"
-                            onClick={() => alert("Password reset instructions have been sent to your email inbox.")}
+                            onClick={() => alert("Please sign in with Google or reset your password via your registered email address.")}
                             className="text-[10px] font-mono font-bold text-blue-600 hover:underline uppercase"
                           >
                             Forgot Password?
@@ -686,6 +803,67 @@ const LoginPage = () => {
                           )}
                         </button>
                       </div>
+
+                      {/* Live Password Strength Meter for Sign Up */}
+                      {mode === 'signup' && formData.password && (() => {
+                        const strength = evaluatePasswordStrength(formData.password, error);
+                        return (
+                          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2.5 animate-auth-fade">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-mono font-bold uppercase text-slate-500">
+                                Strength: <strong className={strength.textColor}>{strength.label}</strong>
+                              </span>
+                              <span className="text-[10px] font-mono font-bold text-slate-400">
+                                {strength.isGuessable ? 'Flagged' : `${strength.score}/5 Rules`}
+                              </span>
+                            </div>
+
+                            <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                              <div
+                                className={`h-full transition-all duration-300 rounded-full ${strength.color}`}
+                                style={{ width: strength.barWidth }}
+                              />
+                            </div>
+
+                            {strength.isGuessable ? (
+                              <p className="text-[10px] text-red-800 bg-red-50 p-2 rounded-lg border border-red-200 leading-relaxed font-medium">
+                                ✕ <strong>Flagged / Easily Guessable:</strong> The security service rejected this password. Please edit your password above to create a unique passphrase.
+                              </p>
+                            ) : strength.isCommonWord ? (
+                              <p className="text-[10px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200 leading-relaxed font-medium">
+                                ⚠️ <strong>Avoid Common Names:</strong> Passwords like <em>"User@123"</em> or <em>"Admin@123"</em> are rejected by security policies. Combine unexpected words (e.g. <code>Nova#Pulse!82</code>).
+                              </p>
+                            ) : null}
+
+                            <div className="grid grid-cols-2 gap-1.5 pt-0.5">
+                              <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[9px] font-mono font-bold ${
+                                strength.criteria.length ? 'bg-emerald-50 text-emerald-800 border-emerald-300' : 'bg-white text-slate-400 border-slate-200'
+                              }`}>
+                                <span>{strength.criteria.length ? '✓' : '○'}</span>
+                                <span>8+ Chars</span>
+                              </div>
+                              <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[9px] font-mono font-bold ${
+                                strength.criteria.hasUpper ? 'bg-emerald-50 text-emerald-800 border-emerald-300' : 'bg-white text-slate-400 border-slate-200'
+                              }`}>
+                                <span>{strength.criteria.hasUpper ? '✓' : '○'}</span>
+                                <span>Uppercase</span>
+                              </div>
+                              <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[9px] font-mono font-bold ${
+                                strength.criteria.hasNumber ? 'bg-emerald-50 text-emerald-800 border-emerald-300' : 'bg-white text-slate-400 border-slate-200'
+                              }`}>
+                                <span>{strength.criteria.hasNumber ? '✓' : '○'}</span>
+                                <span>Digit (0-9)</span>
+                              </div>
+                              <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[9px] font-mono font-bold ${
+                                strength.criteria.hasSpecial ? 'bg-emerald-50 text-emerald-800 border-emerald-300' : 'bg-white text-slate-400 border-slate-200'
+                              }`}>
+                                <span>{strength.criteria.hasSpecial ? '✓' : '○'}</span>
+                                <span>Special (!@#$)</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </div>
 
                     {/* Remember Me Checkbox */}
