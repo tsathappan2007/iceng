@@ -31,8 +31,8 @@ const ProfilePage = () => {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  // Password Strength & Requirement Checklist Evaluator
-  const evaluatePasswordStrength = (pass, confirm = '', activeError = '') => {
+  // Password Strength & Requirement Checklist Evaluator (Pure Character Complexity)
+  const evaluatePasswordStrength = (pass, confirm = '') => {
     const criteria = {
       length: pass.length >= 8,
       hasUpper: /[A-Z]/.test(pass),
@@ -81,35 +81,13 @@ const ProfilePage = () => {
       barWidth = '100%';
     }
 
-    // Common breached words & predictable patterns (e.g., User@123, Admin@123, Password@123)
-    const commonBreachedWords = ['admin', 'password', 'welcome', 'user', 'qwerty', '123456', 'company', 'sample', 'citchennai', 'secret', 'default'];
-    const isCommonWord = commonBreachedWords.some(w => pass.toLowerCase().includes(w));
-
-    // If server rejected the password or error is active
-    const isServerError = Boolean(activeError);
-
-    if (isServerError && pass.length > 0) {
-      return {
-        score: Math.min(score, 2),
-        criteria,
-        label: 'Easily Guessable / Rejected',
-        color: 'bg-red-500',
-        textColor: 'text-red-600',
-        barWidth: '25%',
-        isCommonWord: true,
-        isGuessable: true,
-      };
-    }
-
     return {
       score,
       criteria,
-      label: isCommonWord && score >= 4 ? 'Common / Predictable' : label,
-      color: isCommonWord && score >= 4 ? 'bg-amber-500' : color,
-      textColor: isCommonWord && score >= 4 ? 'text-amber-600' : textColor,
+      label,
+      color,
+      textColor,
       barWidth,
-      isCommonWord,
-      isGuessable: false,
     };
   };
 
@@ -117,23 +95,6 @@ const ProfilePage = () => {
     const firstErr = err?.errors?.[0];
     const code = firstErr?.code || '';
     const message = firstErr?.longMessage || firstErr?.message || '';
-
-    if (
-      code.includes('pwned') ||
-      code.includes('compromised') ||
-      message.toLowerCase().includes('data breach') ||
-      message.toLowerCase().includes('pwned') ||
-      message.toLowerCase().includes('compromised') ||
-      message.toLowerCase().includes('violated') ||
-      message.toLowerCase().includes('breach') ||
-      message.toLowerCase().includes('common')
-    ) {
-      return 'Security Notice: This password appears on known public data breach lists (e.g. common dictionary words with numbers like "User@123"). Authentication services automatically reject breached passwords. Please create a unique passphrase (e.g., "Sky#Matrix!94").';
-    }
-
-    if (code.includes('password_length') || message.toLowerCase().includes('characters')) {
-      return 'Password must be at least 8 characters long with uppercase, lowercase, digits, and special characters.';
-    }
 
     if (code.includes('current_password') || message.toLowerCase().includes('current password')) {
       return 'Current password is required or incorrect. Please enter your current password above to authorize the change.';
@@ -143,7 +104,7 @@ const ProfilePage = () => {
       return message;
     }
 
-    return 'Failed to save new password. Please ensure it meets complexity requirements and is not easily guessable.';
+    return 'Failed to save new password. Please ensure it meets minimum length and requirements.';
   };
 
   useEffect(() => {
@@ -317,12 +278,6 @@ const ProfilePage = () => {
     }
     if (newPassword !== confirmPassword) {
       setPasswordError('Passwords do not match. Please ensure both fields are identical.');
-      return;
-    }
-
-    const strength = evaluatePasswordStrength(newPassword, confirmPassword);
-    if (strength.isCommonWord) {
-      setPasswordError('Security Notice: This password contains a common word or predictable pattern (e.g. "User@123"). Security policies reject common breached passwords. Please choose a more unique passphrase (e.g., "Sky#Matrix!94").');
       return;
     }
 
@@ -546,11 +501,28 @@ const ProfilePage = () => {
 
             {/* Password Success Notification */}
             {passwordSuccess && (
-              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold flex items-center gap-3">
-                <span className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
-                  ✓
-                </span>
-                <div>{passwordSuccess}</div>
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm animate-auth-fade">
+                <div className="flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                    ✓
+                  </span>
+                  <div>{passwordSuccess}</div>
+                </div>
+
+                {passwordStep === 2 && (
+                  <a
+                    href={primaryEmail?.toLowerCase().includes('outlook') || primaryEmail?.toLowerCase().includes('hotmail') ? 'https://outlook.live.com/mail/' : primaryEmail?.toLowerCase().includes('yahoo') ? 'https://mail.yahoo.com/' : 'https://mail.google.com/mail/u/0/#inbox'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-900 font-mono text-[11px] font-bold uppercase transition-all shadow-2xs hover:shadow-xs shrink-0 group cursor-pointer"
+                  >
+                    <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                      <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                    </svg>
+                    <span>Open Gmail</span>
+                    <span className="text-emerald-700 group-hover:translate-x-0.5 transition-transform">↗</span>
+                  </a>
+                )}
               </div>
             )}
 
@@ -602,6 +574,36 @@ const ProfilePage = () => {
                   <p className="text-xs text-slate-600 font-medium leading-relaxed">
                     A security code was sent to <strong className="text-slate-900">{primaryEmail}</strong>. Enter the 6-digit code below to unlock password settings.
                   </p>
+                </div>
+
+                {/* Open Gmail / Mailbox Quick Action Card */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0 shadow-2xs">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24">
+                        <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xs font-black text-slate-900 tracking-tight">Check Your Inbox</div>
+                      <div className="text-[11px] text-slate-500 font-medium truncate max-w-[200px] sm:max-w-none">
+                        Verification code sent to <strong className="text-slate-800">{primaryEmail}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a
+                    href={primaryEmail?.toLowerCase().includes('outlook') || primaryEmail?.toLowerCase().includes('hotmail') ? 'https://outlook.live.com/mail/' : primaryEmail?.toLowerCase().includes('yahoo') ? 'https://mail.yahoo.com/' : 'https://mail.google.com/mail/u/0/#inbox'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-interactive inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 shrink-0 group cursor-pointer"
+                  >
+                    <svg className="w-4 h-4 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span>Open Gmail</span>
+                    <span className="text-white/80 group-hover:translate-x-0.5 transition-transform">↗</span>
+                  </a>
                 </div>
 
                 {/* 6-Digit Interactive Segmented Boxes */}
@@ -861,13 +863,11 @@ const ProfilePage = () => {
                             Password Strength:
                           </span>
                           <span className={`text-xs font-mono font-black uppercase px-2.5 py-0.5 rounded-full transition-all ${
-                            strength.isGuessable
-                              ? 'bg-red-100 text-red-800 border border-red-300 ring-2 ring-red-500/20'
-                              : strength.score >= 5 && !strength.isCommonWord
+                            strength.score >= 5
                               ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                              : strength.score >= 4 && !strength.isCommonWord
+                              : strength.score >= 4
                               ? 'bg-blue-50 text-blue-800 border border-blue-200'
-                              : strength.score === 3 || strength.isCommonWord
+                              : strength.score === 3
                               ? 'bg-amber-50 text-amber-900 border border-amber-200'
                               : 'bg-red-50 text-red-800 border border-red-200'
                           }`}>
@@ -875,7 +875,7 @@ const ProfilePage = () => {
                           </span>
                         </div>
                         <span className="text-[11px] font-mono font-bold text-slate-400">
-                          {strength.isGuessable ? 'Flagged / Needs Change' : `${strength.score}/5 Satisfied`}
+                          {strength.score}/5 Satisfied
                         </span>
                       </div>
 
@@ -886,33 +886,6 @@ const ProfilePage = () => {
                           style={{ width: strength.barWidth }}
                         />
                       </div>
-
-                      {/* Common Breached Pattern or Server Flagged Warning Notice */}
-                      {strength.isGuessable ? (
-                        <div className="p-3.5 rounded-2xl bg-red-50/90 border border-red-200/90 text-red-950 text-xs font-medium flex items-start gap-3 shadow-2xs animate-auth-fade">
-                          <div className="w-8 h-8 rounded-xl bg-red-100 text-red-700 font-black flex items-center justify-center shrink-0 shadow-2xs">
-                            ✕
-                          </div>
-                          <div className="space-y-0.5 min-w-0">
-                            <strong className="block text-xs font-bold text-red-900">Easily Guessable / Rejected by Security</strong>
-                            <p className="text-[11px] text-red-800 leading-relaxed font-normal">
-                              The authentication provider flagged this password as easily guessable or matching a compromised breach list. <strong>Please modify your password above</strong> — this status bar will automatically re-evaluate in real time as you type.
-                            </p>
-                          </div>
-                        </div>
-                      ) : strength.isCommonWord ? (
-                        <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/90 text-amber-950 text-xs font-medium flex items-start gap-3 shadow-2xs">
-                          <div className="w-8 h-8 rounded-xl bg-amber-100/90 text-amber-800 font-bold flex items-center justify-center shrink-0 shadow-2xs">
-                            ⚠️
-                          </div>
-                          <div className="space-y-0.5 min-w-0">
-                            <strong className="block text-xs font-bold text-amber-900">Security Recommendation</strong>
-                            <p className="text-[11px] text-amber-800 leading-relaxed font-normal">
-                              Passwords like <em>"User@123"</em>, <em>"Admin@123"</em>, or simple dictionary sequences are routinely rejected by security services as breached patterns. Please combine 2–3 unexpected words with symbols (e.g. <code>Nova#Pulse!82</code>).
-                            </p>
-                          </div>
-                        </div>
-                      ) : null}
 
                       {/* Live Checklist Requirements Badges */}
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1">

@@ -21,8 +21,8 @@ const LoginPage = () => {
   const [verificationCode, setVerificationCode] = useState('');
   const [alreadyRegisteredToast, setAlreadyRegisteredToast] = useState(false);
 
-  // Password Strength & Requirement Checklist Evaluator
-  const evaluatePasswordStrength = (pass, activeError = '') => {
+  // Password Strength & Requirement Checklist Evaluator (Pure Character Complexity)
+  const evaluatePasswordStrength = (pass) => {
     const criteria = {
       length: pass.length >= 8,
       hasUpper: /[A-Z]/.test(pass),
@@ -70,58 +70,19 @@ const LoginPage = () => {
       barWidth = '100%';
     }
 
-    const commonBreachedWords = ['admin', 'password', 'welcome', 'user', 'qwerty', '123456', 'company', 'sample', 'citchennai', 'secret', 'default'];
-    const isCommonWord = commonBreachedWords.some(w => pass.toLowerCase().includes(w));
-
-    // If server rejected the password or error is active
-    const isServerError = Boolean(activeError);
-
-    if (isServerError && pass.length > 0) {
-      return {
-        score: Math.min(score, 2),
-        criteria,
-        label: 'Easily Guessable / Rejected',
-        color: 'bg-red-500',
-        textColor: 'text-red-600',
-        barWidth: '25%',
-        isCommonWord: true,
-        isGuessable: true,
-      };
-    }
-
     return {
       score,
       criteria,
-      label: isCommonWord && score >= 4 ? 'Common / Predictable' : label,
-      color: isCommonWord && score >= 4 ? 'bg-amber-500' : color,
-      textColor: isCommonWord && score >= 4 ? 'text-amber-600' : textColor,
+      label,
+      color,
+      textColor,
       barWidth,
-      isCommonWord,
-      isGuessable: false,
     };
   };
 
   const formatClerkPasswordError = (err) => {
     const firstErr = err?.errors?.[0];
-    const code = firstErr?.code || '';
     const message = firstErr?.longMessage || firstErr?.message || '';
-
-    if (
-      code.includes('pwned') ||
-      code.includes('compromised') ||
-      message.toLowerCase().includes('data breach') ||
-      message.toLowerCase().includes('pwned') ||
-      message.toLowerCase().includes('compromised') ||
-      message.toLowerCase().includes('violated') ||
-      message.toLowerCase().includes('breach') ||
-      message.toLowerCase().includes('common')
-    ) {
-      return 'Security Notice: This password appears on public data breach lists (e.g. common dictionary words with numbers like "User@123"). Authentication services reject breached passwords. Please create a unique passphrase (e.g., "Sky#Matrix!94").';
-    }
-
-    if (code.includes('password_length') || message.toLowerCase().includes('characters')) {
-      return 'Password must be at least 8 characters long with uppercase, lowercase, digits, and special characters.';
-    }
 
     if (message) {
       return message;
@@ -596,8 +557,8 @@ const LoginPage = () => {
 
               {/* Email Verification Step for Sign-Up */}
               {pendingVerification ? (
-                <form onSubmit={handleVerifyCode} className="space-y-5 animate-auth-fade">
-                  <div className="space-y-1 text-center sm:text-left">
+                <form onSubmit={handleVerifyCode} className="space-y-6 animate-auth-fade">
+                  <div className="space-y-1.5 text-center sm:text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-mono text-[10px] font-bold uppercase tracking-wider mb-1">
                       STEP 2 OF 2 • EMAIL VERIFICATION
                     </div>
@@ -605,29 +566,103 @@ const LoginPage = () => {
                       Enter Verification Code
                     </h2>
                     <p className="text-xs text-slate-500 font-medium">
-                      A 6-digit verification code was sent to <strong className="text-slate-900">{formData.email}</strong>.
+                      A 6-digit security code was dispatched to <strong className="text-slate-900">{formData.email}</strong>.
                     </p>
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="block text-[11px] font-mono font-bold text-slate-700 uppercase tracking-wider">
-                      6-Digit Code
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={verificationCode}
-                      onChange={(e) => setVerificationCode(e.target.value)}
-                      placeholder="123456"
-                      maxLength={6}
-                      className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white focus:outline-none font-mono text-center text-xl font-bold tracking-widest text-slate-900 shadow-inner"
-                    />
+                  {/* Open Gmail / Mailbox Action Box */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0 shadow-2xs">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24">
+                          <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-black text-slate-900 tracking-tight">Check Your Inbox</div>
+                        <div className="text-[11px] text-slate-500 font-medium truncate max-w-[200px] sm:max-w-none">
+                          Verification code sent to <strong className="text-slate-800">{formData.email}</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <a
+                      href={formData.email?.toLowerCase().includes('outlook') || formData.email?.toLowerCase().includes('hotmail') ? 'https://outlook.live.com/mail/' : formData.email?.toLowerCase().includes('yahoo') ? 'https://mail.yahoo.com/' : 'https://mail.google.com/mail/u/0/#inbox'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-interactive inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 shrink-0 group cursor-pointer"
+                    >
+                      <svg className="w-4 h-4 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                      </svg>
+                      <span>Open Gmail</span>
+                      <span className="text-white/80 group-hover:translate-x-0.5 transition-transform">↗</span>
+                    </a>
+                  </div>
+
+                  {/* 6-Digit Interactive Segmented Code Tiles */}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700">
+                        6-Digit Verification Code
+                      </label>
+                      <span className="text-[10px] font-mono text-slate-400 font-bold">
+                        {verificationCode.length}/6 Digits
+                      </span>
+                    </div>
+
+                    <div className="relative">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={6}
+                        autoFocus
+                        value={verificationCode}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+                          setVerificationCode(val);
+                          if (error) setError('');
+                        }}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-text z-20"
+                        aria-label="6-Digit Verification Code"
+                      />
+
+                      <div className="grid grid-cols-6 gap-2 sm:gap-3">
+                        {[0, 1, 2, 3, 4, 5].map((idx) => {
+                          const char = verificationCode[idx] || '';
+                          const isCurrent = verificationCode.length === idx;
+                          const isFilled = Boolean(char);
+
+                          return (
+                            <div
+                              key={idx}
+                              className={`h-13 sm:h-15 rounded-2xl border-2 flex items-center justify-center font-mono text-xl sm:text-2xl font-black transition-all duration-200 ${
+                                isFilled
+                                  ? 'bg-white border-blue-600 text-slate-900 shadow-md scale-[1.02]'
+                                  : isCurrent
+                                  ? 'bg-blue-50/60 border-blue-500 text-blue-600 ring-4 ring-blue-500/15 animate-pulse'
+                                  : 'bg-white/80 border-slate-200/90 text-slate-400'
+                              }`}
+                            >
+                              {char ? (
+                                <span>{char}</span>
+                              ) : isCurrent ? (
+                                <span className="w-2.5 h-0.5 bg-blue-600 animate-pulse rounded-full" />
+                              ) : (
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
 
                   <button
                     type="submit"
-                    disabled={loading}
-                    className="w-full py-3.5 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-blue-500/25 transition-all transform hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-50"
+                    disabled={loading || verificationCode.length < 6}
+                    className="w-full py-3.5 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-blue-500/25 transition-all transform hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer"
                   >
                     <span>{loading ? 'VERIFYING CODE...' : 'VERIFY & COMPLETE REGISTRATION'}</span>
                     <span>→</span>
@@ -637,7 +672,7 @@ const LoginPage = () => {
                     <button
                       type="button"
                       onClick={() => setPendingVerification(false)}
-                      className="text-xs font-mono font-bold text-slate-500 hover:text-blue-600 uppercase"
+                      className="text-xs font-mono font-bold text-slate-500 hover:text-blue-600 uppercase transition-colors"
                     >
                       ← Back to edit email
                     </button>
@@ -806,7 +841,7 @@ const LoginPage = () => {
 
                       {/* Live Password Strength Meter for Sign Up */}
                       {mode === 'signup' && formData.password && (() => {
-                        const strength = evaluatePasswordStrength(formData.password, error);
+                        const strength = evaluatePasswordStrength(formData.password);
                         return (
                           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2.5 animate-auth-fade">
                             <div className="flex items-center justify-between">
@@ -814,7 +849,7 @@ const LoginPage = () => {
                                 Strength: <strong className={strength.textColor}>{strength.label}</strong>
                               </span>
                               <span className="text-[10px] font-mono font-bold text-slate-400">
-                                {strength.isGuessable ? 'Flagged' : `${strength.score}/5 Rules`}
+                                {strength.score}/5 Rules
                               </span>
                             </div>
 
@@ -824,16 +859,6 @@ const LoginPage = () => {
                                 style={{ width: strength.barWidth }}
                               />
                             </div>
-
-                            {strength.isGuessable ? (
-                              <p className="text-[10px] text-red-800 bg-red-50 p-2 rounded-lg border border-red-200 leading-relaxed font-medium">
-                                ✕ <strong>Flagged / Easily Guessable:</strong> The security service rejected this password. Please edit your password above to create a unique passphrase.
-                              </p>
-                            ) : strength.isCommonWord ? (
-                              <p className="text-[10px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200 leading-relaxed font-medium">
-                                ⚠️ <strong>Avoid Common Names:</strong> Passwords like <em>"User@123"</em> or <em>"Admin@123"</em> are rejected by security policies. Combine unexpected words (e.g. <code>Nova#Pulse!82</code>).
-                              </p>
-                            ) : null}
 
                             <div className="grid grid-cols-2 gap-1.5 pt-0.5">
                               <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[9px] font-mono font-bold ${
